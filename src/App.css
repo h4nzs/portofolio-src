@@ -1,0 +1,3077 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg-dark: #06070a;
+  --bg-main: var(--bg-dark); /* Dynamic main background variable */
+  --card-bg: rgba(255, 255, 255, 0.04);
+  --glass: rgba(255, 255, 255, 0.03);
+  --accent-1: #66ccff;
+  --accent-2: #cc66ff;
+  --accent-3: #ff66cc;
+  --highlight: rgba(102, 204, 255, 0.25);
+  --text-weak: #a0aec0;
+  --text-muted: #718096;
+  --text-light: #e6eef9;
+  --text-dark: #1e293b;
+  --text-primary: var(--text-light); /* Default to light text for dark background */
+  --card-bg-main: var(--card-bg); /* Dynamic card background variable */
+  --bg-gradient: linear-gradient(120deg, #040914, #0a1a2f, #111a2b);
+  --bg-gradient-light: linear-gradient(120deg, #f5f7fa, #e4ecf7, #dce9ff);
+  --bg-name-gradient-dark: linear-gradient(45deg, #00ffcc, #00ccff, #cc00ff, #ff00cc); /* Background name gradient for dark mode */
+  --bg-name-gradient-light: linear-gradient(45deg, #336699, #3366aa, #663399, #993366); /* Background name gradient for light mode */
+  --bg-name-gradient: var(--bg-name-gradient-dark); /* Default to dark gradient */
+}
+
+/* Light theme variables */
+.app-root.theme-light {
+  --bg-light: #f0f4f8;  /* Light, desaturated cool tone - blue grey */
+  --card-bg-light: rgba(200, 210, 220, 0.5);  /* More subtle grey with glass effect */
+  --glass-light: rgba(255, 255, 255, 0.85);  /* Frosted glass effect */
+  --accent-1-light: #5b8ff9;  /* Soft blue */
+  --accent-2-light: #7874f7;  /* Soft lavender */
+  --accent-3-light: #bc60e8;  /* Subtle magenta */
+  --highlight-light: rgba(91, 143, 249, 0.25);  /* Soft blue highlight */
+  --text-weak-light: #5a6872;  /* Dark, readable neutral tone */
+  --text-muted-light: #6a7885;
+  --text-light-light: #1c2834;  /* Dark text on light background */
+  --text-dark-light: #1c2834;
+}
+
+.app-root {
+  background: var(--bg-main);
+  color: var(--text-primary);
+  --bg-name-gradient: var(--bg-name-gradient-dark); /* Default to dark gradient */
+  transition: background 0.6s ease, color 0.6s ease;
+}
+
+.app-root.theme-light {
+  background: var(--bg-main);
+  color: var(--text-light-light);
+  --bg-main: var(--bg-gradient-light);
+  --glass: var(--glass-light);
+  --text-weak: var(--text-weak-light);
+  --text-muted: var(--text-muted-light);
+  --text-primary: var(--text-light-light);
+  --card-bg-main: var(--card-bg-light);
+  --bg-name-gradient: var(--bg-name-gradient-light);
+}
+
+/* Apply frosted glass effect to content boxes and cards in light mode */
+.app-root.theme-light .skill-card-large,
+.app-root.theme-light .soft-skill-card,
+.app-root.theme-light .project-card,
+.app-root.theme-light .project-card-zigzag,
+.app-root.theme-light .timeline-content,
+.app-root.theme-light .experience-card,
+.app-root.theme-light .skill-item {
+  background: rgba(240, 240, 240, 0.5); /* Darker, more subtle grey background */
+  backdrop-filter: blur(8px); /* Frosted glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Subtle shadow for depth */
+}
+
+/* Override for about-text and hobbies-text to remove box styling */
+.app-root.theme-light .about-text,
+.app-root.theme-light .hobbies-text {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Apply animated gradient to the root element */
+#root {
+  background: var(--bg-gradient);
+  background-size: 200% 200%;
+  animation: gradientScrollDark 30s ease infinite;
+  min-height: 100vh;
+}
+
+.app-root.theme-light #root {
+  background: var(--bg-gradient-light);
+  animation: gradientScrollLight 30s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes gradientScrollDark {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes gradientScrollLight {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Reset basic */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  transition: background 0.6s ease, color 0.6s ease;
+}
+
+body {
+  height: 100%;
+  font-family: 'Inter', ui-sans-serif, system-ui;
+  scroll-behavior: smooth;
+  background: var(--bg-gradient);
+  background-size: 400% 400%;
+  animation: gradientMove 30s ease infinite;
+  transition: all 0.7s ease;
+  margin: 0;
+  padding: 0;
+}
+
+body.theme-light {
+  background: var(--bg-gradient-light);
+  animation: gradientMove 30s ease infinite;
+}
+
+#root {
+  height: 100%;
+  font-family: 'Inter', ui-sans-serif, system-ui;
+  scroll-behavior: smooth;
+}
+
+.app-root {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: transparent;
+  transition: background 0.6s ease, color 0.6s ease;
+}
+
+/* Center all content within the app */
+.app-root .slide-content,
+.app-root .about-content,
+.app-root .projects-content,
+.app-root .education-content,
+.app-root .experience-content,
+.app-root .objectives-content,
+.app-root .contact-content {
+  margin: 0 auto;
+  align-self: center;
+}
+
+html {
+  transition: background 0.6s ease, color 0.6s ease;
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 70px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.app-root.theme-light .navbar {
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+}
+
+.brand {
+  font-size: 20px;
+  font-weight: 800;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.app-root.theme-light .brand {
+  background: linear-gradient(90deg, var(--accent-1-light), var(--accent-2-light));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.nav-right {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+.nav-links {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px 0;
+  margin: 0 10px;
+  gap: 8px;
+  scrollbar-width: thin; /* For Firefox */
+  -ms-overflow-style: -ms-autohiding-scrollbar; /* For IE and Edge */
+}
+
+.nav-links::-webkit-scrollbar {
+  height: 4px; /* Slim scrollbar */
+}
+
+.nav-links::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+.nav-links::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+.nav-links::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.nav-btn {
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 8px 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.app-root.theme-light .nav-btn {
+  color: var(--text-dark-light);
+}
+
+.nav-btn:hover {
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-2px);
+}
+
+.app-root.theme-light .nav-btn:hover {
+  background: rgba(0,0,0,0.05);
+  color: var(--accent-1-light);
+  text-decoration: underline;
+}
+
+/* Navigation controls and toggle buttons */
+.nav-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-light);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.icon-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--accent-1);
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(102, 204, 255, 0.4);
+}
+
+.icon-btn:hover::before {
+  opacity: 1;
+}
+
+.icon-btn.on {
+  background: rgba(102, 204, 255, 0.2);
+  border-color: var(--accent-1);
+  box-shadow: 0 0 15px rgba(102, 204, 255, 0.4);
+}
+
+.app-root.theme-light .icon-btn {
+  background: rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.15);
+  color: var(--text-dark-light);
+}
+
+.app-root.theme-light .icon-btn:hover {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: var(--accent-1-light);
+  box-shadow: 0 0 15px rgba(91, 143, 249, 0.3);
+}
+
+.app-root.theme-light .icon-btn.on {
+  background: rgba(91, 143, 249, 0.2);
+  border-color: var(--accent-1-light);
+  box-shadow: 0 0 15px rgba(91, 143, 249, 0.4);
+}
+
+/* Scroll container and slides */
+.scroll-container {
+  overflow-y: scroll;
+  height: 100vh;
+  position: relative;
+  background: transparent;
+}
+
+.slide {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  position: relative;
+  overflow: hidden; /* Contain all layers */
+  z-index: 1;
+  background: transparent;
+}
+
+/* Remove the separator since it's causing layout issues */
+.slide::before {
+  display: none;
+}
+
+.slide-content {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 40px 20px;
+  min-height: 100%;
+}
+
+.slide-content.centered {
+  text-align: center;
+  align-items: center;
+}
+
+.slide-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  -webkit-background-clip: text;
+  color: transparent;
+  text-align: center;
+}
+
+.app-root.theme-light .slide-title {
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* About Me Slide - Cyberpunk layered composition */
+.slide-about {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: clip; /* Only clip horizontal overflow while allowing vertical layers */
+  position: relative;
+  background: transparent;
+}
+
+.about-content {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr auto; /* Left for text columns, right for image */
+  gap: 40px;
+  padding: 60px 20px;
+  overflow: visible;
+  z-index: 3; /* Top layer for content */
+  box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+/* Bottom Layer - Background Typography */
+.background-name {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16vw;
+  font-weight: 900;
+  font-family: 'Orbitron', 'monospace'; /* Futuristic font style */
+  color: transparent;
+  background: var(--bg-name-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  opacity: 0.15;
+  white-space: nowrap;
+  z-index: 1;
+  pointer-events: none;
+  line-height: 0.9;
+  text-shadow: 
+    0 0 5px rgba(0, 255, 204, 0.3),
+    0 0 10px rgba(0, 204, 255, 0.3),
+    0 0 20px rgba(204, 0, 255, 0.3),
+    0 0 40px rgba(255, 0, 204, 0.2);
+  letter-spacing: -0.05em;
+  max-width: 100vw; /* Prevents overflow */
+  overflow: hidden;
+}
+
+.app-root.theme-light .background-name {
+  text-shadow: 
+    0 0 5px rgba(51, 102, 153, 0.2),
+    0 0 10px rgba(51, 102, 170, 0.2),
+    0 0 20px rgba(102, 51, 153, 0.2),
+    0 0 40px rgba(153, 51, 102, 0.15);
+}
+
+/* Middle Layer - Profile Photo with glow effect */
+.profile-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  min-width: 350px;
+  height: 100%;
+  margin: 0 0 0 40px; /* Position to the right of text content */
+  z-index: 2; /* Middle layer */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0; /* Allows flex item to shrink below content size */
+}
+
+.profile-image {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 2px solid transparent;
+  position: relative;
+  box-shadow: 
+    0 0 15px rgba(0, 255, 204, 0.3),
+    0 0 30px rgba(0, 204, 255, 0.2),
+    0 0 60px rgba(204, 0, 255, 0.15);
+  transition: all 0.4s ease;
+  z-index: 2;
+  min-width: 0; /* Ensures it can shrink on small screens */
+}
+
+.profile-image:hover {
+  box-shadow: 
+    0 0 20px rgba(0, 255, 204, 0.5),
+    0 0 40px rgba(0, 204, 255, 0.3),
+    0 0 80px rgba(204, 0, 255, 0.25);
+}
+
+.app-root.theme-light .profile-image {
+  box-shadow: 
+    0 0 15px rgba(0, 179, 255, 0.2),
+    0 0 30px rgba(0, 179, 255, 0.15),
+    0 0 40px rgba(166, 91, 255, 0.1);
+}
+
+.app-root.theme-light .profile-image:hover {
+  box-shadow: 
+    0 0 20px rgba(0, 179, 255, 0.3),
+    0 0 40px rgba(0, 179, 255, 0.2),
+    0 0 60px rgba(166, 91, 255, 0.15);
+}
+
+/* Carousel container */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-width: 350px;
+  min-height: 400px;
+  max-width: 400px;
+  max-height: 450px;
+  border-radius: 20px; /* Rounded rectangle/capsule shape */
+  overflow: hidden; /* Keep content within bounds */
+  /* Initial persistent glow effect */
+  box-shadow: 
+    0 0 10px rgba(0, 255, 204, 0.2),
+    0 0 20px rgba(0, 204, 255, 0.1),
+    0 0 30px rgba(204, 0, 255, 0.1);
+}
+
+.carousel-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease-in-out; /* Smooth slide animation */
+}
+
+.carousel-slide {
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-item {
+  min-width: 100%;
+  height: 100%;
+  object-fit: cover; /* Force images to fill entire frame */
+  border-radius: 16px; /* Match the original image border radius */
+}
+
+/* Carousel navigation arrows */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--accent-1);
+  border: 1px solid var(--accent-1);
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 10px rgba(102, 204, 255, 0.3);
+}
+
+.profile-container:hover .carousel-arrow {
+  opacity: 1;
+}
+
+.carousel-prev {
+  left: 10px;
+}
+
+.carousel-next {
+  right: 10px;
+}
+
+.carousel-arrow:hover {
+  background: rgba(20, 20, 30, 0.8);
+  box-shadow: 0 0 15px rgba(102, 204, 255, 0.6);
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Enhanced glow effect on hover */
+.profile-container:hover .carousel-container {
+  box-shadow: 
+    0 0 20px rgba(0, 255, 204, 0.5),
+    0 0 40px rgba(0, 204, 255, 0.3),
+    0 0 80px rgba(204, 0, 255, 0.25);
+}
+
+.about-columns-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+  z-index: 3; /* Top layer */
+}
+
+/* Top/Left Column - About Me Content */
+.about-text-container {
+  position: relative;
+  max-width: 100%;
+  width: 100%;
+  z-index: 3; /* Top layer */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.slide-about .about-text {
+  color: var(--text-weak);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  text-align: left; /* Left aligned text */
+  max-width: 100%;
+}
+
+/* Ensure all text elements within About Me section are left-aligned */
+.slide-about .about-text p,
+.slide-about .about-text div,
+.slide-about .about-text span,
+.slide-about .about-text strong,
+.slide-about .about-text em {
+  text-align: left;
+}
+
+.app-root.theme-light .slide-about .about-text {
+  color: var(--text-light-light);
+}
+
+/* Ensure all text elements within About Me section are left-aligned in light theme */
+.app-root.theme-light .slide-about .about-text p,
+.app-root.theme-light .slide-about .about-text div,
+.app-root.theme-light .slide-about .about-text span,
+.app-root.theme-light .slide-about .about-text strong,
+.app-root.theme-light .slide-about .about-text em {
+  text-align: left;
+}
+
+/* Bottom/Right Column - Hobby and Interest Content */
+.hobbies-container {
+  position: relative;
+  max-width: 100%;
+  width: 100%;
+  z-index: 3; /* Top layer */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.hobbies-text {
+  color: var(--text-weak);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  text-align: right; /* Right aligned text */
+  max-width: 100%;
+}
+
+.app-root.theme-light .hobbies-text {
+  color: var(--text-light-light);
+  background: rgba(200, 210, 220, 0.5);
+  border-left: 2px solid var(--accent-1-light);
+}
+
+.hobbies-text h3 {
+  color: var(--accent-1);
+  margin-bottom: 1rem;
+  text-align: right !important;
+}
+
+.hobbies-text p {
+  margin: 0.8rem 0; /* Consistent spacing */
+  text-align: right !important;
+}
+
+.hobbies-text p strong {
+  color: var(--accent-2);
+  text-align: right !important;
+}
+
+.about-text p {
+  margin-bottom: 1.2rem;
+}
+
+.app-root.theme-light .about-text {
+  color: var(--text-dark);
+  background: rgba(200, 210, 220, 0.3);
+}
+
+.app-root.theme-light .hobbies-text {
+  color: var(--text-light-light);
+}
+
+/* Cyberpunk aesthetic for the slide title */
+.app-root .slide-title {
+  text-align: left;
+  margin-bottom: 1.5rem;
+  font-size: 2.8rem;
+  text-shadow: 
+    0 0 5px rgba(0, 255, 204, 0.5),
+    0 0 10px rgba(0, 204, 255, 0.3);
+  position: relative;
+  font-family: 'Orbitron', 'monospace', sans-serif;
+  letter-spacing: 1px;
+  color: #e0f7fa;
+}
+
+.app-root.theme-light .slide-title {
+  color: var(--text-light-light);
+  text-shadow: 
+    0 0 5px rgba(0, 179, 255, 0.3);
+}
+
+.app-root .slide-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(102, 204, 255, 0.7);
+}
+
+.app-root.theme-light .slide-title::after {
+  background: linear-gradient(90deg, var(--accent-1-light), var(--accent-2-light));
+  box-shadow: 0 0 10px rgba(0, 179, 255, 0.3);
+}
+
+/* Cyberpunk text highlights */
+.about-text strong {
+  color: var(--accent-1);
+  text-shadow: 0 0 8px rgba(0, 255, 204, 0.4);
+  font-weight: 700;
+}
+
+.about-text em {
+  color: var(--accent-2);
+  font-style: italic;
+  text-shadow: 0 0 8px rgba(204, 0, 255, 0.4);
+}
+
+.app-root.theme-light .about-text strong {
+  color: var(--accent-1-light);
+  text-shadow: 0 0 5px rgba(0, 179, 255, 0.3);
+}
+
+.app-root.theme-light .about-text em {
+  color: var(--accent-2-light);
+  text-shadow: 0 0 5px rgba(166, 91, 255, 0.3);
+}
+
+/* Remove static grid lines to allow animated background */
+.slide-about::before {
+  display: none;
+}
+
+/* Ensure app-root doesn't override the animated background */
+.app-root {
+  background: transparent;
+}
+
+/* Responsive adjustments for cyberpunk layout */
+@media (max-width: 1024px) {
+  .slide {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .slide-content,
+  .about-content,
+  .projects-content,
+  .education-content,
+  .experience-content,
+  .objectives-content,
+  .contact-content {
+    padding: 1.5rem; /* 24px = 1.5rem */
+    gap: 1.5rem; /* 24px = 1.5rem */
+  }
+  
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 2.5rem; /* 40px = 2.5rem */
+    padding: 3.75rem 1.25rem; /* 60px 20px */
+  }
+  
+  .about-columns-container {
+    order: 1; /* Text columns come first */
+  }
+  
+  .profile-container {
+    order: 2; /* Image comes second */
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    justify-content: center;
+  }
+  
+  .background-name {
+    font-size: 24vw;
+  }
+  
+  /* Carousel adjustments for medium screens */
+  .carousel-arrow {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .slide {
+    padding: 0 10px;
+  }
+  
+  .background-name {
+    font-size: 30vw;
+    opacity: 0.08;
+  }
+  
+  /* Carousel adjustments for small screens */
+  .carousel-arrow {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+    opacity: 1; /* Always visible on small screens */
+  }
+  
+  .carousel-prev {
+    left: 5px;
+  }
+  
+  .carousel-next {
+    right: 5px;
+  }
+}
+
+.app-root.theme-light .about-text {
+  color: var(--text-dark);
+}
+
+/* Technical Skills Slide - Asymmetrical column layout */
+.slide-skills {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.skills-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 40px;
+  width: 100%;
+  max-width: 1200px;
+  align-items: start;
+  padding: 40px;
+}
+
+.skills-column-left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.skills-column-left .slide-title {
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.skills-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.skill-category {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--accent-1);
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.skills-column-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.skills-technical-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.skill-item {
+  padding: 1rem; /* 16px = 1rem */
+  border-radius: 1rem; /* 16px = 1rem */
+  background: var(--card-bg-main);
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.skill-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: left;
+}
+
+.skill-item:hover {
+  transform: translateY(-3px);
+  border-color: rgba(102, 204, 255, 0.2);
+  box-shadow: 0 12px 25px rgba(2,6,23,0.6), 0 0 15px rgba(102,204,255,0.1);
+}
+
+.skill-item:hover::before {
+  transform: scaleX(1);
+}
+
+.app-root.theme-light .skill-item {
+  background: var(--card-bg-light);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.app-root.theme-light .skill-item::before {
+  background: linear-gradient(90deg, var(--accent-1-light), var(--accent-2-light));
+}
+
+.app-root.theme-light .skill-item:hover {
+  border-color: rgba(0, 179, 255, 0.2);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1), 0 0 12px rgba(0, 179, 255, 0.15);
+}
+
+/* Soft Skills Slide - Mirrored asymmetrical layout */
+.slide-soft-skills {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.soft-skills-content {
+  width: 100%;
+  max-width: 1200px;
+  padding: 40px;
+}
+
+.soft-skills-content-wrapper {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Left for skills, right for title */
+  gap: 60px;
+  width: 100%;
+  align-items: start;
+}
+
+.soft-skills-left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.soft-skills-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.soft-skills-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.soft-skill-card {
+  padding: 1.5rem; /* 24px = 1.5rem */
+  border-radius: 1rem; /* 16px = 1rem */
+  background: var(--card-bg-main);
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.soft-skill-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-2), var(--accent-1));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: left;
+}
+
+.soft-skill-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(204, 102, 255, 0.3);
+  box-shadow: 0 12px 25px rgba(2,6,23,0.6), 0 0 15px rgba(204,102,255,0.15);
+}
+
+.app-root.theme-light .soft-skill-card {
+  background: var(--card-bg-light);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.app-root.theme-light .soft-skill-card::before {
+  background: linear-gradient(90deg, var(--accent-2-light), var(--accent-1-light));
+}
+
+.app-root.theme-light .soft-skill-card:hover {
+  border-color: rgba(166, 91, 255, 0.3);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1), 0 0 12px rgba(0, 179, 255, 0.15);
+}
+
+.soft-skill-card:hover::before {
+  transform: scaleX(1);
+}
+
+/* Skill Progress Bar Styling */
+.skill-progress-container {
+  width: 100%;
+}
+
+.skill-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.progress-fill {
+  height: 100%;
+  position: relative;
+  border-radius: 3px;
+  box-shadow: 
+    0 0 8px currentColor,
+    0 0 16px currentColor;
+  transition: width 0.5s ease-in-out;
+  animation: glowPulse 2s infinite alternate;
+}
+
+/* Add glow effect to progress fill */
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 3px;
+  box-shadow: 
+    0 0 10px currentColor,
+    0 0 20px currentColor;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+/* Glow animation for progress bars */
+@keyframes glowPulse {
+  0% {
+    box-shadow: 
+      0 0 6px currentColor,
+      0 0 12px currentColor;
+  }
+  100% {
+    box-shadow: 
+      0 0 12px currentColor,
+      0 0 24px currentColor;
+  }
+}
+
+/* Light theme specific styling for progress bars */
+.app-root.theme-light .skill-progress-bar {
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.app-root.theme-light .progress-fill {
+  box-shadow: 
+    0 0 6px currentColor,
+    0 0 12px currentColor;
+}
+
+/* Education Slide - Timeline layout */
+.slide-education {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.education-content {
+  width: 100%;
+  max-width: 1000px;
+  padding: 40px;
+  position: relative;
+}
+
+.education-content .slide-title {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.education-timeline-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, var(--accent-1), var(--accent-1), transparent);
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.timeline-entries {
+  position: relative;
+  z-index: 2;
+}
+
+.timeline-entry {
+  position: relative;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.timeline-entry:nth-child(1) {
+  margin-left: calc(50% + 30px);
+  margin-right: 0;
+  padding-left: 30px;
+  padding-right: 0;
+  justify-content: flex-start;
+  width: calc(50% - 60px);
+}
+
+.timeline-entry:nth-child(2) {
+  margin-left: 0;
+  margin-right: calc(50% + 30px);
+  padding-right: 30px;
+  padding-left: 0;
+  justify-content: flex-end;
+  width: calc(50% - 60px);
+}
+
+.timeline-dot {
+  position: absolute;
+  left: 50%;
+  top: 14px;
+  width: 16px;
+  height: 16px;
+  background: var(--accent-1);
+  border-radius: 50%;
+  z-index: 3;
+  box-shadow: 0 0 10px var(--accent-1), 0 0 20px rgba(102, 204, 255, 0.5);
+  transform: translateX(-50%);
+}
+
+.timeline-entry:nth-child(1) .timeline-dot {
+  left: calc(0% - 8px);
+}
+
+.timeline-entry:nth-child(2) .timeline-dot {
+  left: calc(100% - 8px);
+}
+
+.timeline-content {
+  background: var(--card-bg-main);
+  border: 1px solid rgba(255,255,255,0.04);
+  padding: 1.5rem; /* 24px = 1.5rem */
+  border-radius: 1rem; /* 16px = 1rem */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  position: relative;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.timeline-content:hover {
+  transform: scale(1.01);
+}
+
+/* Education Timeline Content - Text Wrapping */
+.timeline-content {
+  display: block;
+}
+
+.timeline-content p {
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  line-height: 1.5;
+  margin: 0 0 8px 0;
+}
+
+.app-root.theme-light .timeline-content {
+  background: var(--card-bg-light);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.app-root.theme-light .timeline-dot {
+  background: var(--accent-1-light);
+  box-shadow: 0 0 10px var(--accent-1-light), 0 0 20px rgba(0, 179, 255, 0.3);
+}
+
+/* Projects Slide - Zig-zag layout */
+.slide-projects {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.projects-content {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 40px 20px;
+  align-items: center;
+}
+
+.projects-content .slide-title {
+  align-self: flex-start;
+}
+
+.projects-zigzag {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.projects-zigzag::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, var(--accent-1), var(--accent-1), transparent);
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.project-card-zigzag {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 1.5rem; /* 24px = 1.5rem */
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 1rem; /* 16px = 1rem */
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  z-index: 2;
+  min-height: auto;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+}
+
+.project-card-zigzag-content {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  min-height: 80px;
+}
+
+.project-card-zigzag.left {
+  margin-left: 0;
+  margin-right: 50%;
+  padding-right: 30px;
+  align-self: flex-start;
+}
+
+.project-card-zigzag.right {
+  margin-left: 50%;
+  margin-right: 0;
+  padding-left: 30px;
+  align-self: flex-end;
+}
+
+.project-card-zigzag.left .project-card-zigzag-content {
+  flex-direction: row;
+}
+
+.project-card-zigzag.right .project-card-zigzag-content {
+  flex-direction: row-reverse;
+}
+
+.project-thumb {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+.card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.project-title {
+  color: var(--accent-1);
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.project-short-desc {
+  color: var(--text-weak);
+  font-size: 13px;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.repo-link {
+  color: var(--accent-1);
+  text-decoration: underline;
+  font-size: 13px;
+  align-self: flex-start;
+  margin-top: 4px;
+}
+
+.project-desc {
+  color: var(--text-weak);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-top: 0;
+}
+
+.project-card-zigzag:hover {
+  transform: translateY(-8px) scale(1.02);
+  border: 1px solid rgba(102, 204, 255, 0.3);
+  box-shadow: 
+    0 0 15px rgba(102, 204, 255, 0.2),
+    0 10px 30px rgba(102, 204, 255, 0.3),
+    0 0 40px rgba(102, 204, 255, 0.1);
+  z-index: 10;
+}
+
+.app-root.theme-light .project-card-zigzag {
+  background: var(--card-bg-light);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.app-root.theme-light .project-card-zigzag:hover {
+  border: 1px solid rgba(0, 179, 255, 0.3);
+  box-shadow: 
+    0 0 12px rgba(0, 179, 255, 0.15),
+    0 10px 30px rgba(0, 179, 255, 0.2),
+    0 0 20px rgba(0, 179, 255, 0.1);
+}
+
+/* Experience Slide - Timeline layout */
+.slide-experience {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.experience-content {
+  width: 100%;
+  max-width: 1000px;
+  padding: 40px;
+  position: relative;
+  min-height: 100%;
+}
+
+.experience-content .slide-title {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.experience-timeline-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.experience-timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, var(--accent-1), var(--accent-1), transparent);
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.experience-timeline-entries {
+  position: relative;
+  z-index: 2;
+}
+
+.experience-timeline-entry {
+  position: relative;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.experience-timeline-entry:nth-child(odd) {
+  margin-left: calc(50% + 30px);
+  margin-right: 0;
+  padding-left: 30px;
+  padding-right: 0;
+  width: calc(50% - 60px);
+}
+
+.experience-timeline-entry:nth-child(even) {
+  margin-left: 0;
+  margin-right: calc(50% + 30px);
+  padding-right: 30px;
+  padding-left: 0;
+  justify-content: flex-end;
+  width: calc(50% - 60px);
+}
+
+/* Add flex container with proper spacing for experience entries */
+.experience-entries {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.experience-timeline-dot {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: var(--accent-1);
+  border-radius: 50%;
+  z-index: 3;
+  box-shadow: 0 0 10px var(--accent-1), 0 0 20px rgba(102, 204, 255, 0.5);
+}
+
+.experience-timeline-entry:nth-child(odd) .experience-timeline-dot {
+  left: calc(0% - 8px);
+  top: 14px;
+}
+
+.experience-timeline-entry:nth-child(even) .experience-timeline-dot {
+  right: calc(0% - 8px);
+  top: 14px;
+}
+
+.experience-card {
+  background: var(--card-bg-main);
+  border: 1px solid rgba(255,255,255,0.04);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(2,6,23,0.5);
+  width: 100%;
+  position: relative;
+}
+
+.experience-content {
+  color: var(--text-weak);
+  margin: 0;
+  padding: 0;
+}
+
+.experience-list {
+  margin-top: 16px;
+  padding-left: 20px;
+  color: var(--text-weak);
+  margin-bottom: 0;
+}
+
+.experience-list li {
+  margin-bottom: 8px;
+}
+
+.experience-list li:last-child {
+  margin-bottom: 0;
+}
+
+.app-root.theme-light .experience-card {
+  background: var(--card-bg-light);
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.app-root.theme-light .experience-timeline-dot {
+  background: var(--accent-1-light);
+  box-shadow: 0 0 10px var(--accent-1-light), 0 0 20px rgba(0, 179, 255, 0.3);
+}
+
+/* Career Objectives Slide - Four-layer composition */
+.slide-objectives {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden; /* Contain the background text */
+}
+
+/* Theme-adaptive styling for HTML background elements */
+.vision-background {
+  background: var(--bg-name-gradient-dark) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}
+
+.app-root.theme-light .vision-background {
+  background: var(--bg-name-gradient-light) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}
+
+.growth-background {
+  /* Gradient color fill */
+  background: linear-gradient(to bottom, var(--accent-1), #0a2563) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  
+  /* Full opacity for clear visibility */
+  opacity: 0.8 !important;
+  
+  /* Sharp neon glow effect */
+  text-shadow: 
+    0 0 3px var(--accent-1),
+    0 0 6px var(--accent-1),
+    0 0 12px var(--accent-1) !important;
+    
+  /* Layer positioning */
+  z-index: 4 !important; /* Layer 4 - above photo (z-index 3) and below content (z-index 5) */
+  
+  /* Animation for subtle pulsing effect */
+  animation: growthPulse 3s infinite ease-in-out;
+}
+
+@keyframes growthPulse {
+  0%, 100% {
+    text-shadow: 
+      0 0 3px var(--accent-1),
+      0 0 6px var(--accent-1),
+      0 0 12px var(--accent-1);
+  }
+  50% {
+    text-shadow: 
+      0 0 5px var(--accent-1),
+      0 0 10px var(--accent-1),
+      0 0 20px var(--accent-1);
+  }
+}
+
+/* Keyframes for subtle flicker/glow animations on 3D Console Log artifacts */
+@keyframes subtle-flicker {
+  0%, 100% {
+    opacity: 0.97;
+    box-shadow: 
+      0 0 10px rgba(102, 204, 255, 0.12),
+      0 0 20px rgba(102, 204, 255, 0.06);
+  }
+  25% {
+    opacity: 1;
+    box-shadow: 
+      0 0 12px rgba(102, 204, 255, 0.15),
+      0 0 24px rgba(102, 204, 255, 0.08);
+  }
+  50% {
+    opacity: 0.95;
+    box-shadow: 
+      0 0 8px rgba(102, 204, 255, 0.09),
+      0 0 16px rgba(102, 204, 255, 0.04);
+  }
+  75% {
+    opacity: 0.98;
+    box-shadow: 
+      0 0 11px rgba(102, 204, 255, 0.11),
+      0 0 22px rgba(102, 204, 255, 0.07);
+  }
+}
+
+/* Keyframes for micro-transformations on 3D Console Log artifacts */
+@keyframes micro-shift {
+  0%, 100% {
+    transform: perspective(1000px) translate(0, 0) rotateY(15deg) rotateX(-5deg) scale(1);
+  }
+  25% {
+    transform: perspective(1000px) translate(0.5px, -0.3px) rotateY(15.2deg) rotateX(-4.8deg) scale(1.005);
+  }
+  50% {
+    transform: perspective(1000px) translate(-0.4px, 0.6px) rotateY(14.8deg) rotateX(-5.2deg) scale(0.998);
+  }
+  75% {
+    transform: perspective(1000px) translate(0.3px, 0.2px) rotateY(15.1deg) rotateX(-4.9deg) scale(1.002);
+  }
+}
+
+/* Keyframes for micro-shift for each specific artifact */
+@keyframes micro-shift-2 {
+  0%, 100% {
+    transform: perspective(1000px) translate(0, 0) rotateY(-15deg) rotateX(5deg) scale(0.98);
+  }
+  25% {
+    transform: perspective(1000px) translate(-0.3px, 0.5px) rotateY(-15.2deg) rotateX(4.8deg) scale(0.985);
+  }
+  50% {
+    transform: perspective(1000px) translate(0.6px, -0.4px) rotateY(-14.8deg) rotateX(5.2deg) scale(0.975);
+  }
+  75% {
+    transform: perspective(1000px) translate(-0.2px, -0.3px) rotateY(-15.1deg) rotateX(4.9deg) scale(0.982);
+  }
+}
+
+@keyframes micro-shift-3 {
+  0%, 100% {
+    transform: perspective(1000px) translate(0, 0) rotateY(10deg) rotateX(15deg) scale(0.95);
+  }
+  25% {
+    transform: perspective(1000px) translate(0.4px, -0.2px) rotateY(10.2deg) rotateX(14.8deg) scale(0.955);
+  }
+  50% {
+    transform: perspective(1000px) translate(-0.5px, 0.7px) rotateY(9.8deg) rotateX(15.2deg) scale(0.945);
+  }
+  75% {
+    transform: perspective(1000px) translate(0.2px, 0.4px) rotateY(10.1deg) rotateX(14.9deg) scale(0.952);
+  }
+}
+
+@keyframes micro-shift-4 {
+  0%, 100% {
+    transform: perspective(1000px) translate(0, 0) rotateY(-10deg) rotateX(-15deg) scale(0.92);
+  }
+  25% {
+    transform: perspective(1000px) translate(-0.3px, -0.1px) rotateY(-9.8deg) rotateX(-14.8deg) scale(0.925);
+  }
+  50% {
+    transform: perspective(1000px) translate(0.5px, 0.6px) rotateY(-10.2deg) rotateX(-15.2deg) scale(0.915);
+  }
+  75% {
+    transform: perspective(1000px) translate(-0.1px, -0.4px) rotateY(-9.9deg) rotateX(-14.9deg) scale(0.922);
+  }
+}
+
+/* Keyframes for subtle console line flicker */
+@keyframes console-line-flicker {
+  0%, 100% {
+    opacity: 0.85;
+  }
+  25% {
+    opacity: 0.82;
+  }
+  50% {
+    opacity: 0.88;
+  }
+  75% {
+    opacity: 0.84;
+  }
+}
+
+.app-root.theme-light .growth-background {
+  /* Gradient color fill for light theme */
+  background: linear-gradient(to bottom, var(--accent-1-light), #0a2563) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  
+  /* Full opacity for clear visibility */
+  opacity: 1 !important;
+  
+  /* Sharp neon glow effect for light theme */
+  text-shadow: 
+    0 0 3px var(--accent-1-light),
+    0 0 6px var(--accent-1-light),
+    0 0 12px var(--accent-1-light) !important;
+    
+  /* Layer positioning */
+  z-index: 4 !important; /* Layer 4 - above photo (z-index 3) and below content (z-index 5) */
+  
+  /* Animation for subtle pulsing effect */
+  animation: growthPulse 3s infinite ease-in-out;
+}
+
+.connect-background {
+  background: var(--bg-name-gradient-dark) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}
+
+.app-root.theme-light .connect-background {
+  background: var(--bg-name-gradient-light) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}
+
+/* Adjust background text opacity and contrast for light theme */
+.app-root.theme-light .vision-background,
+.app-root.theme-light .connect-background {
+  opacity: 0.2 !important; /* Much lower opacity to reduce contrast in light theme */
+  text-shadow: 
+    0 0 5px rgba(51, 102, 153, 0.2),
+    0 0 10px rgba(51, 102, 170, 0.15),
+    0 0 20px rgba(102, 51, 153, 0.1),
+    0 0 40px rgba(153, 51, 102, 0.05) !important;
+}
+
+.app-root.theme-light .growth-background {
+  opacity: 0.7 !important; /* Slightly higher opacity for emphasis */
+  text-shadow: 
+    0 0 5px rgba(0, 179, 255, 0.3),
+    0 0 10px rgba(0, 179, 255, 0.25),
+    0 0 20px rgba(0, 179, 255, 0.2),
+    0 0 40px rgba(0, 179, 255, 0.1) !important;
+}
+
+.objectives-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 1200px;
+  padding: 40px;
+  gap: 30px;
+  position: relative;
+  z-index: 5; /* Layer 5 - above GROWTH text (z-index 4) */
+  flex-wrap: wrap;
+}
+
+.career-objectives-layout {
+  display: flex;
+  width: 100%;
+  gap: 30px;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items to top for more control */
+}
+
+.career-objectives-left {
+  flex: 1;
+  min-width: 250px;
+  position: relative;
+  z-index: 5; /* Layer 5 - above GROWTH text (z-index 4) */
+}
+
+.career-objectives-center {
+  flex: 1;
+  min-width: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 3; /* Layer 3 - Photo layer */
+}
+
+.career-objectives-center img {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  border-radius: 0; /* Remove rounded corners */
+  box-shadow: none; /* Remove box shadow */
+  border: none; /* Remove any border */
+  position: relative;
+  z-index: 3; /* Layer 3 - above 'GROWTH' text (z-index 2) */
+  transition: opacity 0.3s ease;
+  opacity: 1; /* Full opacity for seamless blend */
+  filter: brightness(0.95); /* Subtle filter for better blend */
+  mask-image: linear-gradient(to bottom, black 60%, transparent 100%) !important;
+  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%) !important; /* For WebKit browsers */
+}
+
+.career-objectives-center img:hover {
+  opacity: 1; /* Remove hover effects for seamless look */
+  transform: none;
+  filter: brightness(1); /* Slight brightening on hover */
+}
+
+.career-objectives-right {
+  flex: 1;
+  min-width: 250px;
+  position: relative;
+  z-index: 5; /* Layer 5 - above GROWTH text (z-index 4) */
+  margin-top: 80px; /* Position quote lower than objectives */
+}
+
+.objectives-left .slide-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 5; /* Foreground layer - above GROWTH text (z-index 4) */
+}
+
+.app-root.theme-light .objectives-right {
+  color: var(--text-dark);
+}
+
+/* Contact Slide - Left-aligned layout */
+.slide-contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden; /* Contain the background text */
+}
+
+/* New: Contact photo fade-out effect */
+.contact-photo {
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+  mask-size: 100% 100%;
+  -webkit-mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+}
+
+/* Light theme specific photo masking */
+.app-root.theme-light .contact-photo {
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%) !important;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%) !important;
+}
+
+/* Node container for contact links */
+.contact-node {
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.contact-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Wajib untuk memusatkan secara vertikal */
+  position: relative; /* Wajib agar elemen absolut diposisikan relatif terhadap ini */
+  width: 100%;
+  max-width: 600px;
+  min-height: 100%;
+  padding: 40px;
+  text-align: center;
+  z-index: 2; /* Middle layer */
+}
+
+.contact-details {
+  color: var(--text-weak);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  text-align: center;
+  width: 100%;
+  position: relative;
+  z-index: 3; /* Middle layer */
+}
+
+/* Dual-state hover effect for all contact elements */
+.contact-details a.contact-link {
+  background: transparent !important;
+  border: 2px solid transparent;
+  border-image: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  border-image-slice: 1;
+  color: var(--accent-1);
+  transition: all 0.3s ease !important;
+  position: relative;
+  overflow: hidden;
+  z-index: 5; /* High z-index for interaction */
+  text-decoration: none;
+}
+
+.contact-details a.contact-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 8px;
+}
+
+.contact-details a.contact-link:hover {
+  color: white !important;
+  box-shadow: 0 6px 25px rgba(102, 204, 255, 0.6) !important;
+  transform: translateY(-3px) !important;
+  animation: none;
+}
+
+.contact-details a.contact-link:hover::before {
+  opacity: 1;
+}
+
+/* Special styling for CTA button */
+.contact-details a.cta-button {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+/* Ensure CTA buttons have proper color in light theme */
+.app-root.theme-light .contact-details a.cta-button {
+  color: var(--text-dark-light) !important; /* Explicitly set to dark color for high contrast in light theme */
+}
+
+/* Refactor Contact section to ensure title and CTA buttons are on highest visual layer */
+/* Pastikan elemen ini (yang berisi Judul & Tombol) berada di atas segalanya */
+.slide-contact .contact-content {
+  position: relative;
+  z-index: 100; 
+}
+
+/* Pastikan judul dan detail kontak juga memiliki z-index yang memadai */
+.slide-contact .slide-title, 
+.slide-contact .contact-details {
+  position: relative; 
+  z-index: 101; 
+}
+
+.app-root.theme-light .contact-details a.contact-link {
+  color: var(--text-dark-light) !important; /* Explicitly set to dark color for high contrast in light theme */
+  border-image: linear-gradient(90deg, var(--accent-1-light), var(--accent-2-light));
+}
+
+.app-root.theme-light .contact-details a.contact-link:hover {
+  color: var(--text-dark-light) !important;
+  box-shadow: 0 6px 25px rgba(91, 143, 249, 0.6) !important;
+  animation: none;
+}
+
+.app-root.theme-light .contact-details {
+  color: var(--text-dark);
+}
+
+/* Digital Artifact 3D Console Boxes - Layered correctly */
+.digital-artifact-3d {
+  width: 160px;
+  height: 120px;
+  perspective: 1000px;
+  position: absolute;
+  z-index: 50; /* Middle layer - below contact links but above background */
+  animation: subtle-flicker 6s infinite ease-in-out, micro-shift 8s infinite ease-in-out;
+  animation-fill-mode: both;
+}
+
+.digital-artifact-3d-1,
+.digital-artifact-3d-2,
+.digital-artifact-3d-3,
+.digital-artifact-3d-4 {
+  width: 160px;
+  height: 120px;
+  perspective: 1000px;
+  position: absolute;
+  z-index: 50; /* Middle layer - below contact links but above background */
+}
+
+/* Background text for Contact section should be at the bottom layer */
+.slide-contact .connect-background {
+  z-index: 1; /* Bottom layer */
+}
+
+/* Enhanced styling for 3D artifact borders in light theme */
+.app-root.theme-light .digital-artifact-3d .console-log-box {
+  border: 1px solid rgba(102, 204, 255, 0.15) !important;
+}
+
+/* Position and transform each 3D box for maximum dispersion */
+.digital-artifact-3d-1 {
+  top: 5%;
+  left: 5%;
+  transform: perspective(1000px) rotateY(15deg) rotateX(-5deg) scale(1);
+  animation: subtle-flicker 6s infinite ease-in-out, micro-shift 8s infinite ease-in-out;
+  animation-delay: 0s;
+}
+
+.digital-artifact-3d-2 {
+  top: 10%;
+  right: 5%;
+  left: auto;
+  transform: perspective(1000px) rotateY(-15deg) rotateX(5deg) scale(0.98);
+  animation: subtle-flicker 5.5s infinite ease-in-out, micro-shift-2 7s infinite ease-in-out;
+  animation-delay: 1.5s;
+}
+
+.digital-artifact-3d-3 {
+  bottom: 15%;
+  left: 5%;
+  top: auto;
+  transform: perspective(1000px) rotateY(10deg) rotateX(15deg) scale(0.95);
+  animation: subtle-flicker 6.5s infinite ease-in-out, micro-shift-3 7.5s infinite ease-in-out;
+  animation-delay: 3s;
+}
+
+.digital-artifact-3d-4 {
+  bottom: 5%;
+  right: 15%;
+  top: auto;
+  left: auto;
+  transform: perspective(1000px) rotateY(-10deg) rotateX(-15deg) scale(0.92);
+  animation: subtle-flicker 5.8s infinite ease-in-out, micro-shift-4 6.8s infinite ease-in-out;
+  animation-delay: 4.2s;
+}
+
+/* Outer artifacts container */
+.outer-artifacts-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2; /* Layer Tengah, same as inner artifacts */
+  pointer-events: none;
+}
+
+/* Certifications Slide */
+.certifications-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.certification-card {
+  background: var(--card-bg-main);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.certification-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.app-root.theme-light .certification-card {
+  background: var(--card-bg-light);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Certification preview image */
+.cert-preview-img {
+  width: 100%;
+  max-height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* View Certificate button */
+.view-cert-btn {
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-top: 12px;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.view-cert-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(102, 204, 255, 0.4);
+}
+
+/* Modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+/* Modal content container */
+.modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal image */
+.modal-image {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+/* Modal close button */
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  z-index: 1001;
+  background: rgba(0, 0, 0, 0.5);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.modal-close:hover {
+  background: rgba(255, 0, 0, 0.7);
+}
+
+/* Outer artifacts - positioned in outer empty spaces */
+.outer-artifacts-container .digital-artifact-3d {
+  width: 140px;
+  height: 100px;
+  position: absolute;
+  pointer-events: auto;
+  animation: subtle-flicker 7s infinite ease-in-out;
+  animation-fill-mode: both;
+}
+
+.outer-artifacts-container .digital-artifact-3d.outer-1 {
+  top: 25%;
+  left: 0%;
+  transform: scale(0.8) rotateY(10deg);
+  animation-delay: 0.8s;
+}
+
+.outer-artifacts-container .digital-artifact-3d.outer-2 {
+  bottom: 5%;
+  left: 18%;
+  transform: scale(0.7) rotateX(-5deg);
+  animation-delay: 2.1s;
+}
+
+.outer-artifacts-container .digital-artifact-3d.outer-3 {
+  top: 10%;
+  right: 0%;
+  transform: scale(0.9) rotateY(-10deg);
+  animation-delay: 5.3s;
+}
+
+.outer-artifacts-container .digital-artifact-3d.outer-4 {
+  bottom: 25%;
+  right: 20%;
+  transform: scale(0.6) rotateX(15deg);
+  animation-delay: 6.7s;
+}
+
+.digital-artifact-3d .console-log-box,
+.digital-artifact-3d-1 .console-log-box,
+.digital-artifact-3d-2 .console-log-box,
+.digital-artifact-3d-3 .console-log-box,
+.digital-artifact-3d-4 .console-log-box {
+  width: 100%;
+  height: 100%;
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(102, 204, 255, 0.2);
+  border-radius: 6px;
+  padding: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  color: var(--text-weak);
+  overflow: hidden;
+  box-shadow: 
+    0 0 10px rgba(102, 204, 255, 0.1),
+    0 0 20px rgba(102, 204, 255, 0.05);
+  position: relative;
+}
+
+/* Different styling for each console box */
+.digital-artifact-3d .console-log-box {
+  border: 1px solid rgba(102, 204, 255, 0.2);
+}
+
+.digital-artifact-3d-1 .console-log-box {
+  border: 1px solid rgba(102, 204, 255, 0.3);
+}
+
+.digital-artifact-3d-2 .console-log-box {
+  border: 1px solid rgba(204, 102, 255, 0.3);
+}
+
+.digital-artifact-3d-3 .console-log-box {
+  border: 1px solid rgba(255, 102, 204, 0.3);
+}
+
+.digital-artifact-3d-4 .console-log-box {
+  border: 1px solid rgba(102, 255, 204, 0.3);
+}
+
+.digital-artifact-3d .console-log-box::before,
+.digital-artifact-3d-1 .console-log-box::before,
+.digital-artifact-3d-2 .console-log-box::before,
+.digital-artifact-3d-3 .console-log-box::before,
+.digital-artifact-3d-4 .console-log-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(120deg, 
+    transparent 0%, 
+    rgba(102, 204, 255, 0.08) 50%, 
+    transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Different accent colors for each console box */
+.digital-artifact-3d .console-line:nth-child(odd) {
+  color: var(--accent-1);
+}
+
+.digital-artifact-3d-1 .console-line:nth-child(odd) {
+  color: var(--accent-1);
+}
+
+.digital-artifact-3d-2 .console-line:nth-child(odd) {
+  color: var(--accent-2);
+}
+
+.digital-artifact-3d-3 .console-line:nth-child(odd) {
+  color: var(--accent-3);
+}
+
+.digital-artifact-3d-4 .console-line:nth-child(odd) {
+  color: #66ffcc; /* Different accent color */
+}
+
+.console-line {
+  margin-bottom: 3px;
+  opacity: 0.85;
+  position: relative;
+  z-index: 2;
+  animation: console-line-flicker 3s infinite ease-in-out;
+  animation-fill-mode: both;
+}
+
+.app-root.theme-light .digital-artifact-3d-1 .console-log-box,
+.app-root.theme-light .digital-artifact-3d-2 .console-log-box,
+.app-root.theme-light .digital-artifact-3d-3 .console-log-box,
+.app-root.theme-light .digital-artifact-3d-4 .console-log-box {
+  background: rgba(245, 247, 250, 0.7); /* More appropriate background for light theme */
+  color: var(--text-muted-light); /* Using muted text color for better readability */
+  backdrop-filter: blur(4px); /* Lighter blur for light theme */
+  border: 1px solid rgba(91, 143, 249, 0.15) !important; /* More subtle border in light theme */
+  box-shadow: 
+    0 0 10px rgba(0, 0, 0, 0.05), /* Softer shadow in light theme */
+    0 0 20px rgba(0, 0, 0, 0.03);
+}
+
+.app-root.theme-light .digital-artifact-3d-1 .console-log-box {
+  border: 1px solid rgba(91, 143, 249, 0.15) !important; /* Softer border for light theme */
+}
+
+.app-root.theme-light .digital-artifact-3d-2 .console-log-box {
+  border: 1px solid rgba(166, 91, 255, 0.15) !important; /* Softer border for light theme */
+}
+
+.app-root.theme-light .digital-artifact-3d-3 .console-log-box {
+  border: 1px solid rgba(187, 96, 232, 0.15) !important; /* Softer border for light theme */
+}
+
+.app-root.theme-light .digital-artifact-3d-4 .console-log-box {
+  border: 1px solid rgba(102, 255, 204, 0.15) !important; /* Softer border for light theme */
+}
+
+.app-root.theme-light .digital-artifact-3d-1 .console-line:nth-child(odd) {
+  color: var(--accent-1-light);
+}
+
+.app-root.theme-light .digital-artifact-3d-2 .console-line:nth-child(odd) {
+  color: var(--accent-2-light);
+}
+
+.app-root.theme-light .digital-artifact-3d-3 .console-line:nth-child(odd) {
+  color: var(--accent-3-light);
+}
+
+/* Improve console line contrast in light theme */
+.app-root.theme-light .console-line {
+  color: var(--text-muted-light);
+  opacity: 0.9; /* Slightly higher opacity for better readability in light theme */
+}
+
+/* Hero section specific styles */
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.about-text {
+  color: var(--text-weak);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.app-root.theme-light .about-text {
+  color: var(--text-dark);
+}
+
+/* Slide text content */
+.slide-text-content {
+  color: var(--text-weak);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.app-root.theme-light .slide-text-content {
+  color: var(--text-dark);
+}
+
+/* Skills section */
+.skills-wrap {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1000px;
+  margin-top: 14px;
+}
+
+.skill-card-large {
+  padding: 1.5rem; /* 24px = 1.5rem */
+  border-radius: 1rem; /* 16px = 1rem */
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  min-width: 300px;
+  max-width: 520px;
+  width: 100%;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.skill-card-large::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: left;
+}
+
+.skill-card-large:hover {
+  transform: translateY(-3px);
+  border: 1px solid rgba(102, 204, 255, 0.2);
+  box-shadow: 0 12px 30px rgba(2,6,23,0.7), 0 0 20px rgba(102,204,255,0.15);
+}
+
+.skill-card-large:hover::before {
+  transform: scaleX(1);
+}
+
+.app-root.theme-light .skill-card-large {
+  background: var(--card-bg-light);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.skill-card-large.soft {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.03);
+  box-shadow: 0 8px 20px rgba(2,6,23,0.5);
+  max-width: 380px;
+  min-width: 260px;
+}
+
+.app-root.theme-light .skill-card-large.soft {
+  background: linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0.3));
+}
+
+.skill-card-large h3 {
+  color: var(--accent-1);
+  margin-bottom: 8px;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+.skill-card-large ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.skill-card-large li {
+  padding: 6px 0;
+  border-bottom: 1px dashed rgba(255,255,255,0.03);
+}
+
+.app-root.theme-light .skill-card-large li {
+  border-bottom: 1px dashed rgba(0,0,0,0.05);
+}
+
+.skill-card-large li:last-child {
+  border-bottom: none;
+}
+
+.skill-card-large li strong {
+  color: var(--accent-2);
+}
+
+.app-root.theme-light .skill-card-large li strong {
+  color: var(--accent-2);
+}
+
+/* Projects */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 16px;
+}
+
+.project-card {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 16px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 14px;
+  cursor: pointer;
+  min-height: 150px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  z-index: 2;
+  /* Initial small size when not expanded */
+  max-height: 150px;
+  min-height: 120px;
+}
+
+.project-card.expanded {
+  max-height: none;
+  min-height: 200px;
+}
+
+.project-card .card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  min-width: 0; /* Allow flex item to shrink below content size */
+}
+
+.project-thumb {
+  width: 100px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+.projects-container {
+  width: 100%;
+  max-width: 1000px;
+}
+
+.skills-container {
+  width: 100%;
+  max-width: 1000px;
+}
+
+.project-title {
+  font-weight: 700;
+  color: var(--accent-1);
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.project-short-desc {
+  color: var(--text-weak);
+  font-size: 13px;
+  margin-bottom: 0;
+}
+
+.project-desc {
+  color: var(--text-weak);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-top: 12px;
+}
+
+.repo-link {
+  color: var(--accent-2);
+  text-decoration: underline;
+  font-size: 13px;
+  align-self: flex-start;
+  margin-top: 4px;
+}
+
+.repo-link {
+  color: var(--accent-1);
+  text-decoration: underline;
+  margin-top: 8px;
+  font-size: 14px;
+  align-self: flex-start;
+}
+
+.app-root.theme-light .repo-link {
+  color: var(--accent-1-light);
+}
+
+.app-root.theme-light .repo-link:hover {
+  color: #0088cc;
+}
+
+/* Progress bar */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2), var(--accent-3));
+  transform-origin: 0%;
+  z-index: 101;
+}
+
+/* Footer */
+.footer {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.4);
+  font-size: 14px;
+  margin-top: 4rem;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+}
+
+.app-root.theme-light .footer {
+  color: rgba(0,0,0,0.5);
+  background: rgba(245, 247, 250, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .slide {
+    padding: 0 15px;
+  }
+  
+  .slide-skills,
+  .slide-soft-skills,
+  .education-content,
+  .objectives-content,
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .skills-column-left,
+  .soft-skills-right,
+  .education-title,
+  .objectives-left {
+    text-align: center;
+  }
+  
+  .skills-column-right,
+  .soft-skills-left,
+  .education-details,
+  .objectives-right,
+  .contact-details {
+    text-align: center;
+  }
+  
+  .profile-container {
+    max-width: 300px;
+    width: 80%;
+  }
+  
+  /* Soft Skills on medium screens */
+  .soft-skills-content-wrapper {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .soft-skills-right {
+    align-items: center;
+  }
+  
+  /* Education timeline on medium screens */
+  .education-timeline-container {
+    max-width: 600px;
+  }
+  
+  .timeline-line {
+    left: 30px;
+  }
+  
+  .timeline-entry:nth-child(1),
+  .timeline-entry:nth-child(2) {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 60px;
+    padding-right: 0;
+    width: 100%;
+  }
+  
+  .timeline-dot {
+    left: 22px;
+    transform: none;
+  }
+  
+  /* Experience timeline on medium screens */
+  .experience-timeline-container {
+    max-width: 600px;
+  }
+  
+  .experience-timeline-line {
+    left: 30px;
+  }
+  
+  .experience-timeline-entry:nth-child(odd),
+  .experience-timeline-entry:nth-child(even) {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 60px;
+    padding-right: 0;
+    width: 100%;
+    display: block;
+  }
+  
+  .experience-timeline-dot {
+    left: 22px;
+    transform: none;
+  }
+  
+  /* Project cards on medium screens - stack vertically */
+  .projects-zigzag::before {
+    display: none;
+  }
+  
+  .project-card-zigzag {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 16px !important;
+    width: 100%;
+  }
+  
+  .project-card-zigzag-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .project-thumb {
+    width: 100%;
+    max-width: 120px;
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .slide-title { 
+    font-size: 2rem; 
+  }
+  
+  .scroll-container {
+    height: 100vh;
+  }
+  
+  .slide {
+    padding: 0 10px;
+  }
+  
+  .slide-content {
+    padding: 20px 10px;
+  }
+  
+  .navbar { 
+    padding: 0 14px; 
+    height: 70px; /* Maintain consistent header height */
+    overflow-x: hidden; /* Don't let navbar itself scroll */
+  }
+  
+  .nav-right {
+    width: 100%;
+    justify-content: space-between;
+    overflow-x: hidden; /* Don't let nav-right scroll */
+  }
+  
+  .nav-links {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px 0;
+    margin: 0 10px;
+    gap: 8px;
+    scrollbar-width: thin; /* For Firefox */
+    -ms-overflow-style: -ms-autohiding-scrollbar; /* For IE and Edge */
+  }
+  
+  .nav-links::-webkit-scrollbar {
+    height: 4px; /* Slim scrollbar */
+  }
+  
+  .nav-links::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+  }
+  
+  .nav-links::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+  }
+  
+  .nav-links::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
+  
+  .skills-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    align-items: center;
+  }
+  
+  .skills-column-left,
+  .skills-column-right {
+    width: 100%;
+    align-items: center;
+  }
+  
+  .skills-column-left .slide-title {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .skills-wrap {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .skill-card-large {
+    max-width: 100%;
+    min-width: unset;
+  }
+  
+  .projects-grid,
+  .projects-zigzag {
+    gap: 25px;
+  }
+  
+  .projects-zigzag::before {
+    display: none; /* Hide timeline on smaller screens */
+  }
+  
+  .project-card-zigzag,
+  .project-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    width: 100%;
+  }
+  
+  .project-card-zigzag-content {
+    flex-direction: column !important;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .project-thumb {
+    width: 100%;
+    max-width: 120px;
+    height: auto;
+  }
+  
+  .about-content {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .background-name {
+    font-size: 25vw;
+    z-index: 0; /* Lower z-index to not interfere with content */
+  }
+  
+  .about-text-container {
+    margin-top: 20px;
+  }
+  
+  .timeline-container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
+  .timeline-line {
+    left: 30px;
+  }
+  
+  .timeline-entry.left,
+  .timeline-entry.right {
+    padding: 0 60px 0 40px;
+  }
+  
+  .timeline-entry {
+    align-items: flex-start;
+  }
+  
+  .timeline-content {
+    max-width: 100%;
+  }
+  
+  /* Soft Skills on small screens */
+  .soft-skills-cards-container {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Education timeline on small screens - stacked layout */
+  .education-timeline-container {
+    max-width: 100%;
+  }
+  
+  .timeline-line {
+    left: 20px;
+    transform: none;
+  }
+  
+  .timeline-entry:nth-child(1),
+  .timeline-entry:nth-child(2) {
+    padding-left: 40px;
+    padding-right: 0;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100%;
+    display: block;
+  }
+  
+  .timeline-dot {
+    left: 14px;
+    transform: none;
+  }
+  
+  /* Experience timeline on small screens */
+  .experience-timeline-container {
+    max-width: 100%;
+  }
+  
+  .experience-timeline-line {
+    left: 20px;
+  }
+  
+  .experience-timeline-entry:nth-child(odd),
+  .experience-timeline-entry:nth-child(even) {
+    padding-left: 40px;
+    padding-right: 0;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100%;
+    display: block;
+  }
+  
+  .experience-timeline-dot {
+    left: 14px;
+  }
+  
+  /* Project cards on small screens - stacked layout */
+  .projects-zigzag {
+    gap: 20px;
+  }
+  
+  .projects-zigzag::before {
+    display: none;
+  }
+  
+  .project-card-zigzag {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    width: 100%;
+  }
+  
+  .project-card-zigzag-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .project-thumb {
+    width: 100%;
+    max-width: 100px;
+    height: auto;
+  }
+  
+  .slide-content {
+    padding: 40px 15px;
+  }
+  
+  .nav-controls {
+    gap: 8px;
+  }
+  
+  .icon-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .slide-title {
+    font-size: 1.8rem;
+  }
+  
+  .about-text,
+  .education-details,
+  .objectives-right,
+  .contact-details {
+    font-size: 1rem;
+  }
+  
+  .project-thumb {
+    max-width: 150px;
+  }
+  
+  .nav-btn {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+  
+  /* Very small screens adjustments for education timeline */
+  .education-timeline-container {
+    padding: 0 10px;
+  }
+  
+  .timeline-line {
+    left: 15px;
+  }
+  
+  .timeline-entry:nth-child(1),
+  .timeline-entry:nth-child(2) {
+    padding-left: 30px;
+  }
+  
+  .timeline-dot {
+    left: 9px;
+  }
+  
+  /* Project cards on very small screens */
+  .project-thumb {
+    width: 100%;
+    max-width: 80px;
+  }
+}
+
+/* Responsive adjustments for layered typography in Career Objectives and Contact sections */
+@media (max-width: 768px) {
+  .slide-objectives::before {
+    font-size: 25vw; /* Adjust for smaller screens */
+    opacity: 0.1;
+  }
+  
+  .slide-contact::before {
+    font-size: 25vw; /* Adjust for smaller screens */
+    opacity: 0.1;
+  }
+  
+  .objectives-content,
+  .contact-content {
+    padding: 20px;
+  }
+  
+  .growth-background {
+    top: 75%;
+    transform: translate(-50%, -50%) scale(0.6);
+    font-size: 8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .slide-objectives::before {
+    font-size: 30vw; /* Further adjust for very small screens */
+  }
+  
+  .slide-contact::before {
+    font-size: 30vw; /* Further adjust for very small screens */
+  }
+}
