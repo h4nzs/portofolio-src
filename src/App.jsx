@@ -123,6 +123,8 @@ const slides = [
         repo: "https://github.com/h4nzs/chat-lite",
         img: "/portofolio/images/project-chat-lite.png",
         short: "Lightweight real-time chat web app (fast + E2E encryption).",
+        status: '(work in progress)',
+        tags: ['Fullstack', 'React', 'Node.js', 'Socket.io', 'Security'],
         long: `Chat-Lite is a modern real-time chat web app built with React + Socket.IO (frontend) and Express + Prisma (backend). Features: secure auth with JWT & httpOnly cookies, real-time messaging, message history, end-to-end encryption with libsodium, reactions, message status indicators, file/image upload, push notifications, dark/light theme, and a responsive UI optimized for low-end devices.
         <br><br>
         <h4>I. The Challenge</h4>
@@ -147,6 +149,8 @@ const slides = [
         repo: "https://github.com/h4nzs/anniv",
         img: "/portofolio/images/project-anniv.png",
         short: "Event/anniversary posting system built with CodeIgniter 4.",
+        status: 'Private',
+        tags: ['Fullstack', 'CodeIgniter 4', 'PHP', 'Vue.js'],
         long: `Anniv is a web app (CodeIgniter 4) for creating, displaying, and managing anniversary/event posts. Supports auth, role-based access, admin dashboard, posting & commenting, user profiles, and migration/seeders. Designed for internal events or community showcases.
         <br><br>
         <h4>I. The Challenge</h4>
@@ -169,6 +173,8 @@ const slides = [
         repo: "https://github.com/kenziyy/input-data",
         img: "/portofolio/images/project-input.png",
         short: "Simple transaction input system to reduce manual errors.",
+        status: 'Live',
+        tags: ['Frontend', 'JavaScript', 'HTML', 'CSS', 'UI/UX'],
         long: `Input Data is a lightweight system focused on simplifying transaction input for small businesses — streamlines data collection and minimizes manual entry errors. Built with basic web stack and easy to deploy.
         <br><br>
         <h4>I. The Challenge</h4>
@@ -534,6 +540,14 @@ const App = React.memo(() => {
           const opened = openProject === p.id;
           const isEven = index % 2 === 0;
           
+          // Determine status class based on status value
+          const getStatusClass = (status) => {
+            if (status.toLowerCase().includes('live')) return 'status-live';
+            if (status.toLowerCase().includes('wip') || status.toLowerCase().includes('work')) return 'status-wip';
+            if (status.toLowerCase().includes('private')) return 'status-private';
+            return 'status-unknown'; // fallback class
+          };
+          
           return (
             <motion.div
               id={`project-${p.id}`}
@@ -550,26 +564,44 @@ const App = React.memo(() => {
               className={`project-card-zigzag ${isEven ? 'right' : 'left'} ${opened ? 'expanded' : ''}`}
             >
               <div className="project-card-zigzag-content" style={{ display: "flex", gap: 12, alignItems: "flex-start", flexDirection: isEven ? 'row' : 'row-reverse' }}>
-                <img
-                  src={p.img}
-                  alt={p.title}
-                  className="project-thumb"
-                  onError={(e) => {
-                    e.currentTarget.onerror = null;
-                    e.currentTarget.src = "https://placehold.co/400x250?text=Preview";
-                  }}
-                />
+                <div className="project-thumb-container">
+                  <img
+                    src={p.img}
+                    alt={p.title}
+                    className="project-thumb"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = "https://placehold.co/400x250?text=Preview";
+                    }}
+                  />
+                  <div className="image-overlay">
+                    <span className="overlay-icon">👁️</span>
+                  </div>
+                </div>
                 <div className="card-content">
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexDirection: "column", gap: 4 }}>
                     <div>
                       <div className="project-title">{p.title}</div>
                       <div className="project-short-desc">{p.short}</div>
+                      {/* Project tags */}
+                      <div className="project-tags-container">
+                        {p.tags && p.tags.map((tag, tagIndex) => (
+                          <span key={tagIndex} className="project-tag">{tag}</span>
+                        ))}
+                      </div>
                     </div>
-                    {opened && (
-                      <a href={p.repo} target="_blank" rel="noreferrer" className="repo-link">
-                        Repo
-                      </a>
-                    )}
+                    <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                      {/* Repo link */}
+                      {opened && (
+                        <a href={p.repo} target="_blank" rel="noreferrer" className="repo-link">
+                          Repo
+                        </a>
+                      )}
+                      {/* Status badge */}
+                      <span className={`status-badge ${getStatusClass(p.status)}`}>
+                        {p.status}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>

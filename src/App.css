@@ -3075,3 +3075,150 @@ html {
     font-size: 30vw; /* Further adjust for very small screens */
   }
 }
+
+/* Project tags styling */
+.project-tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.project-tag {
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  background: rgba(102, 204, 255, 0.1);
+  color: var(--accent-1);
+  border: 1px solid rgba(102, 204, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.project-tag:hover {
+  background: rgba(102, 204, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Status badge styling */
+.status-badge {
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  align-self: flex-start;
+  display: inline-block;
+  min-width: 60px;
+  text-align: center;
+}
+
+.status-live {
+  background: rgba(72, 187, 120, 0.2);
+  color: #4ade80;
+  border: 1px solid rgba(72, 187, 120, 0.3);
+}
+
+.status-wip {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.status-private {
+  background: rgba(156, 163, 175, 0.2);
+  color: #9ca3af;
+  border: 1px solid rgba(156, 163, 175, 0.3);
+}
+
+.status-unknown {
+  background: rgba(148, 163, 184, 0.2);
+  color: #94a3b8;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+/* Project thumb container with overlay */
+.project-thumb-container {
+  position: relative;
+  display: inline-block;
+}
+
+.project-thumb {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.04);
+  transition: opacity 0.3s ease;
+}
+
+/* Overlay styling */
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.overlay-icon {
+  font-size: 20px;
+  color: white;
+}
+
+/* Show overlay on card hover */
+.project-card-zigzag:hover .image-overlay {
+  opacity: 1;
+}
+
+/* Enhanced hover effect for project cards */
+.project-card-zigzag:hover {
+  transform: translateY(-8px) scale(1.02);
+  border: 1px solid rgba(102, 204, 255, 0.3);
+  box-shadow: 
+    0 0 15px rgba(102, 204, 255, 0.2),
+    0 10px 30px rgba(102, 204, 255, 0.3),
+    0 0 40px rgba(102, 204, 255, 0.1);
+  z-index: 10;
+}
+
+/* Light theme specific styles */
+.app-root.theme-light .project-tag {
+  background: rgba(91, 143, 249, 0.15);
+  color: var(--accent-1-light);
+  border: 1px solid rgba(91, 143, 249, 0.2);
+}
+
+.app-root.theme-light .project-tag:hover {
+  background: rgba(91, 143, 249, 0.25);
+}
+
+.app-root.theme-light .status-live {
+  background: rgba(22, 163, 74, 0.15);
+  color: #22c55e;
+  border: 1px solid rgba(22, 163, 74, 0.2);
+}
+
+.app-root.theme-light .status-wip {
+  background: rgba(180, 83, 9, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(180, 83, 9, 0.2);
+}
+
+.app-root.theme-light .status-private {
+  background: rgba(107, 114, 128, 0.15);
+  color: #6b7280;
+  border: 1px solid rgba(107, 114, 128, 0.2);
+}
+
+.app-root.theme-light .image-overlay {
+  background: rgba(0, 0, 0, 0.7);
+}
