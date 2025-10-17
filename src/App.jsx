@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
+import { Eye } from 'lucide-react';
 import "./App.css";
 
 // Data definitions moved outside component for optimization
@@ -90,6 +91,10 @@ const slides = [
           <p><strong>SMKN 4 PADALARANG</strong> — <em>Network and Computer Engineering</em></p>
           <p>📅 2022-2025</p>
           <div class="education-highlights">
+            <p><strong>Focus Areas:</strong></p>
+            <ul>
+              <li>IoT, Basic of Networking, Subnetting, Routing, System Administration.</li>
+            </ul>
             <p><strong>Key Projects:</strong></p>
             <ul>
               <li>Creating and configuring monitoring system in company server using zabbix agent.</li>
@@ -625,7 +630,9 @@ const App = React.memo(() => {
                     }}
                   />
                   <div className="image-overlay">
-                    <span className="overlay-icon">👁️</span>
+                    <div className="overlay-icon">
+                      <Eye size={24} color="white" />
+                    </div>
                   </div>
                 </div>
                 <div className="card-content">
