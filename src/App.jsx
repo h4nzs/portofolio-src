@@ -84,13 +84,37 @@ const slides = [
     id: 4,
     title: "Education",
     html: `
-      <p><strong>SMKN 4 PADALARANG</strong> — <em>Network and Computer Engineering</em></p>
-      <p>📅 2022-2025</p>
-      <p>Focus Areas: <strong>IoT</strong>, <strong>Basic of Networking</strong>, <strong>Subnetting</strong>, <strong>Routing</strong>, <strong>System Administration</strong></p>
-      
-      <p><strong>STMIK AMIK Bandung</strong> — <em>Bachelor of Informatics Engineering (Ongoing)</em></p>
-      <p>📅 2025 – Present</p>
-      <p>Focus Areas: <strong>Cybersecurity</strong>, <strong>Programming</strong>, <strong>Network Administration</strong>, <strong>Database Management</strong>, <strong>Web Development</strong>, <strong>AI/ML</strong></p>
+      <div class="education-entry-card">
+        <img src="/portofolio/images/smk4.jpg" alt="SMKN 4 Padalarang Logo" class="institution-logo" />
+        <div class="education-details">
+          <p><strong>SMKN 4 PADALARANG</strong> — <em>Network and Computer Engineering</em></p>
+          <p>📅 2022-2025</p>
+          <div class="education-highlights">
+            <p><strong>Key Projects:</strong></p>
+            <ul>
+              <li>Creating and configuring monitoring system in company server using zabbix agent.</li>
+              <li>Configured a small office network with Cisco Packet Tracer.</li>
+            </ul>
+            <p><strong>Achievements:</strong></p>
+            <ul>
+              <li>To be one of the best students in implementing field work practice in companies from among the many other students at school in 2025.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="education-entry-card">
+        <img src="/portofolio/images/stmik.jpg" alt="STMIK AMIK Bandung Logo" class="institution-logo" />
+        <div class="education-details">
+          <p><strong>STMIK AMIK Bandung</strong> — <em>Bachelor of Informatics Engineering (Ongoing)</em></p>
+          <p>📅 2025 – Present</p>
+          <div class="education-highlights">
+            <p><strong>Focus Areas:</strong></p>
+            <ul>
+              <li>Cybersecurity, Programming, Network Administration, Database Management, Web Development, AI/ML.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     `,
   },
   {
@@ -196,28 +220,49 @@ const slides = [
     id: 7,
     title: "Professional Experience",
     html: `
-      <p><strong>PT. Bentang Inspira Teknologi — IT Support Intern</strong> (📅 6 Months)</p>
-      <ul>
-        <li>Configured and managed company firewall systems.</li>
-        <li>Performed penetration testing on internal web projects.</li>
-        <li>Acted as Linux System Administrator and handled network troubleshooting.</li>
-      </ul>
-
-      <p><strong>Ruang Data Telemedia — Freelance Technician</strong> (📅 2024 – Present)</p>
-      <ul>
-        <li>Assisted customers with network & mobile issues.</li>
-        <li>Built custom input data system to simplify transactions.</li>
-      </ul>
-
-      <p><strong>PT. Dwimitra Ekatama Mandiri — Electrical Engineer (Huawei)</strong> (📅 1 Month)</p>
-      <ul>
-        <li>Participated in Huawei Data Center setup at GIIC Cikarang; wiring & infra prep.</li>
-      </ul>
-
-      <p><strong>Freelance Web Developer</strong> (📅 Ongoing)</p>
-      <ul>
-        <li>Currently developing Chat-Lite; handling small-mid web projects independently.</li>
-      </ul>
+      <div class="experience-entry-card">
+        <img src="/portofolio/images/bit.png" alt="PT. Bentang Inspira Teknologi Logo" class="company-logo" />
+        <div class="experience-details">
+          <p><strong>PT. Bentang Inspira Teknologi — IT Support Intern</strong> (📅 6 Months)</p>
+          <ul>
+            <li>Identified and helped remediate 5+ critical vulnerabilities through penetration testing on internal web projects.</li>
+            <li>Managed and configured firewall systems, resulting in a 15% reduction in detected malicious traffic.</li>
+            <li>Administered Linux servers and performed network troubleshooting to maintain 99% uptime.</li>
+          </ul>
+          <p class="tech-stack"><strong>Technologies:</strong> <span>Linux</span> <span>pfSense</span> <span>Nmap</span> <span>Metasploit</span> <span>SQLmap</span></p>
+        </div>
+      </div>
+      <div class="experience-entry-card">
+        <img src="/portofolio/images/ruangdata.jpg" alt="Ruang Data Telemedia Logo" class="company-logo" />
+        <div class="experience-details">
+          <p><strong>Ruang Data Telemedia — Freelance Technician</strong> (📅 2024 – Present)</p>
+          <ul>
+            <li>Assisted customers with network & mobile issues.</li>
+            <li>Built custom input data system to simplify transactions.</li>
+          </ul>
+          <p class="tech-stack"><strong>Technologies:</strong> <span>Mikrotik RouterOS</span> <span>HTML</span> <span>CSS</span> <span>JavaScript</span></p>
+        </div>
+      </div>
+      <div class="experience-entry-card">
+        <img src="/portofolio/images/dme.jpg" alt="PT. Dwimitra Ekatama Mandiri Logo" class="company-logo" />
+        <div class="experience-details">
+          <p><strong>PT. Dwimitra Ekatama Mandiri — Electrical Engineer (Huawei)</strong> (📅 1 Month)</p>
+          <ul>
+            <li>Participated in Huawei Data Center setup at GIIC Cikarang; wiring & infra prep.</li>
+          </ul>
+          <p class="tech-stack"><strong>Technologies:</strong> <span>Datacenter Infrastructure</span> <span>Wiring</span></p>
+        </div>
+      </div>
+      <div class="experience-entry-card">
+        <img src="/portofolio/images/freelance.png" alt="Freelance Logo" class="company-logo" />
+        <div class="experience-details">
+          <p><strong>Freelance Web Developer</strong> (📅 Ongoing)</p>
+          <ul>
+            <li>Currently developing Chat-Lite; handling small-mid web projects independently.</li>
+          </ul>
+          <p class="tech-stack"><strong>Technologies:</strong> <span>React</span> <span>Node.js</span> <span>PHP</span> <span>Vue.js</span></p>
+        </div>
+      </div>
     `,
   },
   {
@@ -626,41 +671,64 @@ const App = React.memo(() => {
     );
   };
 
-  // Parse experience HTML to create timeline items
-  const renderExperienceTimeline = (html) => {
-    // Simple parsing of the HTML to extract experience entries
+  // Render education timeline with zigzag layout
+  const renderEducationTimeline = (html) => {
+    // Parse the HTML to extract individual education entries
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = html;
     
-    // Extract each main paragraph which represents an experience
-    const experienceItems = [];
-    const paragraphs = Array.from(tempDiv.querySelectorAll('p'));
-    
-    paragraphs.forEach((p, index) => {
-      // Get the next sibling which should be the ul
-      const nextElement = p.nextElementSibling;
-      const list = nextElement && nextElement.tagName === 'UL' ? nextElement : null;
-      
-      // Add to our array
-      if (p.textContent.trim() !== '') {
-        experienceItems.push({
-          title: p.innerHTML,
-          list: list ? list.innerHTML : ''
-        });
-      }
-    });
+    // Select all the education entry cards
+    const entries = Array.from(tempDiv.querySelectorAll('.education-entry-card'));
     
     return (
-      <div className="experience-timeline-entries">
-        {experienceItems.map((item, index) => (
-          <div key={index} className="experience-timeline-entry">
-            <div className="experience-timeline-dot"></div>
-            <div className="experience-card">
-              <div className="experience-content" dangerouslySetInnerHTML={{ __html: item.title }} />
-              {item.list && <ul className="experience-list" dangerouslySetInnerHTML={{ __html: item.list }} />}
+      <div className="education-zigzag-container">
+        {entries.map((entry, index) => {
+          const isEven = index % 2 === 0;
+          const entryHtml = entry.outerHTML;
+          
+          return (
+            <div 
+              key={index} 
+              className={`education-card-zigzag ${isEven ? 'left' : 'right'}`}
+            >
+              <div 
+                className="education-entry-card-zigzag-content"
+                dangerouslySetInnerHTML={{ __html: entryHtml }}
+              />
             </div>
-          </div>
-        ))}
+          );
+        })}
+      </div>
+    );
+  };
+
+  // Render experience timeline with zigzag layout
+  const renderExperienceTimeline = (html) => {
+    // Parse the HTML to extract individual experience entries
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = html;
+    
+    // Select all the experience entry cards
+    const entries = Array.from(tempDiv.querySelectorAll('.experience-entry-card'));
+    
+    return (
+      <div className="experience-zigzag-container">
+        {entries.map((entry, index) => {
+          const isEven = index % 2 === 0;
+          const entryHtml = entry.outerHTML;
+          
+          return (
+            <div 
+              key={index} 
+              className={`experience-card-zigzag ${isEven ? 'left' : 'right'}`}
+            >
+              <div 
+                className="experience-entry-card-zigzag-content"
+                dangerouslySetInnerHTML={{ __html: entryHtml }}
+              />
+            </div>
+          );
+        })}
       </div>
     );
   };
@@ -983,28 +1051,7 @@ const App = React.memo(() => {
             <div className="education-timeline-container">
               <div className="timeline-line"></div>
               <div className="timeline-entries">
-                {(() => {
-                  // Split the HTML content by institution
-                  const htmlContent = slides[3].html;
-                  
-                  // Split by the second institution to separate the entries
-                  const institutionSeparator = '<p><strong>STMIK AMIK Bandung</strong>';
-                  const parts = htmlContent.split(institutionSeparator);
-                  
-                  const firstInstitutionHtml = parts[0];
-                  const secondInstitutionHtml = institutionSeparator + parts[1];
-                  
-                  return [
-                    <div key="institution1" className="timeline-entry">
-                      <div className="timeline-dot"></div>
-                      <div className="timeline-content" dangerouslySetInnerHTML={{ __html: firstInstitutionHtml }} />
-                    </div>,
-                    <div key="institution2" className="timeline-entry">
-                      <div className="timeline-dot"></div>
-                      <div className="timeline-content" dangerouslySetInnerHTML={{ __html: secondInstitutionHtml }} />
-                    </div>
-                  ];
-                })()}
+                {renderEducationTimeline(slides[3].html)}
               </div>
             </div>
           </motion.div>
