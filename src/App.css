@@ -3933,3 +3933,25 @@ html {
     height: 80px;
   }
 }
+
+/* Cyber Mode Activation Message */
+.cyber-activation-msg {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--accent-1);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  opacity: 0;
+  animation: cyberAppear 2.5s ease-in-out;
+  z-index: 9999;
+  text-shadow: 0 0 8px var(--accent-1);
+}
+
+@keyframes cyberAppear {
+  0% { opacity: 0; filter: blur(6px); transform: translate(-50%, -50%) scale(0.95); }
+  20%, 80% { opacity: 1; filter: blur(0); transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; filter: blur(4px); transform: translate(-50%, -50%) scale(1.05); }
+}
