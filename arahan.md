@@ -1,81 +1,105 @@
 ai coder edit src/App.jsx --prompt "
 Tujuan:
-Tambahkan fitur navigasi halus (smooth scroll) dan highlight otomatis pada link navbar sesuai section yang sedang terlihat di layar. Efek ini meningkatkan UX dan memberi kesan sistem aktif seperti antarmuka cyber.
+Tambahkan intro cinematic berbentuk terminal loader yang tampil selama beberapa detik sebelum halaman utama portofolio muncul. Efek ini menampilkan teks booting sistem seperti:
+> Booting portfolio system...
+> Loading assets... [██████████] 100%
+> Access granted.
+> Welcome, Operator.
 
 Instruksi Detail:
 
-1. Aktifkan scroll halus global dengan CSS:
-   Tambahkan di App.css atau style global:
-   html {
-     scroll-behavior: smooth;
-   }
+1. Buat state loading di komponen utama (App.jsx):
+   const [loading, setLoading] = useState(true);
+   useEffect(() => {
+     const timer = setTimeout(() => setLoading(false), 4000);
+     return () => clearTimeout(timer);
+   }, []);
 
-2. Di App.jsx (atau komponen navbar utama):
-   - Pastikan setiap link navigasi menuju section menggunakan href dengan id section, contoh:
-     <a href='#about' className='nav-link'>About</a>
-     <a href='#projects' className='nav-link'>Projects</a>
-     <a href='#contact' className='nav-link'>Contact</a>
+2. Tampilkan komponen loader selama loading = true, lalu render konten utama setelah selesai:
+   return loading ? <CyberLoader /> : (konten utama);
 
-   - Tambahkan useEffect baru untuk IntersectionObserver:
-     useEffect(() => {
-       const sections = document.querySelectorAll('section[id]');
-       const navLinks = document.querySelectorAll('.nav-link');
+3. Buat komponen baru langsung di App.jsx (bisa di dalam file yang sama) bernama CyberLoader:
+   const CyberLoader = () => {
+     const lines = [
+       '> Booting portfolio system...',
+       '> Loading assets... [██████████] 100%',
+       '> Access granted.',
+       '> Welcome, Operator.'
+     ];
+     return (
+       <div className='cyber-loader'>
+         {lines.map((text, i) => (
+           <p key={i} style={{ animationDelay: \`\${i * 0.8}s\` }} className='cyber-line'>
+             {text}
+           </p>
+         ))}
+       </div>
+     );
+   };
 
-       const observer = new IntersectionObserver(
-         (entries) => {
-           entries.forEach((entry) => {
-             if (entry.isIntersecting) {
-               navLinks.forEach((link) => link.classList.remove('active'));
-               const activeLink = document.querySelector(
-                 \`a[href='#\${entry.target.id}']\`
-               );
-               activeLink?.classList.add('active');
-             }
-           });
-         },
-         { threshold: 0.5 }
-       );
-
-       sections.forEach((section) => observer.observe(section));
-       return () => observer.disconnect();
-     }, []);
-
-3. Tambahkan CSS untuk efek highlight di App.css:
-   .nav-link {
-     position: relative;
-     color: var(--text);
-     text-decoration: none;
-     transition: color 0.3s ease;
-   }
-
-   .nav-link.active {
+4. Tambahkan style CSS di App.css:
+   .cyber-loader {
+     position: fixed;
+     inset: 0;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: flex-start;
+     background: #000;
      color: var(--accent-1);
-     text-shadow: 0 0 8px var(--accent-1);
+     font-family: 'Share Tech Mono', monospace;
+     padding-left: 2rem;
+     overflow: hidden;
+     z-index: 9999;
    }
 
-   .nav-link.active::after {
-     content: '';
-     position: absolute;
-     bottom: -4px;
-     left: 0;
-     width: 100%;
-     height: 2px;
-     background: var(--accent-1);
-     border-radius: 2px;
-     animation: glowBar 1.2s ease-in-out infinite alternate;
+   .cyber-line {
+     opacity: 0;
+     white-space: pre;
+     font-size: 1rem;
+     animation: typeIn 0.6s steps(20) forwards;
    }
 
-   @keyframes glowBar {
-     0% { box-shadow: 0 0 4px var(--accent-1); opacity: 0.7; }
-     100% { box-shadow: 0 0 10px var(--accent-1); opacity: 1; }
+   @keyframes typeIn {
+     0% { opacity: 0; width: 0; }
+     10% { opacity: 1; }
+     100% { opacity: 1; width: 100%; }
    }
 
-4. Pastikan threshold di IntersectionObserver (0.5) menandakan 50% bagian section sudah terlihat di layar, baru dianggap aktif.
-   - Nilai ini bisa diubah untuk menyesuaikan sensitivitas highlight.
+5. Tambahkan efek flicker terminal sebelum loader hilang:
+   .cyber-loader::after {
+     content: '_';
+     display: inline-block;
+     margin-left: 4px;
+     animation: blink 0.8s infinite;
+   }
+
+   @keyframes blink {
+     0%, 50% { opacity: 1; }
+     51%, 100% { opacity: 0; }
+   }
+
+6. Pastikan transisi halus dari loader ke konten utama:
+   - Tambahkan efek fade-out di akhir sebelum loader dihapus.
+   Tambahkan di useEffect:
+   setTimeout(() => {
+     document.querySelector('.cyber-loader')?.classList.add('fade-out');
+   }, 3500);
+
+   Di CSS:
+   .fade-out {
+     animation: fadeOut 0.6s ease-in-out forwards;
+   }
+
+   @keyframes fadeOut {
+     to { opacity: 0; }
+   }
+
+7. Jangan ubah tema, warna, atau struktur halaman utama.
 
 Output:
-- Website memiliki efek smooth scroll bawaan (tanpa JS tambahan).
-- Saat user scroll halaman, navbar otomatis menyorot (highlight) link section yang sedang aktif di viewport.
-- Warna highlight mengikuti var(--accent-1) dan tampil dengan efek neon glow lembut.
-- Tidak mengganggu animasi atau layout lain.
+- Saat website dibuka, muncul layar terminal gelap dengan teks booting bertahap.
+- Setelah 4 detik, loader fade-out dan menampilkan halaman utama.
+- Warna teks mengikuti var(--accent-1).
+- Efek sangat ringan dan cinematic.
 "
