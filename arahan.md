@@ -1,41 +1,38 @@
-ai coder edit src/App.css --prompt "
+ai coder edit index.html --prompt "
 Tujuan:
-Tingkatkan tampilan visual dengan dua perbaikan:
-1. Tambahkan efek hover glow halus pada ikon Eye (lucide-react) di overlay project card.
-2. Perhalus animasi bola-bola neon (glowing dots) agar memiliki efek parallax lembut dan depth visual yang menarik, tanpa mengganggu performa.
+Tambahkan metadata SEO dan Open Graph (OG) lengkap agar website portofolio tampil optimal di mesin pencari dan saat dibagikan (Discord, LinkedIn, WhatsApp, Telegram, dll).
 
 Instruksi Spesifik:
+1. Tambahkan metadata berikut di dalam <head> file index.html, tanpa mengubah struktur atau script Vite:
+   - <meta name='title' content='Hanif A.N. — Cyber Security & Web Developer Portfolio' />
+   - <meta name='description' content='Portfolio resmi Hanif A.N., mahasiswa Teknik Informatika dengan fokus Cyber Security dan Ethical Hacking. Menampilkan proyek fullstack, pengalaman profesional, dan sertifikasi.' />
+   - <meta name='keywords' content='Hanif A.N, Cyber Security, Ethical Hacking, Web Developer, React, Vite, Portfolio, JavaScript, Network Engineer' />
+   - <meta name='author' content='Hanif A.N.' />
+   - <meta name='robots' content='index, follow' />
+   - <link rel='canonical' href='https://h4nzs.github.io/portofolio/' />
 
-1. Efek Hover Glow pada Icon Eye:
-   - Target elemen: .project-overlay svg (ikon Eye)
-   - Tambahkan properti berikut:
-     transition: transform 0.3s ease, filter 0.4s ease;
-   - Saat hover di .project-overlay:
-     transform: scale(1.1);
-     filter: drop-shadow(0 0 6px var(--accent-1));
-   - Efek ini hanya aktif saat hover pada area overlay project.
+2. Tambahkan metadata Open Graph (OG) untuk preview card:
+   - <meta property='og:type' content='website' />
+   - <meta property='og:url' content='https://h4nzs.github.io/portofolio/' />
+   - <meta property='og:title' content='Hanif A.N. — Cyber Security & Web Developer Portfolio' />
+   - <meta property='og:description' content='Eksplor portofolio Hanif A.N., menampilkan karya fullstack dan pengalaman dalam dunia cyber security.' />
+   - <meta property='og:image' content='https://h4nzs.github.io/portofolio/preview.png' />
 
-2. Efek Parallax Floating pada Bola Neon:
-   - Target elemen: .floating-dot, .floating-dot-bg, atau elemen bola neon lain yang digunakan.
-   - Tambahkan animasi keyframes baru:
-     @keyframes parallaxFloat {
-       0% { transform: translateY(0) translateX(0); opacity: 0.9; }
-       50% { transform: translateY(-12px) translateX(6px); opacity: 1; }
-       100% { transform: translateY(0) translateX(0); opacity: 0.9; }
-     }
-   - Terapkan animasi ini pada bola neon dengan variasi acak menggunakan variabel custom CSS:
-     animation: parallaxFloat 10s ease-in-out infinite;
-     animation-delay: calc(var(--i) * -1s);
-   - Gunakan beberapa bola dengan properti --i berbeda untuk menghasilkan gerakan dinamis alami.
-   - Pastikan posisi bola di belakang teks (z-index: -1) dan tidak memengaruhi interaksi (pointer-events: none).
+3. Tambahkan metadata Twitter Card (agar tampil bagus di Twitter / X):
+   - <meta name='twitter:card' content='summary_large_image' />
+   - <meta name='twitter:title' content='Hanif A.N. — Cyber Security & Web Developer Portfolio' />
+   - <meta name='twitter:description' content='Eksplor karya dan pengalaman profesional Hanif A.N. dalam pengembangan web dan keamanan siber.' />
+   - <meta name='twitter:image' content='https://h4nzs.github.io/portofolio/preview.png' />
 
-3. Pastikan:
-   - Tidak ada perubahan warna tema (gunakan var(--accent-1) dan var(--accent-2)).
-   - Tidak menambah jumlah elemen bola berlebihan (maks. 8–10 per section).
-   - Animasi ringan dan halus di GitHub Pages.
+4. Tambahkan favicon jika belum ada:
+   - <link rel='icon' type='image/png' href='/favicon.png' />
+
+5. Pastikan tidak menghapus tag <meta charset> dan <meta viewport> yang sudah ada.
+
+6. Pastikan semua link (canonical, OG image) menggunakan domain GitHub Pages: https://h4nzs.github.io/portofolio/
 
 Output yang diharapkan:
-- Ikon Eye di overlay project card menampilkan efek glow lembut saat hover.
-- Bola-bola neon bergerak lembut dengan variasi arah seperti efek parallax, menciptakan depth realistis.
-- Tidak ada perubahan layout, warna, atau performa keseluruhan.
+- File index.html memiliki metadata SEO lengkap (title, description, keywords, canonical).
+- Preview link (Discord, LinkedIn, Twitter, dll) menampilkan judul, deskripsi, dan gambar.
+- Struktur HTML tidak rusak dan kompatibel dengan build Vite.
 "
