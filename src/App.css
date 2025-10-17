@@ -3934,24 +3934,52 @@ html {
   }
 }
 
-/* Cyber Mode Activation Message */
-.cyber-activation-msg {
+/* Cyber Cinematic Overlay */
+.cyber-overlay {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: var(--accent-1);
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 1.5rem;
-  letter-spacing: 2px;
-  opacity: 0;
-  animation: cyberAppear 2.5s ease-in-out;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px);
   z-index: 9999;
-  text-shadow: 0 0 8px var(--accent-1);
+  animation: overlayFade 4.5s ease-in-out forwards;
+  font-family: 'Share Tech Mono', monospace;
+  color: var(--accent-1);
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
-@keyframes cyberAppear {
-  0% { opacity: 0; filter: blur(6px); transform: translate(-50%, -50%) scale(0.95); }
-  20%, 80% { opacity: 1; filter: blur(0); transform: translate(-50%, -50%) scale(1); }
-  100% { opacity: 0; filter: blur(4px); transform: translate(-50%, -50%) scale(1.05); }
+.cyber-text {
+  opacity: 0;
+  font-size: 1.4rem;
+  text-shadow: 0 0 10px var(--accent-1);
+  animation: textFade 0.8s ease forwards;
+}
+
+.cyber-text:nth-child(1) { 
+  animation-delay: 0.4s; 
+}
+
+.cyber-text:nth-child(2) { 
+  animation-delay: 1.4s; 
+}
+
+.cyber-text:nth-child(3) { 
+  animation-delay: 2.6s; 
+}
+
+@keyframes textFade {
+  0% { opacity: 0; transform: translateY(10px); }
+  50% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0.9; }
+}
+
+@keyframes overlayFade {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
 }
