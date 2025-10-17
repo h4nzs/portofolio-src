@@ -451,6 +451,79 @@ const App = React.memo(() => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
+  
+  // Cyber mode easter egg
+  useEffect(() => {
+    let timeoutId = null;
+    
+    const showCyberMessage = () => {
+      // Remove any existing cyber activation messages
+      const existingMsg = document.querySelector('.cyber-activation-msg');
+      if (existingMsg) {
+        existingMsg.remove();
+      }
+      
+      // Create the cyber activation message
+      const cyberMsg = document.createElement('div');
+      cyberMsg.className = 'cyber-activation-msg';
+      cyberMsg.textContent = '🧠 CYBER MODE ACTIVATED!';
+      
+      // Add the message to the body
+      document.body.appendChild(cyberMsg);
+      
+      // Clear any existing timeout
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      
+      // Set timeout to remove the message after animation completes
+      timeoutId = setTimeout(() => {
+        if (cyberMsg.parentNode) {
+          cyberMsg.remove();
+        }
+      }, 2500);
+    };
+    
+    // Event listener for fullscreen change
+    const handleFullscreenChange = () => {
+      if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement) {
+        showCyberMessage();
+      }
+    };
+    
+    // Event listener for F11 key
+    const handleKeyDown = (e) => {
+      if (e.key === 'F11') {
+        // Delay slightly to allow fullscreen to activate
+        setTimeout(showCyberMessage, 100);
+      }
+    };
+    
+    // Add event listeners
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+    window.addEventListener('keydown', handleKeyDown);
+    
+    // Cleanup function
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('mozfullscreenchange', handleFullscreenChange);
+      window.removeEventListener('keydown', handleKeyDown);
+      
+      // Clear timeout if component unmounts
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      
+      // Remove any existing cyber activation message
+      const existingMsg = document.querySelector('.cyber-activation-msg');
+      if (existingMsg) {
+        existingMsg.remove();
+      }
+    };
+  }, []);
 
   // render helpers
   const renderSkillsSection = (skills) => {

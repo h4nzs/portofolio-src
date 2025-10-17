@@ -3172,6 +3172,12 @@ html {
 .overlay-icon {
   font-size: 20px;
   color: white;
+  transition: transform 0.3s ease, filter 0.4s ease;
+}
+
+.image-overlay:hover .overlay-icon {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 6px var(--accent-1));
 }
 
 /* Show overlay on card hover */
@@ -3557,8 +3563,9 @@ html {
   background: var(--accent-1);
   box-shadow: 0 0 8px var(--accent-1), 0 0 16px rgba(102, 204, 255, 0.3);
   z-index: 0;
-  animation: pulseGlow 6s infinite ease-in-out;
+  animation: parallaxFloat 10s ease-in-out infinite;
   pointer-events: none;
+  opacity: 0.9;
 }
 
 .education-entry-card::before {
@@ -3566,6 +3573,8 @@ html {
   height: 14px;
   top: -5px;
   left: -5px;
+  --i: 0;
+  animation-delay: calc(var(--i) * -1s);
 }
 
 .education-entry-card::after {
@@ -3573,7 +3582,8 @@ html {
   height: 10px;
   bottom: -5px;
   right: -5px;
-  animation-delay: 1s;
+  --i: 0.5;
+  animation-delay: calc(var(--i) * -1s);
 }
 
 .experience-entry-card {
@@ -3589,8 +3599,9 @@ html {
   background: var(--accent-1);
   box-shadow: 0 0 8px var(--accent-1), 0 0 16px rgba(102, 204, 255, 0.3);
   z-index: 0;
-  animation: pulseGlow 7s infinite ease-in-out;
+  animation: parallaxFloat 11s ease-in-out infinite;
   pointer-events: none;
+  opacity: 0.9;
 }
 
 .experience-entry-card::before {
@@ -3598,6 +3609,8 @@ html {
   height: 14px;
   top: -5px;
   left: -5px;
+  --i: 0.2;
+  animation-delay: calc(var(--i) * -1s);
 }
 
 .experience-entry-card::after {
@@ -3605,7 +3618,8 @@ html {
   height: 10px;
   bottom: -5px;
   right: -5px;
-  animation-delay: 1.5s;
+  --i: 0.7;
+  animation-delay: calc(var(--i) * -1s);
 }
 
 .project-card-zigzag {
@@ -3621,8 +3635,9 @@ html {
   background: var(--accent-1);
   box-shadow: 0 0 8px var(--accent-1), 0 0 16px rgba(102, 204, 255, 0.3);
   z-index: 0;
-  animation: pulseGlow 8s infinite ease-in-out;
+  animation: parallaxFloat 12s ease-in-out infinite;
   pointer-events: none;
+  opacity: 0.9;
 }
 
 .project-card-zigzag::before {
@@ -3630,6 +3645,8 @@ html {
   height: 12px;
   top: -5px;
   left: -5px;
+  --i: 0.4;
+  animation-delay: calc(var(--i) * -1s);
 }
 
 .project-card-zigzag::after {
@@ -3637,7 +3654,8 @@ html {
   height: 12px;
   bottom: -5px;
   right: -5px;
-  animation-delay: 2s;
+  --i: 0.8;
+  animation-delay: calc(var(--i) * -1s);
 }
 
 /* Background floating dots for sections */
@@ -3660,7 +3678,7 @@ html {
   background: var(--accent-1);
   box-shadow: 0 0 10px var(--accent-1), 0 0 20px rgba(102, 204, 255, 0.4);
   z-index: 0;
-  animation: floatGlow 12s infinite ease-in-out;
+  animation: parallaxFloat 14s ease-in-out infinite;
   pointer-events: none;
   opacity: 0.6;
 }
@@ -3670,7 +3688,8 @@ html {
   height: 10px;
   top: 20%;
   left: 15%;
-  animation-delay: 0.5s;
+  --i: 0.5;
+  animation-delay: calc(var(--i) * -1s);
 }
 
 .slide-education::after {
@@ -3678,7 +3697,8 @@ html {
   height: 8px;
   bottom: 30%;
   right: 20%;
-  animation-delay: 3s;
+  --i: 3;
+  animation-delay: calc(var(--i) * -1s);
 }
 
 .slide-experience::before {
@@ -3686,7 +3706,8 @@ html {
   height: 12px;
   top: 35%;
   left: 25%;
-  animation-delay: 1.2s;
+  --i: 1.2;
+  animation-delay: calc(var(--i) * -1s);
 }
 
 .slide-experience::after {
@@ -3694,7 +3715,8 @@ html {
   height: 15px;
   bottom: 15%;
   right: 10%;
-  animation-delay: 4s;
+  --i: 4;
+  animation-delay: calc(var(--i) * -1s);
 }
 
 /* Add more background dots for experience section using nested pseudo-elements */
@@ -3710,14 +3732,15 @@ html {
   background: var(--accent-2);
   box-shadow: 0 0 10px var(--accent-2), 0 0 20px rgba(204, 102, 255, 0.4);
   z-index: 0;
-  animation: floatGlow 13s infinite ease-in-out;
+  animation: parallaxFloat 15s ease-in-out infinite;
   pointer-events: none;
   width: 10px;
   height: 10px;
   top: 70%;
   right: 25%;
   opacity: 0.55;
-  animation-delay: 8s;
+  --i: 8;
+  animation-delay: calc(var(--i) * -1s);
 }
 
 .slide-projects::before {
@@ -3789,6 +3812,12 @@ html {
   75% {
     transform: translate(0, -5px);
   }
+}
+
+@keyframes parallaxFloat {
+  0% { transform: translateY(0) translateX(0); opacity: 0.9; }
+  50% { transform: translateY(-12px) translateX(6px); opacity: 1; }
+  100% { transform: translateY(0) translateX(0); opacity: 0.9; }
 }
 
 /* Adjust for light theme */
@@ -3903,4 +3932,26 @@ html {
     width: 80px;
     height: 80px;
   }
+}
+
+/* Cyber Mode Activation Message */
+.cyber-activation-msg {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--accent-1);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  opacity: 0;
+  animation: cyberAppear 2.5s ease-in-out;
+  z-index: 9999;
+  text-shadow: 0 0 8px var(--accent-1);
+}
+
+@keyframes cyberAppear {
+  0% { opacity: 0; filter: blur(6px); transform: translate(-50%, -50%) scale(0.95); }
+  20%, 80% { opacity: 1; filter: blur(0); transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; filter: blur(4px); transform: translate(-50%, -50%) scale(1.05); }
 }
