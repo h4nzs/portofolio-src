@@ -3543,6 +3543,302 @@ html {
     0 0 20px rgba(0, 179, 255, 0.1);
 }
 
+/* Floating neon dots in card backgrounds */
+.education-entry-card {
+  position: relative;
+  overflow: visible;
+}
+
+.education-entry-card::before,
+.education-entry-card::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: var(--accent-1);
+  box-shadow: 0 0 8px var(--accent-1), 0 0 16px rgba(102, 204, 255, 0.3);
+  z-index: 0;
+  animation: pulseGlow 6s infinite ease-in-out;
+  pointer-events: none;
+}
+
+.education-entry-card::before {
+  width: 14px;
+  height: 14px;
+  top: -5px;
+  left: -5px;
+}
+
+.education-entry-card::after {
+  width: 10px;
+  height: 10px;
+  bottom: -5px;
+  right: -5px;
+  animation-delay: 1s;
+}
+
+.experience-entry-card {
+  position: relative;
+  overflow: visible;
+}
+
+.experience-entry-card::before,
+.experience-entry-card::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: var(--accent-1);
+  box-shadow: 0 0 8px var(--accent-1), 0 0 16px rgba(102, 204, 255, 0.3);
+  z-index: 0;
+  animation: pulseGlow 7s infinite ease-in-out;
+  pointer-events: none;
+}
+
+.experience-entry-card::before {
+  width: 14px;
+  height: 14px;
+  top: -5px;
+  left: -5px;
+}
+
+.experience-entry-card::after {
+  width: 10px;
+  height: 10px;
+  bottom: -5px;
+  right: -5px;
+  animation-delay: 1.5s;
+}
+
+.project-card-zigzag {
+  position: relative;
+  overflow: visible;
+}
+
+.project-card-zigzag::before,
+.project-card-zigzag::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: var(--accent-1);
+  box-shadow: 0 0 8px var(--accent-1), 0 0 16px rgba(102, 204, 255, 0.3);
+  z-index: 0;
+  animation: pulseGlow 8s infinite ease-in-out;
+  pointer-events: none;
+}
+
+.project-card-zigzag::before {
+  width: 12px;
+  height: 12px;
+  top: -5px;
+  left: -5px;
+}
+
+.project-card-zigzag::after {
+  width: 12px;
+  height: 12px;
+  bottom: -5px;
+  right: -5px;
+  animation-delay: 2s;
+}
+
+/* Background floating dots for sections */
+.slide-education,
+.slide-experience,
+.slide-projects {
+  position: relative;
+  overflow: visible;
+}
+
+.slide-education::before,
+.slide-education::after,
+.slide-experience::before,
+.slide-experience::after,
+.slide-projects::before,
+.slide-projects::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: var(--accent-1);
+  box-shadow: 0 0 10px var(--accent-1), 0 0 20px rgba(102, 204, 255, 0.4);
+  z-index: 0;
+  animation: floatGlow 12s infinite ease-in-out;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.slide-education::before {
+  width: 10px;
+  height: 10px;
+  top: 20%;
+  left: 15%;
+  animation-delay: 0.5s;
+}
+
+.slide-education::after {
+  width: 8px;
+  height: 8px;
+  bottom: 30%;
+  right: 20%;
+  animation-delay: 3s;
+}
+
+.slide-experience::before {
+  width: 12px;
+  height: 12px;
+  top: 35%;
+  left: 25%;
+  animation-delay: 1.2s;
+}
+
+.slide-experience::after {
+  width: 15px;
+  height: 15px;
+  bottom: 15%;
+  right: 10%;
+  animation-delay: 4s;
+}
+
+/* Add more background dots for experience section using nested pseudo-elements */
+.slide-experience {
+  position: relative;
+}
+
+/* Additional experience section dot */
+.slide-experience > .slide-content::before {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: var(--accent-2);
+  box-shadow: 0 0 10px var(--accent-2), 0 0 20px rgba(204, 102, 255, 0.4);
+  z-index: 0;
+  animation: floatGlow 13s infinite ease-in-out;
+  pointer-events: none;
+  width: 10px;
+  height: 10px;
+  top: 70%;
+  right: 25%;
+  opacity: 0.55;
+  animation-delay: 8s;
+}
+
+.slide-projects::before {
+  width: 10px;
+  height: 10px;
+  top: 40%;
+  right: 30%;
+  animation-delay: 2s;
+}
+
+.slide-projects::after {
+  width: 14px;
+  height: 14px;
+  bottom: 25%;
+  left: 10%;
+  animation-delay: 5s;
+}
+
+/* Additional floating dots in sections */
+.slide-education,
+.slide-experience,
+.slide-projects {
+  position: relative;
+}
+
+/* Add accent-2 dots for variation */
+.slide-education::before,
+.slide-experience::before,
+.slide-projects::before {
+  background: var(--accent-2);
+  box-shadow: 0 0 10px var(--accent-2), 0 0 20px rgba(204, 102, 255, 0.4);
+}
+
+/* Card content should stay on top */
+.education-entry-card > *,
+.education-entry-card .education-details,
+.experience-entry-card > *,
+.experience-entry-card .experience-details,
+.project-card-zigzag > *,
+.project-card-zigzag .card-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Neon dot animations */
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.6;
+    box-shadow: 0 0 6px var(--accent-1), 0 0 12px rgba(102, 204, 255, 0.3);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 12px var(--accent-1), 0 0 24px rgba(102, 204, 255, 0.6);
+  }
+}
+
+@keyframes floatGlow {
+  0%, 100% {
+    transform: translate(0, 0);
+    opacity: 0.5;
+  }
+  25% {
+    transform: translate(-5px, -5px);
+  }
+  50% {
+    transform: translate(5px, 5px);
+    opacity: 0.7;
+  }
+  75% {
+    transform: translate(0, -5px);
+  }
+}
+
+/* Adjust for light theme */
+.app-root.theme-light .education-entry-card::before,
+.app-root.theme-light .education-entry-card::after,
+.app-root.theme-light .experience-entry-card::before,
+.app-root.theme-light .experience-entry-card::after,
+.app-root.theme-light .project-card-zigzag::before,
+.app-root.theme-light .project-card-zigzag::after {
+  background: var(--accent-1-light);
+  box-shadow: 0 0 8px var(--accent-1-light), 0 0 16px rgba(91, 143, 249, 0.3);
+}
+
+.app-root.theme-light .slide-education::before,
+.app-root.theme-light .slide-experience::before,
+.app-root.theme-light .slide-projects::before {
+  background: var(--accent-2-light);
+  box-shadow: 0 0 10px var(--accent-2-light), 0 0 20px rgba(166, 91, 255, 0.4);
+}
+
+.app-root.theme-light .education-entry-card::before,
+.app-root.theme-light .education-entry-card::after,
+.app-root.theme-light .experience-entry-card::before,
+.app-root.theme-light .experience-entry-card::after,
+.app-root.theme-light .project-card-zigzag::before,
+.app-root.theme-light .project-card-zigzag::after {
+  box-shadow: 0 0 6px var(--accent-1-light), 0 0 12px rgba(91, 143, 249, 0.3);
+}
+
+.app-root.theme-light .education-entry-card::after,
+.app-root.theme-light .experience-entry-card::after,
+.app-root.theme-light .project-card-zigzag::after {
+  box-shadow: 0 0 12px var(--accent-1-light), 0 0 24px rgba(91, 143, 249, 0.6);
+}
+
+.app-root.theme-light .slide-education::before,
+.app-root.theme-light .slide-education::after,
+.app-root.theme-light .slide-experience::before,
+.app-root.theme-light .slide-experience::after,
+.app-root.theme-light .slide-projects::before,
+.app-root.theme-light .slide-projects::after {
+  box-shadow: 0 0 10px var(--accent-1-light), 0 0 20px rgba(91, 143, 249, 0.4);
+}
+
+.app-root.theme-light .slide-education::before,
+.app-root.theme-light .slide-experience::before,
+.app-root.theme-light .slide-projects::before {
+  box-shadow: 0 0 10px var(--accent-2-light), 0 0 20px rgba(166, 91, 255, 0.4);
+}
+
 /* Hide the old timeline line when using zigzag layout */
 .slide-education .timeline-line,
 .slide-experience .experience-timeline-line {
@@ -3576,6 +3872,8 @@ html {
     max-width: 120px;
     height: auto;
   }
+  
+
 }
 
 @media (max-width: 768px) {

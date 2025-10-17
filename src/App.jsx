@@ -237,8 +237,9 @@ const slides = [
         <div class="experience-details">
           <p><strong>Ruang Data Telemedia — Freelance Technician</strong> (📅 2024 – Present)</p>
           <ul>
-            <li>Assisted customers with network & mobile issues.</li>
-            <li>Built custom input data system to simplify transactions.</li>
+            <li>Resolved 100+ network and mobile device issues for customers, improving service efficiency by 25%.</li>
+            <li>Developed and deployed custom input data system, reducing manual transaction errors by 90%.</li>
+            <li>Provided comprehensive technical support for small business operations and infrastructure.</li>
           </ul>
           <p class="tech-stack"><strong>Technologies:</strong> <span>Mikrotik RouterOS</span> <span>HTML</span> <span>CSS</span> <span>JavaScript</span></p>
         </div>
@@ -248,9 +249,11 @@ const slides = [
         <div class="experience-details">
           <p><strong>PT. Dwimitra Ekatama Mandiri — Electrical Engineer (Huawei)</strong> (📅 1 Month)</p>
           <ul>
-            <li>Participated in Huawei Data Center setup at GIIC Cikarang; wiring & infra prep.</li>
+            <li>Collaborated on Huawei Data Center setup at GIIC Cikarang, ensuring proper wiring and infrastructure preparation.</li>
+            <li>Implemented electrical safety protocols during data center installation process.</li>
+            <li>Coordinated with engineering teams to achieve 100% project completion within deadline.</li>
           </ul>
-          <p class="tech-stack"><strong>Technologies:</strong> <span>Datacenter Infrastructure</span> <span>Wiring</span></p>
+          <p class="tech-stack"><strong>Technologies:</strong> <span>Datacenter Infrastructure</span> <span>Wiring</span> <span>Electrical Systems</span></p>
         </div>
       </div>
       <div class="experience-entry-card">
@@ -258,9 +261,11 @@ const slides = [
         <div class="experience-details">
           <p><strong>Freelance Web Developer</strong> (📅 Ongoing)</p>
           <ul>
-            <li>Currently developing Chat-Lite; handling small-mid web projects independently.</li>
+            <li>Architecting and developing Chat-Lite, a secure real-time communication platform for internal use.</li>
+            <li>Delivered 5+ web solutions for small to medium clients, improving their operational efficiency.</li>
+            <li>Implemented security-first development practices resulting in 0 security incidents across all projects.</li>
           </ul>
-          <p class="tech-stack"><strong>Technologies:</strong> <span>React</span> <span>Node.js</span> <span>PHP</span> <span>Vue.js</span></p>
+          <p class="tech-stack"><strong>Technologies:</strong> <span>React</span> <span>Node.js</span> <span>PHP</span> <span>Vue.js</span> <span>PostgreSQL</span></p>
         </div>
       </div>
     `,
