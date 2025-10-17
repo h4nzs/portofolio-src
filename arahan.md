@@ -1,45 +1,67 @@
 ai coder edit src/App.jsx --prompt "
 Tujuan:
-Tambahkan interaksi visual (easter egg) yang menampilkan pesan animatif seperti '🧠 Cyber Mode Activated!' setiap kali pengguna mengaktifkan fullscreen (misalnya dengan menekan tombol F11 atau melalui API requestFullscreen).
+Tambahkan easter egg cinematic yang muncul setiap kali pengguna masuk ke mode fullscreen (menekan F11 atau melalui requestFullscreen API). Saat diaktifkan, tampilkan tiga teks bergaya terminal:
+1. ACCESS GRANTED 🔓
+2. INITIALIZING CYBER CORE...
+3. WELCOME, OPERATOR.
 
-Instruksi Spesifik:
-1. Tambahkan event listener di React (gunakan useEffect) yang memantau event:
-   - 'fullscreenchange' untuk mendeteksi perubahan mode layar penuh.
-   - Deteksi juga keydown 'F11' sebagai cadangan jika browser tidak memicu fullscreenchange secara langsung.
+Instruksi Detail:
+1. Di dalam useEffect utama App.jsx, tambahkan event listener untuk event 'fullscreenchange' dan keydown 'F11'.
+2. Saat fullscreen diaktifkan, jalankan fungsi showCyberSequence() yang:
+   - Membuat overlay penuh layar (div dengan class 'cyber-overlay').
+   - Di dalamnya, tampilkan teks satu per satu dengan efek typing atau fade sequential.
+   - Setelah semua teks selesai muncul (total ±4 detik), overlay otomatis fade out dan dihapus dari DOM.
 
-2. Saat mode fullscreen aktif:
-   - Buat elemen div baru dengan class 'cyber-activation-msg' berisi teks:
-     '🧠 CYBER MODE ACTIVATED!'
-   - Tambahkan elemen tersebut ke dalam body.
-   - Beri animasi glow halus dan efek fade-out otomatis setelah ±2.5 detik, lalu hapus elemen dari DOM.
+3. Gunakan CSS animation untuk efek cinematic:
+   - Ketika overlay muncul, beri background semi-transparan hitam (#000000c0).
+   - Teks tampil dengan efek typing/fade (1 per 1).
+   - Akhiri dengan efek glow neon biru sesuai var(--accent-1).
 
-3. Tambahkan CSS berikut di App.css (atau style global):
-   .cyber-activation-msg {
+4. Tambahkan di App.css:
+   .cyber-overlay {
      position: fixed;
-     top: 50%;
-     left: 50%;
-     transform: translate(-50%, -50%);
-     color: var(--accent-1);
-     font-family: 'Share Tech Mono', monospace;
-     font-size: 1.5rem;
-     letter-spacing: 2px;
-     opacity: 0;
-     animation: cyberAppear 2.5s ease-in-out;
+     inset: 0;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     background: rgba(0, 0, 0, 0.85);
+     backdrop-filter: blur(4px);
      z-index: 9999;
-     text-shadow: 0 0 8px var(--accent-1);
+     animation: overlayFade 4.5s ease-in-out forwards;
+     font-family: 'Share Tech Mono', monospace;
+     color: var(--accent-1);
+     letter-spacing: 2px;
+     text-transform: uppercase;
    }
-   @keyframes cyberAppear {
-     0% { opacity: 0; filter: blur(6px); transform: translate(-50%, -50%) scale(0.95); }
-     20%, 80% { opacity: 1; filter: blur(0); transform: translate(-50%, -50%) scale(1); }
-     100% { opacity: 0; filter: blur(4px); transform: translate(-50%, -50%) scale(1.05); }
+   .cyber-text {
+     opacity: 0;
+     font-size: 1.4rem;
+     text-shadow: 0 0 10px var(--accent-1);
+     animation: textFade 0.8s ease forwards;
+   }
+   .cyber-text:nth-child(1) { animation-delay: 0.4s; }
+   .cyber-text:nth-child(2) { animation-delay: 1.4s; }
+   .cyber-text:nth-child(3) { animation-delay: 2.6s; }
+
+   @keyframes textFade {
+     0% { opacity: 0; transform: translateY(10px); }
+     50% { opacity: 1; transform: translateY(0); }
+     100% { opacity: 0.9; }
    }
 
-4. Pastikan event listener dihapus saat komponen unmount agar tidak menumpuk.
+   @keyframes overlayFade {
+     0% { opacity: 0; }
+     10% { opacity: 1; }
+     80% { opacity: 1; }
+     100% { opacity: 0; }
+   }
 
-5. Jangan ubah logika atau layout lain di App.jsx — hanya tambahkan logika easter egg ini di dalam useEffect.
+5. Jangan ganggu layout atau komponen lain, cukup tambahkan efek ini.
+6. Pastikan listener dibersihkan di cleanup useEffect.
 
-Output yang diharapkan:
-- Saat user menekan F11 atau mengaktifkan fullscreen mode, muncul pesan animatif 'CYBER MODE ACTIVATED!' di tengah layar selama ±2.5 detik.
-- Efek glow sesuai tema (var(--accent-1)).
-- Tidak mempengaruhi performa atau layout utama.
+Output:
+- Saat user menekan F11, layar masuk fullscreen dan animasi cyber cinematic muncul dengan 3 teks sekuensial.
+- Setelah selesai, overlay menghilang otomatis.
+- Warna dan font mengikuti tema (var(--accent-1)).
 "

@@ -452,42 +452,59 @@ const App = React.memo(() => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
   
-  // Cyber mode easter egg
+  // Cyber cinematic easter egg
   useEffect(() => {
     let timeoutId = null;
     
-    const showCyberMessage = () => {
-      // Remove any existing cyber activation messages
-      const existingMsg = document.querySelector('.cyber-activation-msg');
-      if (existingMsg) {
-        existingMsg.remove();
+    const showCyberSequence = () => {
+      // Remove any existing cyber overlays
+      const existingOverlay = document.querySelector('.cyber-overlay');
+      if (existingOverlay) {
+        existingOverlay.remove();
       }
       
-      // Create the cyber activation message
-      const cyberMsg = document.createElement('div');
-      cyberMsg.className = 'cyber-activation-msg';
-      cyberMsg.textContent = '🧠 CYBER MODE ACTIVATED!';
+      // Create the cyber overlay
+      const overlay = document.createElement('div');
+      overlay.className = 'cyber-overlay';
       
-      // Add the message to the body
-      document.body.appendChild(cyberMsg);
+      // Create the cyber text elements
+      const text1 = document.createElement('div');
+      text1.className = 'cyber-text';
+      text1.textContent = 'ACCESS GRANTED 🔓';
+      
+      const text2 = document.createElement('div');
+      text2.className = 'cyber-text';
+      text2.textContent = 'INITIALIZING CYBER CORE...';
+      
+      const text3 = document.createElement('div');
+      text3.className = 'cyber-text';
+      text3.textContent = 'WELCOME, OPERATOR.';
+      
+      // Add the text elements to the overlay
+      overlay.appendChild(text1);
+      overlay.appendChild(text2);
+      overlay.appendChild(text3);
+      
+      // Add the overlay to the body
+      document.body.appendChild(overlay);
       
       // Clear any existing timeout
       if (timeoutId) {
         clearTimeout(timeoutId);
       }
       
-      // Set timeout to remove the message after animation completes
+      // Set timeout to remove the overlay after animation completes
       timeoutId = setTimeout(() => {
-        if (cyberMsg.parentNode) {
-          cyberMsg.remove();
+        if (overlay.parentNode) {
+          overlay.remove();
         }
-      }, 2500);
+      }, 4500); // Match the animation duration
     };
     
     // Event listener for fullscreen change
     const handleFullscreenChange = () => {
       if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement) {
-        showCyberMessage();
+        showCyberSequence();
       }
     };
     
@@ -495,7 +512,7 @@ const App = React.memo(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'F11') {
         // Delay slightly to allow fullscreen to activate
-        setTimeout(showCyberMessage, 100);
+        setTimeout(showCyberSequence, 100);
       }
     };
     
@@ -517,10 +534,10 @@ const App = React.memo(() => {
         clearTimeout(timeoutId);
       }
       
-      // Remove any existing cyber activation message
-      const existingMsg = document.querySelector('.cyber-activation-msg');
-      if (existingMsg) {
-        existingMsg.remove();
+      // Remove any existing cyber overlay
+      const existingOverlay = document.querySelector('.cyber-overlay');
+      if (existingOverlay) {
+        existingOverlay.remove();
       }
     };
   }, []);
