@@ -54,7 +54,7 @@ const HeroSection = () => {
           const timer = setTimeout(() => {
             setLineIndex(prev => prev + 1);
             setText('');
-          }, 1500);
+          }, 700);
           return () => clearTimeout(timer);
         }
       }
@@ -105,6 +105,16 @@ const HeroSection = () => {
     return text;
   };
   
+  // Format system update date
+  const formattedDate = new Date().toLocaleString('en-US', {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+
   const heroTerminals = [
     {
       id: 'edu',
@@ -263,6 +273,9 @@ const HeroSection = () => {
           </motion.button>
         </div>
       </motion.div>
+      <small className="system-update">
+        Last system update: {formattedDate}
+      </small>
     </section>
   );
 };
