@@ -360,7 +360,15 @@ const App = React.memo(() => {
     localStorage.setItem("is3D", is3D ? "true" : "false");
   }, [is3D]);
 
-  const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
+  const toggleTheme = () => {
+    setTheme((t) => (t === "dark" ? "light" : "dark"));
+    
+    // Add theme transition class to body for the cinematic effect
+    document.body.classList.add('theme-transition');
+    setTimeout(() => {
+      document.body.classList.remove('theme-transition');
+    }, 500);
+  };
   const toggle3D = () => requestAnimationFrame(() => setIs3D((v) => !v)); // safe toggle
 
   // scroll progress
@@ -418,6 +426,30 @@ const App = React.memo(() => {
     return () => {
       document.removeEventListener('click', handleCertButtonClick);
     };
+  }, []);
+
+  // navigation highlight
+  useEffect(() => {
+    const sections = document.querySelectorAll('.slide[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            navLinks.forEach((link) => link.classList.remove('active'));
+            const activeLink = document.querySelector(
+              `a[href='#${entry.target.id}']`
+            );
+            activeLink?.classList.add('active');
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
 
   // keyboard navigation
@@ -928,9 +960,17 @@ const App = React.memo(() => {
         <div className="nav-right">
           <div className="nav-links">
             {slides.map((s) => (
-              <button key={s.id} onClick={() => document.getElementById(`slide-${s.id}`)?.scrollIntoView({ behavior: "smooth" })} className="nav-btn">
+              <a 
+                key={s.id} 
+                href={`#slide-${s.id}`}
+                className="nav-link"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById(`slide-${s.id}`)?.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
                 {s.title}
-              </button>
+              </a>
             ))}
           </div>
 

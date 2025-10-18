@@ -1,67 +1,105 @@
 ai coder edit src/App.jsx --prompt "
 Tujuan:
-Tambahkan easter egg cinematic yang muncul setiap kali pengguna masuk ke mode fullscreen (menekan F11 atau melalui requestFullscreen API). Saat diaktifkan, tampilkan tiga teks bergaya terminal:
-1. ACCESS GRANTED 🔓
-2. INITIALIZING CYBER CORE...
-3. WELCOME, OPERATOR.
+Tambahkan intro cinematic berbentuk terminal loader yang tampil selama beberapa detik sebelum halaman utama portofolio muncul. Efek ini menampilkan teks booting sistem seperti:
+> Booting portfolio system...
+> Loading assets... [██████████] 100%
+> Access granted.
+> Welcome, Operator.
 
 Instruksi Detail:
-1. Di dalam useEffect utama App.jsx, tambahkan event listener untuk event 'fullscreenchange' dan keydown 'F11'.
-2. Saat fullscreen diaktifkan, jalankan fungsi showCyberSequence() yang:
-   - Membuat overlay penuh layar (div dengan class 'cyber-overlay').
-   - Di dalamnya, tampilkan teks satu per satu dengan efek typing atau fade sequential.
-   - Setelah semua teks selesai muncul (total ±4 detik), overlay otomatis fade out dan dihapus dari DOM.
 
-3. Gunakan CSS animation untuk efek cinematic:
-   - Ketika overlay muncul, beri background semi-transparan hitam (#000000c0).
-   - Teks tampil dengan efek typing/fade (1 per 1).
-   - Akhiri dengan efek glow neon biru sesuai var(--accent-1).
+1. Buat state loading di komponen utama (App.jsx):
+   const [loading, setLoading] = useState(true);
+   useEffect(() => {
+     const timer = setTimeout(() => setLoading(false), 4000);
+     return () => clearTimeout(timer);
+   }, []);
 
-4. Tambahkan di App.css:
-   .cyber-overlay {
+2. Tampilkan komponen loader selama loading = true, lalu render konten utama setelah selesai:
+   return loading ? <CyberLoader /> : (konten utama);
+
+3. Buat komponen baru langsung di App.jsx (bisa di dalam file yang sama) bernama CyberLoader:
+   const CyberLoader = () => {
+     const lines = [
+       '> Booting portfolio system...',
+       '> Loading assets... [██████████] 100%',
+       '> Access granted.',
+       '> Welcome, Operator.'
+     ];
+     return (
+       <div className='cyber-loader'>
+         {lines.map((text, i) => (
+           <p key={i} style={{ animationDelay: \`\${i * 0.8}s\` }} className='cyber-line'>
+             {text}
+           </p>
+         ))}
+       </div>
+     );
+   };
+
+4. Tambahkan style CSS di App.css:
+   .cyber-loader {
      position: fixed;
      inset: 0;
      display: flex;
      flex-direction: column;
      justify-content: center;
-     align-items: center;
-     background: rgba(0, 0, 0, 0.85);
-     backdrop-filter: blur(4px);
-     z-index: 9999;
-     animation: overlayFade 4.5s ease-in-out forwards;
-     font-family: 'Share Tech Mono', monospace;
+     align-items: flex-start;
+     background: #000;
      color: var(--accent-1);
-     letter-spacing: 2px;
-     text-transform: uppercase;
+     font-family: 'Share Tech Mono', monospace;
+     padding-left: 2rem;
+     overflow: hidden;
+     z-index: 9999;
    }
-   .cyber-text {
+
+   .cyber-line {
      opacity: 0;
-     font-size: 1.4rem;
-     text-shadow: 0 0 10px var(--accent-1);
-     animation: textFade 0.8s ease forwards;
-   }
-   .cyber-text:nth-child(1) { animation-delay: 0.4s; }
-   .cyber-text:nth-child(2) { animation-delay: 1.4s; }
-   .cyber-text:nth-child(3) { animation-delay: 2.6s; }
-
-   @keyframes textFade {
-     0% { opacity: 0; transform: translateY(10px); }
-     50% { opacity: 1; transform: translateY(0); }
-     100% { opacity: 0.9; }
+     white-space: pre;
+     font-size: 1rem;
+     animation: typeIn 0.6s steps(20) forwards;
    }
 
-   @keyframes overlayFade {
-     0% { opacity: 0; }
+   @keyframes typeIn {
+     0% { opacity: 0; width: 0; }
      10% { opacity: 1; }
-     80% { opacity: 1; }
-     100% { opacity: 0; }
+     100% { opacity: 1; width: 100%; }
    }
 
-5. Jangan ganggu layout atau komponen lain, cukup tambahkan efek ini.
-6. Pastikan listener dibersihkan di cleanup useEffect.
+5. Tambahkan efek flicker terminal sebelum loader hilang:
+   .cyber-loader::after {
+     content: '_';
+     display: inline-block;
+     margin-left: 4px;
+     animation: blink 0.8s infinite;
+   }
+
+   @keyframes blink {
+     0%, 50% { opacity: 1; }
+     51%, 100% { opacity: 0; }
+   }
+
+6. Pastikan transisi halus dari loader ke konten utama:
+   - Tambahkan efek fade-out di akhir sebelum loader dihapus.
+   Tambahkan di useEffect:
+   setTimeout(() => {
+     document.querySelector('.cyber-loader')?.classList.add('fade-out');
+   }, 3500);
+
+   Di CSS:
+   .fade-out {
+     animation: fadeOut 0.6s ease-in-out forwards;
+   }
+
+   @keyframes fadeOut {
+     to { opacity: 0; }
+   }
+
+7. Jangan ubah tema, warna, atau struktur halaman utama.
 
 Output:
-- Saat user menekan F11, layar masuk fullscreen dan animasi cyber cinematic muncul dengan 3 teks sekuensial.
-- Setelah selesai, overlay menghilang otomatis.
-- Warna dan font mengikuti tema (var(--accent-1)).
+- Saat website dibuka, muncul layar terminal gelap dengan teks booting bertahap.
+- Setelah 4 detik, loader fade-out dan menampilkan halaman utama.
+- Warna teks mengikuti var(--accent-1).
+- Efek sangat ringan dan cinematic.
 "
