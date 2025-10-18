@@ -24,6 +24,132 @@ const skillRatings = {
   ]
 };
 
+// Hero section component
+const HeroSection = () => {
+  const [text, setText] = useState('');
+  const [lineIndex, setLineIndex] = useState(0);
+  
+  const fullTexts = [
+    "Hi, I'm Dehan.",
+    "I build secure and intelligent systems.",
+    "Fullstack Developer ⚡ Cyber Security Enthusiast 🔐",
+    "And Ethical Hacker.",
+    "Here you can know much more about me.",
+    "Just slide down on this portfolio page."
+  ];
+  
+  useEffect(() => {
+    if (lineIndex < fullTexts.length) {
+      const currentFullText = fullTexts[lineIndex];
+      
+      // Typing
+      if (text.length < currentFullText.length) {
+        const timer = setTimeout(() => {
+          setText(currentFullText.substring(0, text.length + 1));
+        }, 50);
+        return () => clearTimeout(timer);
+      } else {
+        // Finished typing, pause before moving to next line
+        if (lineIndex < fullTexts.length - 1) {
+          const timer = setTimeout(() => {
+            setLineIndex(prev => prev + 1);
+            setText('');
+          }, 1500);
+          return () => clearTimeout(timer);
+        }
+      }
+    }
+  }, [text, lineIndex]);
+  
+  const scrollToAbout = () => {
+    document.getElementById('slide-1')?.scrollIntoView({ behavior: 'smooth' });
+  };
+  
+  // Function to render text with colored symbols
+  const renderColoredText = (text) => {
+    if (text.includes('⚡') && text.includes('🔐')) {
+      const parts = text.split('⚡');
+      const firstPart = parts[0];
+      const remainingParts = parts[1].split('🔐');
+      const secondPart = remainingParts[0];
+      const thirdPart = remainingParts[1];
+      
+      return (
+        <>
+          {firstPart}
+          <span style={{ color: 'var(--accent-1)' }}>⚡</span>
+          {secondPart}
+          <span style={{ color: 'var(--accent-2)' }}>🔐</span>
+          {thirdPart}
+        </>
+      );
+    } else if (text.includes('🔐')) {
+      const parts = text.split('🔐');
+      return (
+        <>
+          {parts[0]}
+          <span style={{ color: 'var(--accent-2)' }}>🔐</span>
+          {parts[1]}
+        </>
+      );
+    } else if (text.includes('And Ethical Hacker')) {
+      const parts = text.split('And');
+      return (
+        <>
+          {parts[0]}
+          <span style={{ color: 'var(--accent-3)' }}>And</span>
+          {parts[1]}
+        </>
+      );
+    }
+    return text;
+  };
+  
+  return (
+    <section id="slide-0" className="slide slide-hero">
+      <div className="floating-dot-1"></div>
+      <div className="floating-dot-2"></div>
+      <div className="floating-dot-3"></div>
+      <motion.div 
+        className="slide-content hero-content" 
+        initial={{ opacity: 0, y: 20 }} 
+        whileInView={{ opacity: 1, y: 0 }} 
+        viewport={{ once: true }} 
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <div className="typing-container">
+          {lineIndex > 0 && (
+            <div className="previous-lines">
+              {fullTexts.slice(0, lineIndex).map((line, i) => (
+                <p key={i} className="hero-line-completed">
+                  {renderColoredText(line)}
+                </p>
+              ))}
+            </div>
+          )}
+          {lineIndex < fullTexts.length && (
+            <p className="typing-text">
+              {renderColoredText(text)}
+              <span className="cursor">|</span>
+            </p>
+          )}
+        </div>
+        <motion.button 
+          className="hero-cta"
+          onClick={scrollToAbout}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 4, duration: 0.5 }}
+        >
+          Explore My Work ↓
+        </motion.button>
+      </motion.div>
+    </section>
+  );
+};
+
 const slides = [
   {
     id: 1,
@@ -987,6 +1113,7 @@ const App = React.memo(() => {
 
       {/* content: hero + slides laid out vertical with new compositions */}
       <main className="scroll-container">
+        <HeroSection />
         {/* About Me - Cyberpunk layered composition */}
         <section id="slide-1" className="slide slide-about">
           <div className="background-name">DEHAN</div>

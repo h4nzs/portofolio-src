@@ -1,105 +1,60 @@
-ai coder edit src/App.jsx --prompt "
-Tujuan:
-Tambahkan intro cinematic berbentuk terminal loader yang tampil selama beberapa detik sebelum halaman utama portofolio muncul. Efek ini menampilkan teks booting sistem seperti:
-> Booting portfolio system...
-> Loading assets... [██████████] 100%
-> Access granted.
-> Welcome, Operator.
+Perbarui file App.jsx dan App.css untuk hero section terbaru.
 
-Instruksi Detail:
+🎯 Tujuan:
+1. Perbaiki latar belakang animasi di hero section agar menutupi seluruh area section secara penuh.
+2. Percepat sedikit efek typing teks agar tampil lebih responsif dan ritmis.
 
-1. Buat state loading di komponen utama (App.jsx):
-   const [loading, setLoading] = useState(true);
-   useEffect(() => {
-     const timer = setTimeout(() => setLoading(false), 4000);
-     return () => clearTimeout(timer);
-   }, []);
+📋 Instruksi Detail:
 
-2. Tampilkan komponen loader selama loading = true, lalu render konten utama setelah selesai:
-   return loading ? <CyberLoader /> : (konten utama);
-
-3. Buat komponen baru langsung di App.jsx (bisa di dalam file yang sama) bernama CyberLoader:
-   const CyberLoader = () => {
-     const lines = [
-       '> Booting portfolio system...',
-       '> Loading assets... [██████████] 100%',
-       '> Access granted.',
-       '> Welcome, Operator.'
-     ];
-     return (
-       <div className='cyber-loader'>
-         {lines.map((text, i) => (
-           <p key={i} style={{ animationDelay: \`\${i * 0.8}s\` }} className='cyber-line'>
-             {text}
-           </p>
-         ))}
-       </div>
-     );
-   };
-
-4. Tambahkan style CSS di App.css:
-   .cyber-loader {
-     position: fixed;
-     inset: 0;
-     display: flex;
-     flex-direction: column;
-     justify-content: center;
-     align-items: flex-start;
-     background: #000;
-     color: var(--accent-1);
-     font-family: 'Share Tech Mono', monospace;
-     padding-left: 2rem;
+1. Pastikan elemen latar belakang (seperti grid, bola-bola neon, atau animasi partikel) memiliki properti berikut di CSS:
+   .slide-hero {
+     position: relative;
      overflow: hidden;
-     z-index: 9999;
+     width: 100%;
+     height: 100vh;
    }
 
-   .cyber-line {
-     opacity: 0;
-     white-space: pre;
-     font-size: 1rem;
-     animation: typeIn 0.6s steps(20) forwards;
+   .slide-hero::before {
+     content: '';
+     position: absolute;
+     inset: 0;
+     background: radial-gradient(circle at center, rgba(0,255,255,0.1) 0%, transparent 70%);
+     animation: pulse-bg 8s infinite ease-in-out alternate;
+     z-index: 0;
    }
 
-   @keyframes typeIn {
-     0% { opacity: 0; width: 0; }
-     10% { opacity: 1; }
-     100% { opacity: 1; width: 100%; }
+   Tambahkan jika perlu lapisan tambahan partikel:
+   .hero-bg-particles {
+     position: absolute;
+     inset: 0;
+     width: 100%;
+     height: 100%;
+     z-index: 0;
    }
 
-5. Tambahkan efek flicker terminal sebelum loader hilang:
-   .cyber-loader::after {
-     content: '_';
-     display: inline-block;
-     margin-left: 4px;
-     animation: blink 0.8s infinite;
+   Pastikan konten teks berada di atas animasi:
+   .hero-content {
+     position: relative;
+     z-index: 2;
    }
 
-   @keyframes blink {
-     0%, 50% { opacity: 1; }
-     51%, 100% { opacity: 0; }
-   }
+2. Jika ada elemen animasi bola (div class='dot' atau partikel), pastikan posisinya absolut dan skalanya menggunakan unit relatif viewport (vh/vw), bukan pixel statis, agar menyesuaikan ukuran layar.
 
-6. Pastikan transisi halus dari loader ke konten utama:
-   - Tambahkan efek fade-out di akhir sebelum loader dihapus.
-   Tambahkan di useEffect:
-   setTimeout(() => {
-     document.querySelector('.cyber-loader')?.classList.add('fade-out');
-   }, 3500);
+3. Atur ulang kecepatan efek typing di komponen React:
+   - Temukan interval typing (biasanya setInterval atau delay 100ms).
+   - Ubah nilai delay menjadi 60ms (atau 0.06 detik) untuk typing dan 30–40ms untuk backspace.
 
-   Di CSS:
-   .fade-out {
-     animation: fadeOut 0.6s ease-in-out forwards;
-   }
+   Contoh:
+   const TYPING_SPEED = 60;
+   const DELETING_SPEED = 40;
 
-   @keyframes fadeOut {
-     to { opacity: 0; }
-   }
+4. Periksa juga efek fade-in atau motion dari Framer Motion (jika digunakan).
+   - Pastikan delay awal animasi tidak lebih dari 0.3s agar tidak terasa lambat di awal load.
 
-7. Jangan ubah tema, warna, atau struktur halaman utama.
+5. Jangan ubah urutan atau konten teks hero.
+   - Hanya sesuaikan animasi dan styling agar tampil cinematic penuh di layar.
 
-Output:
-- Saat website dibuka, muncul layar terminal gelap dengan teks booting bertahap.
-- Setelah 4 detik, loader fade-out dan menampilkan halaman utama.
-- Warna teks mengikuti var(--accent-1).
-- Efek sangat ringan dan cinematic.
-"
+📦 Output:
+- Hero section kini menutupi layar penuh tanpa area kosong.
+- Latar animasi bergerak halus di seluruh area hero.
+- Efek typing berjalan lebih cepat dan natural.

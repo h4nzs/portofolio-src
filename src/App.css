@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
 :root {
   --bg-dark: #06070a;
@@ -59,6 +60,215 @@
 /* Global smooth scroll behavior */
 html {
   scroll-behavior: smooth;
+}
+
+/* Hero Section */
+.slide-hero {
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.slide-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(102, 204, 255, 0.1) 0%, transparent 20%),
+    radial-gradient(circle at 90% 80%, rgba(204, 102, 255, 0.1) 0%, transparent 20%);
+  animation: gradientMove 15s ease infinite;
+  z-index: 1;
+}
+
+.slide-hero .slide-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  padding: 2rem;
+}
+
+.slide-hero .slide-content::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(45deg, transparent 40%, rgba(102, 204, 255, 0.05) 50%, transparent 60%),
+    linear-gradient(135deg, transparent 40%, rgba(204, 102, 255, 0.05) 50%, transparent 60%);
+  background-size: 200% 200%;
+  animation: scanline 6s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Cyberpunk grid background */
+.slide-hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(102, 204, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(102, 204, 255, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+  opacity: 0.3;
+  z-index: 0;
+}
+
+/* Floating cyberpunk dots */
+.slide-hero .floating-dot-1,
+.slide-hero .floating-dot-2,
+.slide-hero .floating-dot-3 {
+  position: absolute;
+  border-radius: 50%;
+  z-index: 1;
+  animation: floatGlow 8s infinite ease-in-out;
+  pointer-events: none;
+}
+
+.slide-hero .floating-dot-1 {
+  width: 12px;
+  height: 12px;
+  top: 20%;
+  left: 15%;
+  background: var(--accent-1);
+  box-shadow: 0 0 10px var(--accent-1), 0 0 20px rgba(102, 204, 255, 0.4);
+  animation-delay: 0s;
+}
+
+.slide-hero .floating-dot-2 {
+  width: 8px;
+  height: 8px;
+  bottom: 30%;
+  right: 20%;
+  background: var(--accent-2);
+  box-shadow: 0 0 10px var(--accent-2), 0 0 20px rgba(204, 102, 255, 0.4);
+  animation-delay: 2s;
+}
+
+.slide-hero .floating-dot-3 {
+  width: 10px;
+  height: 10px;
+  top: 70%;
+  right: 10%;
+  background: var(--accent-3);
+  box-shadow: 0 0 10px var(--accent-3), 0 0 20px rgba(255, 102, 204, 0.4);
+  animation-delay: 4s;
+}
+
+@keyframes scanline {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 200%; }
+}
+
+@keyframes floatGlow {
+  0%, 100% { 
+    transform: translate(0, 0);
+    opacity: 0.7;
+  }
+  50% { 
+    transform: translate(-10px, -10px);
+    opacity: 1;
+  }
+}
+
+.typing-container {
+  margin-bottom: 2rem;
+}
+
+.hero-line-completed {
+  color: var(--text-primary);
+  font-family: 'Orbitron', monospace;
+  font-size: 1.4rem;
+  margin: 0.5rem 0;
+  text-align: center;
+  opacity: 0.9;
+  text-shadow: 0 0 5px rgba(102, 204, 255, 0.3);
+}
+
+.hero-line-completed span {
+  font-weight: bold;
+}
+
+.typing-text {
+  color: var(--text-primary);
+  font-family: 'Orbitron', monospace;
+  font-size: 1.4rem;
+  margin: 0.5rem 0;
+  text-align: center;
+  min-height: 2rem;
+  position: relative;
+  text-shadow: 0 0 5px rgba(102, 204, 255, 0.3);
+}
+
+.cursor {
+  display: inline-block;
+  width: 3px;
+  background-color: var(--accent-1);
+  margin-left: 2px;
+  animation: blink 1s infinite;
+  box-shadow: 0 0 5px var(--accent-1);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.hero-cta {
+  background: transparent;
+  color: var(--accent-1);
+  border: 2px solid var(--accent-1);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: 'Orbitron', monospace;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 2rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(102, 204, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(102, 204, 255, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.hero-cta:hover::before {
+  left: 100%;
+}
+
+.hero-cta:hover {
+  background: rgba(102, 204, 255, 0.1);
+  box-shadow: 0 0 15px var(--accent-1), 0 0 30px rgba(102, 204, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* Apply frosted glass effect to content boxes and cards in light mode */
