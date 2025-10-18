@@ -24,6 +24,262 @@ const skillRatings = {
   ]
 };
 
+// Hero section component
+const HeroSection = () => {
+  const [text, setText] = useState('');
+  const [lineIndex, setLineIndex] = useState(0);
+  
+  const fullTexts = [
+    "Hi, I'm Dehan.",
+    "I build secure and intelligent systems.",
+    "Fullstack Developer ⚡ Cyber Security Enthusiast 🔐",
+    "And Ethical Hacker.",
+    "Here you can know much more about me.",
+    "Just slide down on this portfolio page."
+  ];
+  
+  useEffect(() => {
+    if (lineIndex < fullTexts.length) {
+      const currentFullText = fullTexts[lineIndex];
+      
+      // Typing
+      if (text.length < currentFullText.length) {
+        const timer = setTimeout(() => {
+          setText(currentFullText.substring(0, text.length + 1));
+        }, 50);
+        return () => clearTimeout(timer);
+      } else {
+        // Finished typing, pause before moving to next line
+        if (lineIndex < fullTexts.length - 1) {
+          const timer = setTimeout(() => {
+            setLineIndex(prev => prev + 1);
+            setText('');
+          }, 700);
+          return () => clearTimeout(timer);
+        }
+      }
+    }
+  }, [text, lineIndex]);
+  
+  const scrollToAbout = () => {
+    document.getElementById('slide-1')?.scrollIntoView({ behavior: 'smooth' });
+  };
+  
+  // Function to render text with colored symbols
+  const renderColoredText = (text) => {
+    if (text.includes('⚡') && text.includes('🔐')) {
+      const parts = text.split('⚡');
+      const firstPart = parts[0];
+      const remainingParts = parts[1].split('🔐');
+      const secondPart = remainingParts[0];
+      const thirdPart = remainingParts[1];
+      
+      return (
+        <>
+          {firstPart}
+          <span style={{ color: 'var(--accent-1)' }}>⚡</span>
+          {secondPart}
+          <span style={{ color: 'var(--accent-2)' }}>🔐</span>
+          {thirdPart}
+        </>
+      );
+    } else if (text.includes('🔐')) {
+      const parts = text.split('🔐');
+      return (
+        <>
+          {parts[0]}
+          <span style={{ color: 'var(--accent-2)' }}>🔐</span>
+          {parts[1]}
+        </>
+      );
+    } else if (text.includes('And Ethical Hacker')) {
+      const parts = text.split('And');
+      return (
+        <>
+          {parts[0]}
+          <span style={{ color: 'var(--accent-3)' }}>And</span>
+          {parts[1]}
+        </>
+      );
+    }
+    return text;
+  };
+  
+  // Format system update date
+  const formattedDate = new Date().toLocaleString('en-US', {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+
+  const heroTerminals = [
+    {
+      id: 'edu',
+      type: 'log',
+      title: 'EDUCATION LOG',
+      lines: [
+        '[2022-2025] SMKN 4 PADALARANG — Network & Computer Engineering',
+        '[2025-Present] STMIK AMIK Bandung — Bachelor, Cybersecurity focus'
+      ],
+      style: {
+        desktop: { left: '4%', top: '6%', '--rot': '-12deg', '--scale':'0.98', '--z': 1 },
+        tablet:  { left: '4%', top: '5%',  '--rot': '-8deg',  '--scale':'0.98', '--z':1 },
+        mobile:  { left: '50%', top: 'auto', bottom: '78%', transform: 'translateX(-50%)', '--rot':'0deg', '--scale':'0.98', '--z':1 }
+      }
+    },
+    {
+      id: 'exp',
+      type: 'log',
+      title: 'EXPERIENCE LOG',
+      lines: [
+        '[2024] Ruang Data Telemedia — Freelance Technician',
+        '[2023] PT. Dwimitra Ekatama Mandiri — Electrical Engineer (Huawei Project)'
+      ],
+      style: {
+        desktop: { right: '6%', top: '14%', '--rot': '14deg', '--scale':'1', '--z': 2 },
+        tablet:  { right: '6%', top: '12%', '--rot': '10deg', '--scale':'0.98', '--z':2 },
+        mobile:  { left: '50%', top: 'auto', bottom: '64%', transform: 'translateX(-50%)', '--rot':'0deg', '--scale':'0.98', '--z':2 }
+      }
+    },
+    {
+      id: 'pentest-msf',
+      type: 'exploit-msf',
+      title: 'METASPLOIT',
+      lines: [
+        '> use exploit/multi/handler',
+        '=> exploit started',
+        'Session 1 opened on 192.168.1.105:4444'
+      ],
+      style: {
+        desktop: { left: '16%', bottom: '10%', '--rot': '18deg', '--scale':'1.03', '--z': 2 },
+        tablet:  { left: '14%', bottom: '8%',  '--rot': '12deg', '--scale':'1.02', '--z':2 },
+        mobile:  { left: '50%', top: 'auto', bottom: '24%', transform: 'translateX(-50%)', '--rot':'0deg', '--scale':'1', '--z':2 }
+      }
+    },
+    {
+      id: 'pentest-nmap',
+      type: 'scan-nmap',
+      title: 'NMAP SCAN',
+      lines: [
+        '> nmap -sV 192.168.1.0/24',
+        'Starting SYN Stealth Scan...',
+        'Host 192.168.1.105:22 open',
+        'Host 192.168.1.110:80 open'
+      ],
+      style: {
+        desktop: { left: '46%', bottom: '18%', '--rot': '-18deg', '--scale':'1.05', '--z': 1 },
+        tablet:  { left: '46%', bottom: '14%', '--rot': '-12deg', '--scale':'1.03', '--z':1 },
+        mobile:  { left: '50%', top: 'auto', bottom: '18%', transform: 'translateX(-50%)', '--rot':'0deg', '--scale':'1', '--z':1 }
+      }
+    },
+    {
+      id: 'pentest-wireshark',
+      type: 'capture-wireshark',
+      title: 'WIRESHARK (SIM)',
+      lines: [
+        '> start capture eth0',
+        'Packet #125: TCP 192.168.1.105:443 → 192.168.1.2:53724',
+        'Protocol: TLSv1.3'
+      ],
+      style: {
+        desktop: { right: '12%', bottom: '12%', '--rot': '-14deg', '--scale':'1', '--z': 1 },
+        tablet:  { right: '10%', bottom: '10%', '--rot': '-10deg', '--scale':'1', '--z':1 },
+        mobile:  { left: '50%', top: 'auto', bottom: '12%', transform: 'translateX(-50%)', '--rot':'0deg', '--scale':'1', '--z':1 }
+      }
+    }
+  ];
+
+  return (
+    <section id="slide-0" className="slide slide-hero">
+      <div className="floating-dot-1"></div>
+      <div className="floating-dot-2"></div>
+      <div className="floating-dot-3"></div>
+      <div className='hero-terminals'>
+        {heroTerminals.map(t => (
+          <div
+            key={t.id}
+            className={`hero-terminal hero-terminal--${t.type}`}
+            style={{
+              ...t.style.desktop,
+              transform: `rotate(${t.style.desktop['--rot']}) scale(${t.style.desktop['--scale']})`
+            }}
+            data-tablet-style={JSON.stringify(t.style.tablet)}
+            data-mobile-style={JSON.stringify(t.style.mobile)}
+            aria-hidden="true"
+          >
+            <div className='terminal-title'>{t.title}</div>
+            <div className='terminal-body'>
+              {t.type === 'log' && <pre className='terminal-log'>{t.lines.join('\n')}</pre>}
+              {t.type === 'scan-nmap' && (
+                <div className='terminal-scan-nmap'>
+                  {t.lines.map((l,i) => <div key={i} className='nmap-line' style={{ animationDelay: `${i*0.5}s` }}>{l}</div>)}
+                  <div className='nmap-progress' />
+                </div>
+              )}
+              {t.type === 'exploit-msf' && (
+                <div className='terminal-msf'>
+                  {t.lines.map((l,i) => <div key={i} className='msf-line' style={{ animationDelay: `${i*0.7}s` }}>{l}</div>)}
+                  <div className='msf-status'>[ session: 1 ]</div>
+                </div>
+              )}
+              {t.type === 'capture-wireshark' && (
+                <div className='terminal-wireshark'>
+                  {t.lines.map((l,i) => <div key={i} className='wireshark-line' style={{ animationDelay: `${i*0.45}s` }}>{l}</div>)}
+                  <div className='wireshark-flow' />
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+      <motion.div 
+        className="hero-content" 
+        initial={{ opacity: 0, y: 20 }} 
+        whileInView={{ opacity: 1, y: 0 }} 
+        viewport={{ once: true }} 
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <div className="hero-inner">
+          <div className="typing-container">
+          {lineIndex > 0 && (
+            <div className="previous-lines">
+              {fullTexts.slice(0, lineIndex).map((line, i) => (
+                <p key={i} className="hero-line-completed">
+                  {renderColoredText(line)}
+                </p>
+              ))}
+            </div>
+          )}
+          {lineIndex < fullTexts.length && (
+            <p className="typing-text">
+              {renderColoredText(text)}
+              <span className="cursor">|</span>
+            </p>
+          )}
+          </div>
+          <motion.button 
+            className="hero-cta"
+            onClick={scrollToAbout}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 4, duration: 0.5 }}
+          >
+            Explore My Work ↓
+          </motion.button>
+        </div>
+      </motion.div>
+      <small className="system-update">
+        Last system update: {formattedDate}
+      </small>
+    </section>
+  );
+};
+
 const slides = [
   {
     id: 1,
@@ -987,6 +1243,7 @@ const App = React.memo(() => {
 
       {/* content: hero + slides laid out vertical with new compositions */}
       <main className="scroll-container">
+        <HeroSection />
         {/* About Me - Cyberpunk layered composition */}
         <section id="slide-1" className="slide slide-about">
           <div className="background-name">DEHAN</div>

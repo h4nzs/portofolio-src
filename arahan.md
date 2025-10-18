@@ -1,105 +1,83 @@
-ai coder edit src/App.jsx --prompt "
-Tujuan:
-Tambahkan intro cinematic berbentuk terminal loader yang tampil selama beberapa detik sebelum halaman utama portofolio muncul. Efek ini menampilkan teks booting sistem seperti:
-> Booting portfolio system...
-> Loading assets... [██████████] 100%
-> Access granted.
-> Welcome, Operator.
+````
+Tambahkan fitur "Last System Update" dinamis ke Hero Section portofolio ini.
 
-Instruksi Detail:
+📍 Tujuan:
+Tambahkan elemen status kecil bergaya terminal di pojok kanan bawah section hero yang menampilkan waktu sistem terakhir diperbarui secara dinamis (mengambil waktu lokal user saat halaman dimuat).
 
-1. Buat state loading di komponen utama (App.jsx):
-   const [loading, setLoading] = useState(true);
-   useEffect(() => {
-     const timer = setTimeout(() => setLoading(false), 4000);
-     return () => clearTimeout(timer);
-   }, []);
+💻 Instruksi Teknis:
 
-2. Tampilkan komponen loader selama loading = true, lalu render konten utama setelah selesai:
-   return loading ? <CyberLoader /> : (konten utama);
+1. Di file `App.jsx` (Hero Section):
+   - Tambahkan elemen <small> di dalam Hero Section dengan className="system-update".
+   - Isi elemen tersebut dengan teks:
+     ```
+     Last system update: {formattedDate}
+     ```
+     di mana `formattedDate` dihasilkan dari fungsi:
+     ```js
+     const formattedDate = new Date().toLocaleString('en-US', {
+       weekday: 'short',
+       year: 'numeric',
+       month: 'short',
+       day: 'numeric',
+       hour: '2-digit',
+       minute: '2-digit'
+     });
+     ```
 
-3. Buat komponen baru langsung di App.jsx (bisa di dalam file yang sama) bernama CyberLoader:
-   const CyberLoader = () => {
-     const lines = [
-       '> Booting portfolio system...',
-       '> Loading assets... [██████████] 100%',
-       '> Access granted.',
-       '> Welcome, Operator.'
-     ];
-     return (
-       <div className='cyber-loader'>
-         {lines.map((text, i) => (
-           <p key={i} style={{ animationDelay: \`\${i * 0.8}s\` }} className='cyber-line'>
-             {text}
-           </p>
-         ))}
-       </div>
-     );
-   };
+2. Letakkan elemen ini di JSX pada bagian paling akhir Hero Section agar berada di lapisan atas teks hero (gunakan `position: absolute`).
 
-4. Tambahkan style CSS di App.css:
-   .cyber-loader {
-     position: fixed;
-     inset: 0;
-     display: flex;
-     flex-direction: column;
-     justify-content: center;
-     align-items: flex-start;
-     background: #000;
-     color: var(--accent-1);
+3. Di file `App.css` tambahkan CSS berikut:
+   ```css
+   .system-update {
+     position: absolute;
+     bottom: 1.2rem;
+     right: 2rem;
      font-family: 'Share Tech Mono', monospace;
-     padding-left: 2rem;
-     overflow: hidden;
-     z-index: 9999;
+     font-size: 0.75rem;
+     color: rgba(180, 220, 255, 0.8);
+     text-shadow: 0 0 8px rgba(0, 255, 255, 0.25);
+     letter-spacing: 0.5px;
+     opacity: 0.9;
+     animation: flicker 4s infinite alternate;
+     pointer-events: none;
+     user-select: none;
    }
 
-   .cyber-line {
+   @keyframes flicker {
+     0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: .9; }
+     20%, 24%, 55% { opacity: .5; }
+   }
+
+   @media (max-width: 768px) {
+     .system-update {
+       right: 50%;
+       bottom: 0.8rem;
+       transform: translateX(50%);
+       text-align: center;
+       font-size: 0.68rem;
+     }
+   }
+````
+
+4. Pastikan container utama Hero Section memiliki `position: relative;` agar posisi elemen ini terikat pada section tersebut, bukan seluruh halaman.
+
+5. Tambahkan sedikit animasi masuk dengan delay 2 detik setelah hero muncul:
+
+   ```css
+   .system-update {
      opacity: 0;
-     white-space: pre;
-     font-size: 1rem;
-     animation: typeIn 0.6s steps(20) forwards;
+     animation: fadeIn 1.5s ease-out 2s forwards, flicker 4s infinite alternate 3s;
    }
 
-   @keyframes typeIn {
-     0% { opacity: 0; width: 0; }
-     10% { opacity: 1; }
-     100% { opacity: 1; width: 100%; }
+   @keyframes fadeIn {
+     from { opacity: 0; transform: translateY(5px); }
+     to { opacity: 0.9; transform: translateY(0); }
    }
+   ```
 
-5. Tambahkan efek flicker terminal sebelum loader hilang:
-   .cyber-loader::after {
-     content: '_';
-     display: inline-block;
-     margin-left: 4px;
-     animation: blink 0.8s infinite;
-   }
+🧠 Catatan estetika:
 
-   @keyframes blink {
-     0%, 50% { opacity: 1; }
-     51%, 100% { opacity: 0; }
-   }
+* Gunakan warna teks `rgba(180, 220, 255, 0.8)` agar senada dengan tema neon grid-matrix hero.
+* Pastikan elemen ini tidak menabrak terminal Wireshark di kanan bawah (beri sedikit margin atau sesuaikan z-index jika perlu).
 
-6. Pastikan transisi halus dari loader ke konten utama:
-   - Tambahkan efek fade-out di akhir sebelum loader dihapus.
-   Tambahkan di useEffect:
-   setTimeout(() => {
-     document.querySelector('.cyber-loader')?.classList.add('fade-out');
-   }, 3500);
-
-   Di CSS:
-   .fade-out {
-     animation: fadeOut 0.6s ease-in-out forwards;
-   }
-
-   @keyframes fadeOut {
-     to { opacity: 0; }
-   }
-
-7. Jangan ubah tema, warna, atau struktur halaman utama.
-
-Output:
-- Saat website dibuka, muncul layar terminal gelap dengan teks booting bertahap.
-- Setelah 4 detik, loader fade-out dan menampilkan halaman utama.
-- Warna teks mengikuti var(--accent-1).
-- Efek sangat ringan dan cinematic.
-"
+---
