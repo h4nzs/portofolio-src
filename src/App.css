@@ -82,19 +82,13 @@ html {
   z-index: 0;
 }
 
-.hero-terminals {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-}
-
 /* container */
 .hero-terminals { 
   position: absolute; 
   inset: 0; 
   pointer-events: none; 
   z-index: 1; 
+  display: block;
 }
 
 /* base terminal */
@@ -108,11 +102,14 @@ html {
   backdrop-filter: blur(8px);
   border: 1px solid rgba(140,200,255,0.06);
   box-shadow: 0 12px 40px rgba(0,0,0,0.65), 0 0 26px rgba(0,140,255,0.04) inset;
+  transform: rotate(var(--rot, 0)) scale(var(--scale, 1));
   transform-origin: center;
   transition: transform 0.45s cubic-bezier(.2,.9,.2,1), opacity 0.45s ease;
   will-change: transform, opacity;
   opacity: 0.96;
   pointer-events: none;
+  z-index: var(--z, 1);
+  animation: terminalPulse 4s infinite ease-in-out;
 }
 
 
@@ -124,6 +121,7 @@ html {
   margin-bottom: 8px;
   letter-spacing: 1px;
   text-shadow: 0 0 8px rgba(120,120,255,0.06);
+  display: block;
 }
 
 .terminal-body {
@@ -133,12 +131,18 @@ html {
   line-height: 1.35;
   max-height: 9rem;
   overflow: hidden;
+  display: block;
+  margin: 0;
+  padding: 0;
 }
 
 .terminal-log {
   white-space: pre-wrap;
   display: block;
   animation: logScroll 12s linear infinite;
+  margin: 0;
+  padding: 0;
+  font-family: 'Fira Code', monospace;
 }
 
 @keyframes logScroll {
@@ -147,11 +151,19 @@ html {
   100% { transform: translateY(0%); opacity: 1; }
 }
 
+@keyframes terminalPulse {
+  0%, 100% { opacity: 0.95; box-shadow: 0 12px 40px rgba(0,0,0,0.65), 0 0 26px rgba(0,140,255,0.04) inset; }
+  50% { opacity: 1; box-shadow: 0 15px 45px rgba(0,0,0,0.75), 0 0 30px rgba(0,140,255,0.08) inset; }
+}
+
 /* For pentest simulation use per-line fade-in + scanner bar */
 .terminal-scan .scan-line {
   opacity: 0;
   transform: translateX(-6px);
   animation: scanLine 3s steps(1) forwards;
+  margin: 0;
+  padding: 2px 0;
+  font-family: 'Fira Code', monospace;
 }
 
 .terminal-scan .scan-line:nth-child(1){ animation-delay: 0.2s; }
@@ -164,6 +176,200 @@ html {
   to { opacity: 1; transform: translateX(0); }
 }
 
+/* Specific scan line animations for different terminal types */
+.terminal-scan-nmap .nmap-line {
+  opacity: 0;
+  transform: translateX(-8px);
+  animation: nmapLineIn 0.48s forwards;
+  margin: 0;
+  padding: 2px 0;
+  font-family: 'Fira Code', monospace;
+  color: #cfefff;
+}
+
+.terminal-scan-nmap .nmap-line:nth-child(1){ animation-delay: 0.2s; }
+.terminal-scan-nmap .nmap-line:nth-child(2){ animation-delay: 0.9s; }
+.terminal-scan-nmap .nmap-line:nth-child(3){ animation-delay: 1.6s; }
+.terminal-scan-nmap .nmap-line:nth-child(4){ animation-delay: 2.3s; }
+.terminal-scan-nmap .nmap-line:nth-child(5){ animation-delay: 3.0s; }
+
+@keyframes nmapLineIn {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.terminal-msf .msf-line {
+  opacity: 0;
+  transform: translateY(6px);
+  animation: msfLineIn 0.56s forwards;
+  margin: 0;
+  padding: 2px 0;
+  font-family: 'Fira Code', monospace;
+  color: #ffd5e9;
+}
+
+.terminal-msf .msf-line:nth-child(1){ animation-delay: 0.2s; }
+.terminal-msf .msf-line:nth-child(2){ animation-delay: 0.9s; }
+.terminal-msf .msf-line:nth-child(3){ animation-delay: 1.6s; }
+.terminal-msf .msf-line:nth-child(4){ animation-delay: 2.3s; }
+.terminal-msf .msf-line:nth-child(5){ animation-delay: 3.0s; }
+
+@keyframes msfLineIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.terminal-wireshark .wireshark-line {
+  opacity: 0;
+  transform: translateX(-6px);
+  animation: wiresharkLineIn 0.44s forwards;
+  margin: 0;
+  padding: 2px 0;
+  font-family: 'Fira Code', monospace;
+  color: #d0ffd8;
+}
+
+.terminal-wireshark .wireshark-line:nth-child(1){ animation-delay: 0.2s; }
+.terminal-wireshark .wireshark-line:nth-child(2){ animation-delay: 0.9s; }
+.terminal-wireshark .wireshark-line:nth-child(3){ animation-delay: 1.6s; }
+.terminal-wireshark .wireshark-line:nth-child(4){ animation-delay: 2.3s; }
+.terminal-wireshark .wireshark-line:nth-child(5){ animation-delay: 3.0s; }
+
+@keyframes wiresharkLineIn {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Terminal scan container */
+.terminal-scan {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+/* Terminal log container */
+.terminal-log {
+  white-space: pre-wrap;
+  display: block;
+  animation: logScroll 12s linear infinite;
+  margin: 0;
+  padding: 0;
+  font-family: 'Fira Code', monospace;
+}
+
+@keyframes logScroll {
+  0% { transform: translateY(0%); opacity: 1; }
+  80% { transform: translateY(-14%); opacity: 1; }
+  100% { transform: translateY(0%); opacity: 1; }
+}
+
+/* Default positions (override in inline styles) */
+.hero-terminal:nth-child(1){ left: 6%; top: 10%; }
+.hero-terminal:nth-child(2){ right: 8%; top: 38%; }
+.hero-terminal:nth-child(3){ left: 55%; bottom: 14%; }
+.hero-terminal:nth-child(4){ left: 16%; bottom: 24%; }
+
+/* Terminal positioning */
+.hero-terminal:nth-child(1) {
+  left: 6%;
+  top: 10%;
+  z-index: 1;
+}
+
+.hero-terminal:nth-child(2) {
+  right: 8%;
+  top: 38%;
+  z-index: 2;
+}
+
+.hero-terminal:nth-child(3) {
+  left: 55%;
+  bottom: 14%;
+  z-index: 1;
+}
+
+.hero-terminal:nth-child(4) {
+  left: 16%;
+  bottom: 24%;
+  z-index: 2;
+}
+
+/* Terminal scan progress */
+.nmap-progress,
+.msf-status,
+.wireshark-flow {
+  opacity: 0;
+  animation: progressPulse 2s infinite alternate;
+  margin-top: 8px;
+  font-size: 0.75rem;
+  color: var(--accent-1);
+}
+
+@keyframes progressPulse {
+  0% { opacity: 0.3; }
+  100% { opacity: 0.8; }
+}
+
+/* Terminal scan nmap */
+.terminal-scan-nmap .nmap-line {
+  opacity: 0;
+  transform: translateX(-8px);
+  animation: nmapLineIn .48s forwards;
+  margin: 0;
+  padding: 2px 0;
+  font-family: 'Fira Code', monospace;
+  color: #cfefff;
+}
+
+.terminal-scan-nmap .nmap-line:nth-child(1){ animation-delay: 0.2s; }
+.terminal-scan-nmap .nmap-line:nth-child(2){ animation-delay: 0.9s; }
+.terminal-scan-nmap .nmap-line:nth-child(3){ animation-delay: 1.6s; }
+.terminal-scan-nmap .nmap-line:nth-child(4){ animation-delay: 2.3s; }
+.terminal-scan-nmap .nmap-line:nth-child(5){ animation-delay: 3.0s; }
+
+@keyframes nmapLineIn {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Terminal msf */
+.terminal-msf .msf-line {
+  opacity: 0;
+  transform: translateY(6px);
+  animation: msfLineIn .56s forwards;
+  margin: 0;
+  padding: 2px 0;
+  font-family: 'Fira Code', monospace;
+  color: #ffd5e9;
+}
+
+.terminal-msf .msf-line:nth-child(1){ animation-delay: 0.2s; }
+.terminal-msf .msf-line:nth-child(2){ animation-delay: 0.9s; }
+.terminal-msf .msf-line:nth-child(3){ animation-delay: 1.6s; }
+.terminal-msf .msf-line:nth-child(4){ animation-delay: 2.3s; }
+.terminal-msf .msf-line:nth-child(5){ animation-delay: 3.0s; }
+
+@keyframes msfLineIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Terminal wireshark */
+.terminal-wireshark .wireshark-line {
+  opacity: 0;
+  transform: translateX(-6px);
+  animation: wiresharkLineIn .44s forwards;
+  margin: 0;
+  padding: 2px 0;
+  font-family: 'Fira Code', monospace;
+  color: #d0ffd8;
+}
+
+.terminal-wireshark .wireshark-line:nth-child(1){ animation-delay: 0.2s; }
+.terminal-wireshark .wireshark-line:nth-child(2){ animation-delay: 0.9s; }
+.terminal-wireshark .wireshark-line:nth-child(3){ animation-delay: 1.6s; }
+.terminal-wireshark .wireshark-line:nth-child(4){ animation-delay: 2.3s; }
+.terminal-wireshark .wireshark-line:nth-child(5){ animation-delay: 3.0s; }
+
+@keyframes wiresharkLineIn {
+  to { opacity: 1; transform: translateX(0); }
+}
+
 /* Scanner overlay for each terminal (subtle) */
 .hero-terminal::after {
   content: '';
@@ -173,9 +379,11 @@ html {
   width: 200%;
   height: 100%;
   background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.02) 48%, rgba(255,255,255,0) 100%);
-  animation: scannerMove 9s linear infinite;
-  mix-blend-mode: screen;
+  transform: translateX(var(--scanner, -60%));
+  animation: scannerMove 8s linear infinite;
   pointer-events: none;
+  mix-blend-mode: screen;
+  z-index: 2;
   opacity: 0.5;
 }
 
@@ -325,6 +533,51 @@ html {
   }
 }
 
+/* Animated Tagline */
+.animated-tagline {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.2rem;
+  color: var(--accent-1);
+  text-shadow: 0 0 8px rgba(102, 204, 255, 0.3);
+  letter-spacing: 1px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.tagline-text {
+  white-space: nowrap;
+}
+
+/* Animated System Messages */
+.system-message {
+  position: absolute;
+  bottom: 4rem;
+  right: 2rem;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.75rem;
+  color: rgba(200, 230, 255, 0.95);
+  background: rgba(10, 14, 20, 0.3);
+  border-radius: 8px;
+  padding: 8px 12px;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(120, 200, 255, 0.04);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 12px rgba(0, 120, 255, 0.02) inset;
+  opacity: 0.4;
+  z-index: 2;
+  pointer-events: none;
+  animation: fadeInOut 16s ease-in-out infinite;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(10px); }
+  20%, 80% { opacity: 0.6; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
 .slide-hero::before {
   content: '';
   position: absolute;
@@ -337,10 +590,15 @@ html {
 
 .slide-hero .slide-content {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   text-align: center;
   max-width: 800px;
   padding: 2rem;
+}
+
+.slide-hero .hero-content {
+  position: relative;
+  z-index: 3;
 }
 
 .slide-hero .slide-content::after {

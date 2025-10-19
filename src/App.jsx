@@ -28,6 +28,32 @@ const skillRatings = {
 const HeroSection = () => {
   const [text, setText] = useState('');
   const [lineIndex, setLineIndex] = useState(0);
+  const [taglineIndex, setTaglineIndex] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
+  const [currentSystemMessage, setCurrentSystemMessage] = useState('');
+  const [showSystemMessage, setShowSystemMessage] = useState(false);
+  
+  // Animated tagline rotation
+  const taglines = [
+    "Building Secure Systems.",
+    "Exploring Cyber Frontiers.",
+    "Developing with Precision.",
+    "Ethical Hacker in Progress."
+  ];
+  
+  // Animated system messages
+  const systemMessages = [
+    "[SYS] Initializing AI core...",
+    "[NET] Connection established to remote node.",
+    "[AUTH] User verified successfully.",
+    "[SCAN] Running background threat analysis...",
+    "[INFO] Updating security modules.",
+    "[PROC] Memory allocation optimized.",
+    "[LINK] Secure tunnel established.",
+    "[FW] Firewall rules updated.",
+    "[LOG] System integrity check passed.",
+    "[PORT] Listening on port 443 (HTTPS)."
+  ];
   
   const fullTexts = [
     "Hi, I'm Dehan.",
@@ -60,6 +86,64 @@ const HeroSection = () => {
       }
     }
   }, [text, lineIndex]);
+  
+  // Animated tagline rotation
+  useEffect(() => {
+    const taglineTimer = setInterval(() => {
+      setTaglineIndex(prev => (prev + 1) % taglines.length);
+    }, 3500); // Rotate every 3.5 seconds
+    
+    return () => clearInterval(taglineTimer);
+  }, [taglines.length]);
+  
+  // Animated system messages
+  useEffect(() => {
+    const showMessage = () => {
+      const randomMessage = systemMessages[Math.floor(Math.random() * systemMessages.length)];
+      setCurrentSystemMessage(randomMessage);
+      setShowSystemMessage(true);
+      
+      // Hide message after 8 seconds
+      const hideTimer = setTimeout(() => {
+        setShowSystemMessage(false);
+      }, 8000);
+      
+      return hideTimer;
+    };
+    
+    // Show first message after 5 seconds
+    const firstMessageTimer = setTimeout(() => {
+      const hideTimer = showMessage();
+      
+      // Continue showing messages every 10 seconds
+      const messageInterval = setInterval(() => {
+        clearTimeout(hideTimer);
+        const newHideTimer = showMessage();
+      }, 10000);
+      
+      return () => {
+        clearInterval(messageInterval);
+        clearTimeout(newHideTimer);
+      };
+    }, 5000);
+    
+    return () => {
+      clearTimeout(firstMessageTimer);
+    };
+  }, []);
+  
+  // Parallax scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   
   const scrollToAbout = () => {
     document.getElementById('slide-1')?.scrollIntoView({ behavior: 'smooth' });
@@ -116,33 +200,25 @@ const HeroSection = () => {
   });
 
   const heroTerminals = [
-    {
-      id: 'edu',
-      type: 'log',
-      title: 'EDUCATION LOG',
+    { 
+      id: 'edu', 
+      type: 'log', 
+      title: 'EDUCATION LOG', 
       lines: [
-        '[2022-2025] SMKN 4 PADALARANG — Network & Computer Engineering',
+        '[2022-2025] SMKN 4 PADALARANG — Network & Computer Engineering', 
         '[2025-Present] STMIK AMIK Bandung — Bachelor, Cybersecurity focus'
-      ],
-      style: {
-        desktop: { left: '4%', top: '6%', '--rot': '-12deg', '--scale':'0.98', '--z': 1 },
-        tablet:  { left: '4%', top: '5%',  '--rot': '-8deg',  '--scale':'0.98', '--z':1 },
-        mobile:  { left: '50%', top: 'auto', bottom: '78%', transform: 'translateX(-50%)', '--rot':'0deg', '--scale':'0.98', '--z':1 }
-      }
+      ], 
+      styleVars: { '--i': 1, '--rot': '-6deg', '--z': 1 } 
     },
-    {
-      id: 'exp',
-      type: 'log',
-      title: 'EXPERIENCE LOG',
+    { 
+      id: 'exp', 
+      type: 'log', 
+      title: 'EXPERIENCE LOG', 
       lines: [
-        '[2024] Ruang Data Telemedia — Freelance Technician',
+        '[2024] Ruang Data Telemedia — Freelance Technician', 
         '[2023] PT. Dwimitra Ekatama Mandiri — Electrical Engineer (Huawei Project)'
-      ],
-      style: {
-        desktop: { right: '6%', top: '14%', '--rot': '14deg', '--scale':'1', '--z': 2 },
-        tablet:  { right: '6%', top: '12%', '--rot': '10deg', '--scale':'0.98', '--z':2 },
-        mobile:  { left: '50%', top: 'auto', bottom: '64%', transform: 'translateX(-50%)', '--rot':'0deg', '--scale':'0.98', '--z':2 }
-      }
+      ], 
+      styleVars: { '--i': 2, '--rot': '8deg', '--z': 2 } 
     },
     {
       id: 'pentest-msf',
@@ -199,36 +275,14 @@ const HeroSection = () => {
       <div className="floating-dot-3"></div>
       <div className='hero-terminals'>
         {heroTerminals.map(t => (
-          <div
-            key={t.id}
-            className={`hero-terminal hero-terminal--${t.type}`}
-            style={{
-              ...t.style.desktop,
-              transform: `rotate(${t.style.desktop['--rot']}) scale(${t.style.desktop['--scale']})`
-            }}
-            data-tablet-style={JSON.stringify(t.style.tablet)}
-            data-mobile-style={JSON.stringify(t.style.mobile)}
-            aria-hidden="true"
-          >
+          <div key={t.id} className={`hero-terminal hero-terminal--${t.type}`} style={t.styleVars}>
             <div className='terminal-title'>{t.title}</div>
             <div className='terminal-body'>
-              {t.type === 'log' && <pre className='terminal-log'>{t.lines.join('\n')}</pre>}
-              {t.type === 'scan-nmap' && (
-                <div className='terminal-scan-nmap'>
-                  {t.lines.map((l,i) => <div key={i} className='nmap-line' style={{ animationDelay: `${i*0.5}s` }}>{l}</div>)}
-                  <div className='nmap-progress' />
-                </div>
-              )}
-              {t.type === 'exploit-msf' && (
-                <div className='terminal-msf'>
-                  {t.lines.map((l,i) => <div key={i} className='msf-line' style={{ animationDelay: `${i*0.7}s` }}>{l}</div>)}
-                  <div className='msf-status'>[ session: 1 ]</div>
-                </div>
-              )}
-              {t.type === 'capture-wireshark' && (
-                <div className='terminal-wireshark'>
-                  {t.lines.map((l,i) => <div key={i} className='wireshark-line' style={{ animationDelay: `${i*0.45}s` }}>{l}</div>)}
-                  <div className='wireshark-flow' />
+              {t.type === 'log' ? (
+                <pre className='terminal-log'>{t.lines.join('\n')}</pre>
+              ) : (
+                <div className='terminal-scan'>
+                  {t.lines.map((l, idx) => <div key={idx} className='scan-line'>{l}</div>)}
                 </div>
               )}
             </div>
@@ -241,8 +295,24 @@ const HeroSection = () => {
         whileInView={{ opacity: 1, y: 0 }} 
         viewport={{ once: true }} 
         transition={{ duration: 0.8, ease: "easeOut" }}
+        style={{ 
+          transform: `translateY(${scrollY * 0.1}px)` 
+        }}
       >
         <div className="hero-inner">
+          {/* Animated Tagline */}
+          <div className="animated-tagline">
+            <motion.div
+              key={taglineIndex}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.5 }}
+              className="tagline-text"
+            >
+              {taglines[taglineIndex]}
+            </motion.div>
+          </div>
           <div className="typing-container">
           {lineIndex > 0 && (
             <div className="previous-lines">
@@ -273,6 +343,18 @@ const HeroSection = () => {
           </motion.button>
         </div>
       </motion.div>
+      {/* Animated System Messages */}
+      {showSystemMessage && (
+        <motion.div 
+          className="system-message"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 0.4, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.5 }}
+        >
+          {currentSystemMessage}
+        </motion.div>
+      )}
       <small className="system-update">
         Last system update: {formattedDate}
       </small>

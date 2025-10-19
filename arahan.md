@@ -1,83 +1,69 @@
-````
-Tambahkan fitur "Last System Update" dinamis ke Hero Section portofolio ini.
+```
+Tugasmu: tingkatkan bagian Hero Section pada file `App.jsx` agar terlihat lebih cinematic dan interaktif tanpa memengaruhi struktur section lain.
 
-📍 Tujuan:
-Tambahkan elemen status kecil bergaya terminal di pojok kanan bawah section hero yang menampilkan waktu sistem terakhir diperbarui secara dinamis (mengambil waktu lokal user saat halaman dimuat).
+🎯 Tujuan:
+Tambahkan tiga fitur berikut ke Hero Section:
+1. Animated Tagline Rotation (text berganti otomatis)
+2. Animated System Messages (log acak muncul di background)
+3. Parallax Depth Effect (objek hero bergerak halus berdasarkan scroll)
 
-💻 Instruksi Teknis:
+🧩 Detail Implementasi:
 
-1. Di file `App.jsx` (Hero Section):
-   - Tambahkan elemen <small> di dalam Hero Section dengan className="system-update".
-   - Isi elemen tersebut dengan teks:
-     ```
-     Last system update: {formattedDate}
-     ```
-     di mana `formattedDate` dihasilkan dari fungsi:
-     ```js
-     const formattedDate = new Date().toLocaleString('en-US', {
-       weekday: 'short',
-       year: 'numeric',
-       month: 'short',
-       day: 'numeric',
-       hour: '2-digit',
-       minute: '2-digit'
-     });
-     ```
+1️⃣ **Animated Tagline Rotation**
+- Tambahkan array teks seperti:
+  [
+    "Building Secure Systems.",
+    "Exploring Cyber Frontiers.",
+    "Developing with Precision.",
+    "Ethical Hacker in Progress."
+  ]
+- Ganti isi tagline hero (`typing effect`) setiap 3–4 detik dengan efek fade atau ketik cepat (gunakan `useState` + `useEffect`).
+- Jangan gunakan library berat seperti `typed.js`, cukup buatan sendiri dengan interval + animasi CSS.
 
-2. Letakkan elemen ini di JSX pada bagian paling akhir Hero Section agar berada di lapisan atas teks hero (gunakan `position: absolute`).
+2️⃣ **Animated System Messages**
+- Buat komponen kecil `<SystemLog />` yang menampilkan pesan-pesan terminal acak seperti:
+```
 
-3. Di file `App.css` tambahkan CSS berikut:
-   ```css
-   .system-update {
-     position: absolute;
-     bottom: 1.2rem;
-     right: 2rem;
-     font-family: 'Share Tech Mono', monospace;
-     font-size: 0.75rem;
-     color: rgba(180, 220, 255, 0.8);
-     text-shadow: 0 0 8px rgba(0, 255, 255, 0.25);
-     letter-spacing: 0.5px;
-     opacity: 0.9;
-     animation: flicker 4s infinite alternate;
-     pointer-events: none;
-     user-select: none;
-   }
+[SYS] Initializing AI core...
+[NET] Connection established to remote node.
+[AUTH] User verified successfully.
+[SCAN] Running background threat analysis...
+[INFO] Updating security modules.
 
-   @keyframes flicker {
-     0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: .9; }
-     20%, 24%, 55% { opacity: .5; }
-   }
+```
+- Muncul 1 pesan setiap 10 detik dengan efek `fadeIn/fadeOut`.
+- Pesan muncul di bagian background bawah kanan hero section dengan opacity rendah (misal `opacity: 0.4`).
 
-   @media (max-width: 768px) {
-     .system-update {
-       right: 50%;
-       bottom: 0.8rem;
-       transform: translateX(50%);
-       text-align: center;
-       font-size: 0.68rem;
-     }
-   }
-````
+3️⃣ **Parallax Depth Hero**
+- Tambahkan efek parallax pada elemen hero (text utama, tombol, terminal box) dengan CSS `transform: translateY()` yang berubah sedikit saat scroll.
+- Gunakan event listener `window.addEventListener('scroll', ...)` dan simpan nilai scrollY untuk mengatur depth movement.
+- Contoh:
+```
 
-4. Pastikan container utama Hero Section memiliki `position: relative;` agar posisi elemen ini terikat pada section tersebut, bukan seluruh halaman.
+transform: translateY(${scrollY * 0.1}px);
 
-5. Tambahkan sedikit animasi masuk dengan delay 2 detik setelah hero muncul:
+```
+- Pastikan smooth dan ringan (gunakan `requestAnimationFrame` agar tidak lag).
 
-   ```css
-   .system-update {
-     opacity: 0;
-     animation: fadeIn 1.5s ease-out 2s forwards, flicker 4s infinite alternate 3s;
-   }
+🎨 **Tambahan Styling di App.css:**
+- Tambahkan animasi halus:
+```
 
-   @keyframes fadeIn {
-     from { opacity: 0; transform: translateY(5px); }
-     to { opacity: 0.9; transform: translateY(0); }
-   }
-   ```
+@keyframes fadeInOut {
+0% { opacity: 0; transform: translateY(10px); }
+20%, 80% { opacity: 0.6; transform: translateY(0); }
+100% { opacity: 0; transform: translateY(-10px); }
+}
 
-🧠 Catatan estetika:
+```
+- Gunakan font monospaced untuk system log agar tampak seperti terminal.
+- Tambahkan z-index dan position absolute agar system log tidak mengganggu teks utama.
 
-* Gunakan warna teks `rgba(180, 220, 255, 0.8)` agar senada dengan tema neon grid-matrix hero.
-* Pastikan elemen ini tidak menabrak terminal Wireshark di kanan bawah (beri sedikit margin atau sesuaikan z-index jika perlu).
+⚙️ **Catatan:**
+- Jangan ubah struktur section lain di bawah hero.
+- Pastikan animasi bekerja di desktop & mobile (gunakan `useEffect` dengan cleanup).
+- Efek tetap halus meskipun GitHub Pages reload.
 
----
+💾 Output akhir:
+- Hero section terasa hidup, ada teks yang berganti otomatis, background ada pesan sistem muncul hilang secara acak, dan elemen bergerak halus saat scroll.
+```
