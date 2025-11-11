@@ -1,69 +1,182 @@
-```
-Tugasmu: tingkatkan bagian Hero Section pada file `App.jsx` agar terlihat lebih cinematic dan interaktif tanpa memengaruhi struktur section lain.
+> **Tujuan:** Menambahkan *animated tagline rotation*, *animated system messages*, dan *parallax depth effect* pada **Hero Section** baru di atas “About Me”, tanpa mengubah section lain.
 
-🎯 Tujuan:
-Tambahkan tiga fitur berikut ke Hero Section:
-1. Animated Tagline Rotation (text berganti otomatis)
-2. Animated System Messages (log acak muncul di background)
-3. Parallax Depth Effect (objek hero bergerak halus berdasarkan scroll)
+---
 
-🧩 Detail Implementasi:
+### 🧭 **Langkah Struktur:**
 
-1️⃣ **Animated Tagline Rotation**
-- Tambahkan array teks seperti:
-  [
-    "Building Secure Systems.",
-    "Exploring Cyber Frontiers.",
-    "Developing with Precision.",
-    "Ethical Hacker in Progress."
-  ]
-- Ganti isi tagline hero (`typing effect`) setiap 3–4 detik dengan efek fade atau ketik cepat (gunakan `useState` + `useEffect`).
-- Jangan gunakan library berat seperti `typed.js`, cukup buatan sendiri dengan interval + animasi CSS.
+#### 1️⃣ Tambahkan di `App.jsx` — Tepat **sebelum deklarasi `slides` (sekitar line 110–120)**
 
-2️⃣ **Animated System Messages**
-- Buat komponen kecil `<SystemLog />` yang menampilkan pesan-pesan terminal acak seperti:
-```
+```jsx
+// Hero tagline rotation & system log setup
+const heroTaglines = [
+  "Building Secure Systems.",
+  "Exploring Cyber Frontiers.",
+  "Developing with Precision.",
+  "Ethical Hacker in Progress."
+];
 
-[SYS] Initializing AI core...
-[NET] Connection established to remote node.
-[AUTH] User verified successfully.
-[SCAN] Running background threat analysis...
-[INFO] Updating security modules.
-
-```
-- Muncul 1 pesan setiap 10 detik dengan efek `fadeIn/fadeOut`.
-- Pesan muncul di bagian background bawah kanan hero section dengan opacity rendah (misal `opacity: 0.4`).
-
-3️⃣ **Parallax Depth Hero**
-- Tambahkan efek parallax pada elemen hero (text utama, tombol, terminal box) dengan CSS `transform: translateY()` yang berubah sedikit saat scroll.
-- Gunakan event listener `window.addEventListener('scroll', ...)` dan simpan nilai scrollY untuk mengatur depth movement.
-- Contoh:
+const systemLogs = [
+  "[SYS] Initializing AI core...",
+  "[NET] Connection established to remote node.",
+  "[AUTH] User verified successfully.",
+  "[SCAN] Running background threat analysis...",
+  "[INFO] Updating security modules..."
+  "[PROC] Memory allocation optimized.",
+  "[LINK] Secure tunnel established.",
+  "[FW] Firewall rules updated.",
+  "[LOG] System integrity check passed.",
+  "[PORT] Listening on port 443 (HTTPS)."
+];
 ```
 
-transform: translateY(${scrollY * 0.1}px);
+---
 
+#### 2️⃣ Tambahkan di **dalam komponen utama `App`**, di bagian atas (sekitar line 250–260):
+
+```jsx
+// HERO animation states
+const [currentTagline, setCurrentTagline] = useState(0);
+const [visibleLog, setVisibleLog] = useState("");
+
+useEffect(() => {
+  const taglineInterval = setInterval(() => {
+    setCurrentTagline((prev) => (prev + 1) % heroTaglines.length);
+  }, 3500);
+
+  const logInterval = setInterval(() => {
+    const randomLog = systemLogs[Math.floor(Math.random() * systemLogs.length)];
+    setVisibleLog(randomLog);
+  }, 10000);
+
+  return () => {
+    clearInterval(taglineInterval);
+    clearInterval(logInterval);
+  };
+}, []);
 ```
-- Pastikan smooth dan ringan (gunakan `requestAnimationFrame` agar tidak lag).
 
-🎨 **Tambahan Styling di App.css:**
-- Tambahkan animasi halus:
+---
+
+#### 3️⃣ Tambahkan **section baru** di bawah navbar (sekitar line 310–320), sebelum section *About Me*:
+
+```jsx
+{/* Hero Section */}
+<section className="slide slide-hero">
+  <div className="hero-content">
+    <h1 className="hero-tagline">{heroTaglines[currentTagline]}</h1>
+    <p className="hero-subtext">Welcome to my digital domain.</p>
+    <div className="hero-system-log">{visibleLog}</div>
+  </div>
+
+  {/* Parallax Layers */}
+  <div className="hero-layer layer-bg"></div>
+  <div className="hero-layer layer-fg"></div>
+</section>
 ```
 
-@keyframes fadeInOut {
-0% { opacity: 0; transform: translateY(10px); }
-20%, 80% { opacity: 0.6; transform: translateY(0); }
-100% { opacity: 0; transform: translateY(-10px); }
+---
+
+#### 4️⃣ Tambahkan **scroll parallax effect** di dalam `useEffect()` utama (bisa di bawah section keyboard handler):
+
+```jsx
+useEffect(() => {
+  const handleParallax = () => {
+    const layers = document.querySelectorAll(".hero-layer");
+    layers.forEach((layer, index) => {
+      const speed = index === 0 ? 0.1 : 0.2;
+      layer.style.transform = `translateY(${window.scrollY * speed}px)`;
+    });
+  };
+  window.addEventListener("scroll", handleParallax);
+  return () => window.removeEventListener("scroll", handleParallax);
+}, []);
+```
+
+---
+
+#### 5️⃣ Tambahkan di `App.css` — **sekitar line 1850–1900 (di bawah `.slide` base styles):**
+
+```css
+/* HERO SECTION */
+.slide-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  background: transparent;
 }
 
-```
-- Gunakan font monospaced untuk system log agar tampak seperti terminal.
-- Tambahkan z-index dan position absolute agar system log tidak mengganggu teks utama.
+.hero-content {
+  z-index: 3;
+  position: relative;
+  color: var(--text-light);
+}
 
-⚙️ **Catatan:**
-- Jangan ubah struktur section lain di bawah hero.
-- Pastikan animasi bekerja di desktop & mobile (gunakan `useEffect` dengan cleanup).
-- Efek tetap halus meskipun GitHub Pages reload.
+.hero-tagline {
+  font-size: 2.6rem;
+  font-family: 'Orbitron', monospace;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: fadeRotate 3.5s ease-in-out infinite;
+}
 
-💾 Output akhir:
-- Hero section terasa hidup, ada teks yang berganti otomatis, background ada pesan sistem muncul hilang secara acak, dan elemen bergerak halus saat scroll.
+.hero-subtext {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  margin-top: 12px;
+}
+
+.hero-system-log {
+  position: absolute;
+  bottom: 5%;
+  right: 10%;
+  font-family: monospace;
+  font-size: 0.9rem;
+  opacity: 0.5;
+  animation: fadeInOut 10s infinite;
+}
+
+/* Parallax layers */
+.hero-layer {
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(circle, rgba(102,204,255,0.08), transparent 70%);
+  top: 0;
+  left: 0;
+  z-index: 1;
+  transition: transform 0.2s ease-out;
+}
+
+.layer-fg {
+  background: radial-gradient(circle, rgba(204,102,255,0.1), transparent 80%);
+  z-index: 2;
+}
+
+@keyframes fadeRotate {
+  0%, 100% { opacity: 0; transform: translateY(10px); }
+  20%, 80% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  10%, 90% { opacity: 0.5; }
+  100% { opacity: 0; }
+}
 ```
+
+---
+
+### 🧩 **Tambahan Catatan untuk AI Coder**
+
+> * Jangan ubah atau hapus komponen lain di bawah “About Me”.
+> * Pastikan `Hero Section` ditambahkan **sebelum slide About Me**.
+> * Pastikan tidak menimpa efek scroll atau navbar.
+> * Cek `App.css` untuk duplikasi kelas `.slide`, hanya tambahkan kode hero di bawahnya.
+> * Pastikan animasi tetap ringan dan kompatibel untuk GitHub Pages.
+
+---
