@@ -622,13 +622,13 @@ const slides = [
       <div class="career-objectives-layout">
         <div class="career-objectives-left">
           <h3 style="color: var(--accent-1);">[01] Cybersecurity: Zero-Trust Implementation</h3>
-          <p>Mencari peran di bidang Keamanan Siber yang memungkinkan saya untuk berkontribusi pada strategi keamanan <em>zero-trust</em>, melakukan audit kerentanan, dan merancang protokol pertahanan yang kuat. Fokus utama adalah pada keamanan aplikasi web (AppSec) dan melindungi infrastruktur digital dari ancaman siber yang berkembang.</p>
+          <p>Seeking a role in Cybersecurity where I can contribute to zero-trust security strategies, perform vulnerability assessments, and design robust defense protocols. My primary focus is on web application security (AppSec) and safeguarding digital infrastructure against evolving cyber threats.</p>
           <br>
           <h3 style="color: var(--accent-2);">[02] Web Development: Fullstack & Secure</h3>
-          <p>Berkeinginan untuk bergabung dengan tim pengembangan web di mana saya dapat menerapkan keterampilan Fullstack saya (Node.js/React/Vue) untuk membangun aplikasi web yang berkinerja tinggi, terukur, dan, yang paling penting, aman (Security by Design). Ingin mengkhususkan diri dalam pengembangan backend yang resisten terhadap serangan.</p>
+          <p>Eager to join a web development team where I can apply my Fullstack skills (Node.js/React/Vue) to build high-performance, scalable, and — most importantly — secure web applications (Security by Design). I aim to specialize in backend development that is resilient against attacks.</p>
           <br>
           <h3 style="color: var(--accent-3);">[03] Continuous Learning & Innovation</h3>
-          <p>Selalu berkomitmen untuk mengadopsi teknologi keamanan dan pengembangan terbaru (seperti AI/ML dalam pertahanan siber atau framework modern) untuk memastikan solusi yang saya berikan tetap mutakhir dan efisien.</p>
+          <p>Consistently committed to adopting the latest security and development technologies — such as AI/ML in cybersecurity and modern frameworks — to ensure the solutions I deliver remain cutting-edge and efficient.</p>
         </div>
         <div class="career-objectives-center">
           <img src="/portofolio/images/career.png" alt="Career Growth" style="max-width: 100%; height: auto; border-radius: 0; box-shadow: none;" class="contact-photo" />
