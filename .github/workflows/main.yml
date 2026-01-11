@@ -8,8 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
-    # PERBAIKAN: permissions harus menjorok ke dalam (sejajar dengan runs-on)
+        # PERBAIKAN: permissions harus menjorok ke dalam (sejajar dengan runs-on)
     permissions:
       contents: write
 
@@ -28,9 +27,17 @@ jobs:
       - name: Build project
         run: npm run build
 
+            # ... step build lu yang sebelumnya ...
+
+      # TAMBAHIN STEP INI BUAT CEK FILE (Debugging)
+      - name: Check Build Output
+        run: ls -la dist
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          # Kita pake token bawaan aja (lebih aman & praktis)
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          force_orphan: true  # <--- INI KUNCINYA (Hapus history lama, timpa baru)
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
