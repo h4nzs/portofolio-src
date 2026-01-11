@@ -8,9 +8,10 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
-  permissions:
-    contents: write
+    
+    # PERBAIKAN: permissions harus menjorok ke dalam (sejajar dengan runs-on)
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout code
@@ -30,6 +31,6 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          personal_token: ${{ secrets.PERSONAL_TOKEN }}
-          external_repository: h4nzs/portofolio
+          # Kita pake token bawaan aja (lebih aman & praktis)
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
