@@ -1684,8 +1684,27 @@ const App = React.memo(() => {
         </section>
       </main>
 
-      <footer className="footer">
-        <div>© {new Date().getFullYear()} Dehan — built with ❤️</div>
+      <footer className="footer" style={{ 
+        padding: '2rem 1rem', 
+        textAlign: 'center',
+        background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)'
+      }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.8rem' }}>
+          <div style={{ fontWeight: 500 }}>
+            © {new Date().getFullYear()} Dehan — built with <span style={{color: 'var(--accent-1)'}}>❤️</span> & <span style={{color: 'var(--accent-2)'}}>☕</span>
+          </div>
+          
+          <div style={{ 
+            fontSize: '0.9rem', 
+            color: 'var(--text-weak)', 
+            maxWidth: '600px',
+            lineHeight: '1.5',
+            borderTop: '1px solid rgba(255,255,255,0.1)',
+            paddingTop: '0.8rem'
+          }}>
+            Available for <strong>remote work worldwide 🌍</strong> & on-site projects in <strong>Jakarta & Bandung 🇮🇩</strong>.
+          </div>
+        </div>
       </footer>
     </div>
   );
