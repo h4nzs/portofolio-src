@@ -1,1711 +1,186 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
-import { Eye } from 'lucide-react';
+import { Eye, Github, Linkedin, Mail } from 'lucide-react';
 import "./App.css";
 
-// Data definitions moved outside component for optimization
-const skillRatings = {
-  technical: [
-    { category: "Frontend", level: "Intern", percentage: 35 },
-    { category: "Backend", level: "Intermediate", percentage: 60 },
-    { category: "Database", level: "Intermediate", percentage: 60 },
-    { category: "Sysadmin", level: "Expert", percentage: 95 },
-    { category: "Security", level: "Intermediate", percentage: 60 },
-    { category: "Tools", level: "Expert", percentage: 95 },
-    { category: "Other", level: "Intermediate", percentage: 60 }
-  ],
-  soft: [
-    { category: "Problem Solving", level: "Quite Good", percentage: 75 },
-    { category: "Communication", level: "Good", percentage: 85 },
-    { category: "Teamwork", level: "Good", percentage: 85 },
-    { category: "Time Management", level: "Good", percentage: 85 },
-    { category: "Adaptability", level: "Pretty Good", percentage: 75 },
-    { category: "English", level: "Very Good", percentage: 95 }
-  ]
-};
-
-// Hero section component
-const HeroSection = () => {
-  const [text, setText] = useState('');
-  const [lineIndex, setLineIndex] = useState(0);
-  const [taglineIndex, setTaglineIndex] = useState(0);
-  const [scrollY, setScrollY] = useState(0);
-  const [currentSystemMessage, setCurrentSystemMessage] = useState('');
-  const [showSystemMessage, setShowSystemMessage] = useState(false);
-  
-  // Animated tagline rotation
-  const taglines = [
-    "Building Secure Systems.",
-    "Exploring Cyber Frontiers.",
-    "Developing with Precision.",
-    "Ethical Hacker in Progress."
-  ];
-  
-  // Animated system messages
-  const systemMessages = [
-    "[SYS] Initializing AI core...",
-    "[NET] Connection established to remote node.",
-    "[AUTH] User verified successfully.",
-    "[SCAN] Running background threat analysis...",
-    "[INFO] Updating security modules.",
-    "[PROC] Memory allocation optimized.",
-    "[LINK] Secure tunnel established.",
-    "[FW] Firewall rules updated.",
-    "[LOG] System integrity check passed.",
-    "[PORT] Listening on port 443 (HTTPS)."
-  ];
-  
-  const fullTexts = [
-    "Hi, I'm Dehan.",
-    "I build secure and intelligent systems.",
-    "Fullstack Developer ⚡ Cyber Security Enthusiast 🔐",
-    "And Ethical Hacker.",
-    "Here you can know much more about me.",
-    "Just slide down on this portfolio page."
-  ];
-  
-  useEffect(() => {
-    if (lineIndex < fullTexts.length) {
-      const currentFullText = fullTexts[lineIndex];
-      
-      // Typing
-      if (text.length < currentFullText.length) {
-        const timer = setTimeout(() => {
-          setText(currentFullText.substring(0, text.length + 1));
-        }, 50);
-        return () => clearTimeout(timer);
-      } else {
-        // Finished typing, pause before moving to next line
-        if (lineIndex < fullTexts.length - 1) {
-          const timer = setTimeout(() => {
-            setLineIndex(prev => prev + 1);
-            setText('');
-          }, 700);
-          return () => clearTimeout(timer);
-        }
-      }
-    }
-  }, [text, lineIndex]);
-  
-  // Animated tagline rotation
-  useEffect(() => {
-    const taglineTimer = setInterval(() => {
-      setTaglineIndex(prev => (prev + 1) % taglines.length);
-    }, 3500); // Rotate every 3.5 seconds
-    
-    return () => clearInterval(taglineTimer);
-  }, [taglines.length]);
-  
-  // Animated system messages
-  useEffect(() => {
-    const showMessage = () => {
-      const randomMessage = systemMessages[Math.floor(Math.random() * systemMessages.length)];
-      setCurrentSystemMessage(randomMessage);
-      setShowSystemMessage(true);
-      
-      // Hide message after 8 seconds
-      const hideTimer = setTimeout(() => {
-        setShowSystemMessage(false);
-      }, 8000);
-      
-      return hideTimer;
-    };
-    
-    // Show first message after 5 seconds
-    const firstMessageTimer = setTimeout(() => {
-      const hideTimer = showMessage();
-      
-      // Continue showing messages every 10 seconds
-      const messageInterval = setInterval(() => {
-        clearTimeout(hideTimer);
-        const newHideTimer = showMessage();
-      }, 10000);
-      
-      return () => {
-        clearInterval(messageInterval);
-        clearTimeout(newHideTimer);
-      };
-    }, 5000);
-    
-    return () => {
-      clearTimeout(firstMessageTimer);
-    };
-  }, []);
-  
-  // Parallax scroll effect
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-    
-    window.addEventListener('scroll', handleScroll);
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-  
-  const scrollToAbout = () => {
-    document.getElementById('slide-1')?.scrollIntoView({ behavior: 'smooth' });
-  };
-  
-  // Function to render text with colored symbols
-  const renderColoredText = (text) => {
-    if (text.includes('⚡') && text.includes('🔐')) {
-      const parts = text.split('⚡');
-      const firstPart = parts[0];
-      const remainingParts = parts[1].split('🔐');
-      const secondPart = remainingParts[0];
-      const thirdPart = remainingParts[1];
-      
-      return (
-        <>
-          {firstPart}
-          <span style={{ color: 'var(--accent-1)' }}>⚡</span>
-          {secondPart}
-          <span style={{ color: 'var(--accent-2)' }}>🔐</span>
-          {thirdPart}
-        </>
-      );
-    } else if (text.includes('🔐')) {
-      const parts = text.split('🔐');
-      return (
-        <>
-          {parts[0]}
-          <span style={{ color: 'var(--accent-2)' }}>🔐</span>
-          {parts[1]}
-        </>
-      );
-    } else if (text.includes('And Ethical Hacker')) {
-      const parts = text.split('And');
-      return (
-        <>
-          {parts[0]}
-          <span style={{ color: 'var(--accent-3)' }}>And</span>
-          {parts[1]}
-        </>
-      );
-    }
-    return text;
-  };
-  
-  // Format system update date
-  const formattedDate = new Date().toLocaleString('en-US', {
-    weekday: 'short',
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  });
-
-  const heroTerminals = [
-    { 
-      id: 'edu', 
-      type: 'log', 
-      title: 'EDUCATION LOG', 
-      lines: [
-        '[2022-2025] SMKN 4 PADALARANG — Network & Computer Engineering', 
-        '[2025-Present] STMIK AMIK Bandung — Bachelor, Cybersecurity focus'
-      ], 
-      styleVars: { '--i': 1, '--rot': '-6deg', '--z': 1 } 
-    },
-    { 
-      id: 'exp', 
-      type: 'log', 
-      title: 'EXPERIENCE LOG', 
-      lines: [
-        '[2024] Ruang Data Telemedia — Freelance Technician', 
-        '[2023] PT. Dwimitra Ekatama Mandiri — Electrical Engineer (Huawei Project)'
-      ], 
-      styleVars: { '--i': 2, '--rot': '8deg', '--z': 2 } 
-    },
-    {
-      id: 'pentest-msf',
-      type: 'exploit-msf',
-      title: 'METASPLOIT',
-      lines: [
-        '> use exploit/multi/handler',
-        '=> exploit started',
-        'Session 1 opened on 192.168.1.105:4444'
-      ],
-      style: {
-        desktop: { left: '16%', bottom: '10%', '--rot': '18deg', '--scale':'1.03', '--z': 2 },
-        tablet:  { left: '14%', bottom: '8%',  '--rot': '12deg', '--scale':'1.02', '--z':2 },
-        mobile:  { left: '50%', top: 'auto', bottom: '24%', transform: 'translateX(-50%)', '--rot':'0deg', '--scale':'1', '--z':2 }
-      }
-    },
-    {
-      id: 'pentest-nmap',
-      type: 'scan-nmap',
-      title: 'NMAP SCAN',
-      lines: [
-        '> nmap -sV 192.168.1.0/24',
-        'Starting SYN Stealth Scan...',
-        'Host 192.168.1.105:22 open',
-        'Host 192.168.1.110:80 open'
-      ],
-      style: {
-        desktop: { left: '46%', bottom: '18%', '--rot': '-18deg', '--scale':'1.05', '--z': 1 },
-        tablet:  { left: '46%', bottom: '14%', '--rot': '-12deg', '--scale':'1.03', '--z':1 },
-        mobile:  { left: '50%', top: 'auto', bottom: '18%', transform: 'translateX(-50%)', '--rot':'0deg', '--scale':'1', '--z':1 }
-      }
-    },
-    {
-      id: 'pentest-wireshark',
-      type: 'capture-wireshark',
-      title: 'WIRESHARK (SIM)',
-      lines: [
-        '> start capture eth0',
-        'Packet #125: TCP 192.168.1.105:443 → 192.168.1.2:53724',
-        'Protocol: TLSv1.3'
-      ],
-      style: {
-        desktop: { right: '12%', bottom: '12%', '--rot': '-14deg', '--scale':'1', '--z': 1 },
-        tablet:  { right: '10%', bottom: '10%', '--rot': '-10deg', '--scale':'1', '--z':1 },
-        mobile:  { left: '50%', top: 'auto', bottom: '12%', transform: 'translateX(-50%)', '--rot':'0deg', '--scale':'1', '--z':1 }
-      }
-    }
-  ];
-
-  return (
-    <section id="slide-0" className="slide slide-hero">
-      <div className="floating-dot-1"></div>
-      <div className="floating-dot-2"></div>
-      <div className="floating-dot-3"></div>
-      <div className='hero-terminals'>
-        {heroTerminals.map(t => (
-          <div key={t.id} className={`hero-terminal hero-terminal--${t.type}`} style={t.styleVars}>
-            <div className='terminal-title'>{t.title}</div>
-            <div className='terminal-body'>
-              {t.type === 'log' ? (
-                <pre className='terminal-log'>{t.lines.join('\n')}</pre>
-              ) : (
-                <div className='terminal-scan'>
-                  {t.lines.map((l, idx) => <div key={idx} className='scan-line'>{l}</div>)}
-                </div>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-      <motion.div 
-        className="hero-content" 
-        initial={{ opacity: 0, y: 20 }} 
-        whileInView={{ opacity: 1, y: 0 }} 
-        viewport={{ once: true }} 
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        style={{ 
-          transform: `translateY(${scrollY * 0.1}px)` 
-        }}
-      >
-        <div className="hero-inner">
-          {/* Animated Tagline */}
-          <div className="animated-tagline">
-            <motion.div
-              key={taglineIndex}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.5 }}
-              className="tagline-text"
-            >
-              {taglines[taglineIndex]}
-            </motion.div>
-          </div>
-          <div className="typing-container">
-          {lineIndex > 0 && (
-            <div className="previous-lines">
-              {fullTexts.slice(0, lineIndex).map((line, i) => (
-                <p key={i} className="hero-line-completed">
-                  {renderColoredText(line)}
-                </p>
-              ))}
-            </div>
-          )}
-          {lineIndex < fullTexts.length && (
-            <p className="typing-text">
-              {renderColoredText(text)}
-              <span className="cursor">|</span>
-            </p>
-          )}
-          </div>
-          <motion.button 
-            className="hero-cta"
-            onClick={scrollToAbout}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 4, duration: 0.5 }}
-          >
-            Explore My Work ↓
-          </motion.button>
-        </div>
-      </motion.div>
-      {/* Animated System Messages */}
-      {showSystemMessage && (
-        <motion.div 
-          className="system-message"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 0.4, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.5 }}
-        >
-          {currentSystemMessage}
-        </motion.div>
-      )}
-      <small className="system-update">
-        Last system update: {formattedDate}
-      </small>
-    </section>
-  );
-};
-
-const slides = [
-  {
-    id: 1,
-    title: "About Me",
-    html: `
-      <p>My name is <strong>Dehan</strong>, or just call me <em>Han</em>, a passionate <strong>Fullstack Developer</strong> and <strong>Cybersecurity Enthusiast</strong> currently pursuing a <strong>Bachelor's Degree in Informatics Engineering</strong> at <strong>STMIK AMIK Bandung</strong>.</p>
-      <p>I have a strong interest in <strong>web development</strong>, <strong>network systems</strong>, and <strong>cybersecurity</strong>, with hands-on experience in building and securing digital systems.</p>
-      <p>Currently developing <strong>Chat-Lite</strong>, a lightweight chat application designed for optimal performance on low-end devices.</p>
-    `,
-    photo: "/portofolio/images/profile.png",
-    hobbies: `
-      <div class="hobbies-text">
-        <h3 style="color: var(--accent-1); margin-bottom: 1rem; text-align: right;">Hobby and Interest</h3>
-        <div style="text-align: right; color: var(--text-weak);">
-          <p><strong>Cybersecurity Research</strong> - Exploring the latest vulnerabilities and defense mechanisms</p>
-          <p><strong>Open Source Contribution</strong> - Contributing to various community projects</p>
-          <p><strong>IoT Projects</strong> - Building innovative connected devices</p>
-          <p><strong>Learning New Technologies</strong> - Always expanding my skill set</p>
-          <p><strong>Playing Drum</strong> - Sometimes i do drum cover and learning new trick, technique and much more</p>
-          <p><strong>Listening Music</strong> - I love listening to music and enjoying it, and my fav genre are deathcore and deathmetal</p>
-        </div>
-      </div>
-    `,
-  },
-  {
-    id: 2,
-    title: "Technical Skills",
-    skills: {
-      technical: [
-        { label: "Frontend", value: "HTML, CSS, JavaScript, Vue.js, React.js" },
-        { label: "Backend", value: "PHP (CodeIgniter 4), Node.js" },
-        { label: "Database", value: "MySQL, MariaDB, PostgreSQL" },
-        { label: "System Administration", value: "Linux (Debian/Ubuntu), Firewall Management" },
-        { label: "Security", value: "Web Penetration Testing, Network Security" },
-        { label: "Tools", value: "Git, GitHub, VS Code" },
-        { label: "Other", value: "API Integration (OpenAI, HuggingFace, TMDb), RESTful API" },
-      ],
-      soft: [
-        { label: "Soft Skill", value: "Bekerja sama dengan tim" },
-        { label: "Soft Skill", value: "English aktif" },
-      ],
-    },
-  },
-  {
-    id: 3,
-    title: "Soft Skill",
-    skills: {
-      soft: [
-        { label: "Problem Solving", value: "Ability to analyze complex issues and develop effective solutions." },
-        { label: "Communication", value: "Clear and effective verbal and written communication skills." },
-        { label: "Teamwork", value: "Ability to collaborate effectively with diverse teams." },
-        { label: "Time Management", value: "Efficiently prioritize tasks and manage time for optimal productivity." },
-        { label: "Adaptability", value: "Flexibility to adjust and thrive in changing environments." },
-        { label: "English Active", value: "Fluent in verbal and written communication." },
-      ]
-    }
-  },
-  {
-    id: 4,
-    title: "Education",
-    html: `
-      <div class="education-entry-card">
-        <img src="/portofolio/images/smk4.jpg" alt="SMKN 4 Padalarang Logo" class="institution-logo" />
-        <div class="education-details">
-          <p><strong>SMKN 4 PADALARANG</strong> — <em>Network and Computer Engineering</em></p>
-          <p>📅 2022-2025</p>
-          <div class="education-highlights">
-            <p><strong>Focus Areas:</strong></p>
-            <ul>
-              <li>IoT, Basic of Networking, Subnetting, Routing, System Administration.</li>
-            </ul>
-            <p><strong>Key Projects:</strong></p>
-            <ul>
-              <li>Creating and configuring monitoring system in company server using zabbix agent.</li>
-              <li>Configured a small office network with Cisco Packet Tracer.</li>
-            </ul>
-            <p><strong>Achievements:</strong></p>
-            <ul>
-              <li>To be one of the best students in implementing field work practice in companies from among the many other students at school in 2025.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="education-entry-card">
-        <img src="/portofolio/images/stmik.jpg" alt="STMIK AMIK Bandung Logo" class="institution-logo" />
-        <div class="education-details">
-          <p><strong>STMIK AMIK Bandung</strong> — <em>Bachelor of Informatics Engineering (Ongoing)</em></p>
-          <p>📅 2025 – Present</p>
-          <div class="education-highlights">
-            <p><strong>Focus Areas:</strong></p>
-            <ul>
-              <li>Cybersecurity, Programming, Network Administration, Database Management, Web Development, AI/ML.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    `,
-  },
-  {
-    id: 5,
-    title: "Professional Certifications",
-    html: `
-      <div class="certifications-grid">
-        <div class="certification-card card-container">
-          <img src="/portofolio/images/ccna.jpg" alt="Cisco CCNA Certificate Preview" class="cert-preview-img" />
-          <h3 style="color: var(--accent-1);">Cisco CCNA</h3>
-          <p>Associate-level certification covering networking fundamentals, IP services, security fundamentals, and automation and programmability.</p>
-          <button class="view-cert-btn" data-certificate="/portofolio/images/ccna.jpg">View Certificate</button>
-        </div>
-        <div class="certification-card card-container">
-          <img src="/portofolio/images/mtcna.jpg" alt="MTCNA Certificate Preview" class="cert-preview-img" />
-          <h3 style="color: var(--accent-2);">MTCNA</h3>
-          <p>MikroTik Certified Network Associate, covering the basics of MikroTik RouterOS and RouterBOARD hardware.</p>
-          <button class="view-cert-btn" data-certificate="/portofolio/images/mtcna.jpg">View Certificate</button>
-        </div>
-      </div>
-    `,
-  },
-  {
-    id: 6,
-    title: "Projects",
-    projects: [
-      {
-        id: "chat-lite",
-        title: "Chat-Lite (Internal Secure Comms App)",
-        repo: "https://github.com/h4nzs/chat-lite",
-        img: "/portofolio/images/project-chat-lite.png",
-        short: "Lightweight real-time chat web app (fast + E2E encryption).",
-        status: '(work in progress)',
-        tags: ['Fullstack', 'React', 'Node.js', 'Socket.io', 'Security'],
-        long: `Chat-Lite is a modern real-time chat web app built with React + Socket.IO (frontend) and Express + Prisma (backend). Features: secure auth with JWT & httpOnly cookies, real-time messaging, message history, end-to-end encryption with libsodium, reactions, message status indicators, file/image upload, push notifications, dark/light theme, and a responsive UI optimized for low-end devices.
-        <br><br>
-        <h4>I. The Challenge</h4>
-  <p>A client required a <strong>100% secure, internal web-based communication tool</strong> for their existing web ecosystem, demanding complete data control and trust beyond third-party platforms.</p>
-  <h4>II. My Role & Solution</h4>
-  <p>Designed and developed <strong>Chat-Lite</strong>: a minimalist, secure, and feature-rich chat application. Key focus: strict security with <strong>JWT authentication protocol</strong> and implementation of <strong>end-to-end or at-rest encryption</strong> to meet client privacy standards.</p>
-  <h4>III. Impact / Results</h4>
-  <p>Successfully integrated a <strong>zero-trust, highly secure communication tool</strong>, significantly <strong>reducing data leak risk</strong> and enhancing real-time team efficiency.</p>
-  <br>
-  <p><strong><i class="fas fa-microchip"></i> Technology Stack:</strong></p>
-  <ul>
-      <li><strong>Node.js, Express.js (API Backend)</strong></li>
-      <li><strong>Socket.io (Real-time Communication)</strong></li>
-      <li><strong>React.js, Vite (Frontend Framework)</strong></li>
-      <li><strong>Libsodium (Encryption Library)</strong></li>
-      <li><strong>PostgreSQL (Database)</strong></li>
-  </ul>`,
-      },
-      {
-        id: "anniv",
-        title: "Anniv (Fullstack Social & Anonymous Platform)",
-        repo: "https://github.com/h4nzs/anniv",
-        img: "/portofolio/images/project-anniv.png",
-        short: "Event/anniversary posting system built with CodeIgniter 4.",
-        status: 'Private',
-        tags: ['Fullstack', 'CodeIgniter 4', 'PHP', 'Vue.js'],
-        long: `Anniv is a web app (CodeIgniter 4) for creating, displaying, and managing anniversary/event posts. Supports auth, role-based access, admin dashboard, posting & commenting, user profiles, and migration/seeders. Designed for internal events or community showcases.
-        <br><br>
-        <h4>I. The Challenge</h4>
-  <p>The initial request for a simple online anniversary letter website was expanded into a unique platform opportunity combining <strong>personal emotion</strong> with <strong>community interaction</strong>.</p>
-  <h4>II. My Role & Solution</h4>
-  <p>Took on the full role of a Fullstack Developer, building <strong>Anniv</strong>. Integrated <strong>custom letter creation</strong> with a <strong>social media posting system</strong> supporting both <strong>Anonymous and Non-Anonymous comments</strong>, fostering a unique interaction environment.</p>
-  <h4>III. Impact / Results</h4>
-  <p>Successfully created a niche platform, proving my ability to <strong>develop complex fullstack systems</strong> from concept to live implementation with user-oriented community features.</p>
-  <br>
-  <p><strong><i class="fas fa-microchip"></i> Technology Stack:</strong></p>
-  <ul>
-      <li><strong>Codeigniter4 (PHP Framework)</strong></li>
-      <li><strong>MySQL (Database)</strong></li>
-      <li><strong>Vue.js (Frontend Library)</strong></li>
-  </ul>`,
-      },
-      {
-        id: "input-data",
-        title: "Simple Data Input System (Counter Efficiency)",
-        repo: "https://github.com/kenziyy/input-data",
-        img: "/portofolio/images/project-input.png",
-        short: "Simple transaction input system to reduce manual errors.",
-        status: 'Live',
-        tags: ['Frontend', 'JavaScript', 'HTML', 'CSS', 'UI/UX'],
-        long: `Input Data is a lightweight system focused on simplifying transaction input for small businesses — streamlines data collection and minimizes manual entry errors. Built with basic web stack and easy to deploy.
-        <br><br>
-        <h4>I. The Challenge</h4>
-  <p>Counter owner faced high human error rates (inputting customer numbers, transaction details), resulting in slow service and inaccurate data. The need was for a <strong>minimalist, zero-cost operational tool</strong>.</p>
-  <h4>II. My Role & Solution</h4>
-  <p>Developed a <strong>Simple Data Input System</strong> using <strong>Vanilla HTML, CSS, and JavaScript</strong>. Designed for <strong>maximum intuition</strong> to minimize errors and accelerate input. Implemented on <strong>GitHub Pages</strong> for free hosting.</p>
-  <h4>III. Impact / Results</h4>
-  <p>The tool successfully <strong>reduced transaction input errors to zero</strong> and <strong>accelerated average service time by 20%</strong>, improving bookkeeping accuracy and customer satisfaction.</p>
-  <br>
-  <p><strong><i class="fas fa-microchip"></i> Technology Stack:</strong></p>
-  <ul>
-      <li><strong>HTML, CSS, Vanilla JavaScript (Frontend)</strong></li>
-      <li><strong>GitHub Pages (Zero-cost Hosting)</strong></li>
-  </ul>`,
-      },
-    ],
-  },
-  {
-    id: 7,
-    title: "Professional Experience",
-    html: `
-      <div class="experience-entry-card">
-        <img src="/portofolio/images/bit.png" alt="PT. Bentang Inspira Teknologi Logo" class="company-logo" />
-        <div class="experience-details">
-          <p><strong>PT. Bentang Inspira Teknologi — IT Support Intern</strong> (📅 6 Months)</p>
-          <ul>
-            <li>Identified and helped remediate 5+ critical vulnerabilities through penetration testing on internal web projects.</li>
-            <li>Managed and configured firewall systems, resulting in a 15% reduction in detected malicious traffic.</li>
-            <li>Administered Linux servers and performed network troubleshooting to maintain 99% uptime.</li>
-          </ul>
-          <p class="tech-stack"><strong>Technologies:</strong> <span>Linux</span> <span>pfSense</span> <span>Nmap</span> <span>Metasploit</span> <span>SQLmap</span></p>
-        </div>
-      </div>
-      <div class="experience-entry-card">
-        <img src="/portofolio/images/ruangdata.jpg" alt="Ruang Data Telemedia Logo" class="company-logo" />
-        <div class="experience-details">
-          <p><strong>Ruang Data Telemedia — Freelance Technician</strong> (📅 2024 – Present)</p>
-          <ul>
-            <li>Resolved 100+ network and mobile device issues for customers, improving service efficiency by 25%.</li>
-            <li>Developed and deployed custom input data system, reducing manual transaction errors by 90%.</li>
-            <li>Provided comprehensive technical support for small business operations and infrastructure.</li>
-          </ul>
-          <p class="tech-stack"><strong>Technologies:</strong> <span>Mikrotik RouterOS</span> <span>HTML</span> <span>CSS</span> <span>JavaScript</span></p>
-        </div>
-      </div>
-      <div class="experience-entry-card">
-        <img src="/portofolio/images/dme.jpg" alt="PT. Dwimitra Ekatama Mandiri Logo" class="company-logo" />
-        <div class="experience-details">
-          <p><strong>PT. Dwimitra Ekatama Mandiri — Electrical Engineer (Huawei)</strong> (📅 1 Month)</p>
-          <ul>
-            <li>Collaborated on Huawei Data Center setup at GIIC Cikarang, ensuring proper wiring and infrastructure preparation.</li>
-            <li>Implemented electrical safety protocols during data center installation process.</li>
-            <li>Coordinated with engineering teams to achieve 100% project completion within deadline.</li>
-          </ul>
-          <p class="tech-stack"><strong>Technologies:</strong> <span>Datacenter Infrastructure</span> <span>Wiring</span> <span>Electrical Systems</span></p>
-        </div>
-      </div>
-      <div class="experience-entry-card">
-        <img src="/portofolio/images/freelance.png" alt="Freelance Logo" class="company-logo" />
-        <div class="experience-details">
-          <p><strong>Freelance Web Developer</strong> (📅 Ongoing)</p>
-          <ul>
-            <li>Architecting and developing Chat-Lite, a secure real-time communication platform for internal use.</li>
-            <li>Delivered 5+ web solutions for small to medium clients, improving their operational efficiency.</li>
-            <li>Implemented security-first development practices resulting in 0 security incidents across all projects.</li>
-          </ul>
-          <p class="tech-stack"><strong>Technologies:</strong> <span>React</span> <span>Node.js</span> <span>PHP</span> <span>Vue.js</span> <span>PostgreSQL</span></p>
-        </div>
-      </div>
-    `,
-  },
-  {
-    id: 8,
-    title: "Career Objectives: Cyber & Dev Focus",
-    html: `
-      <div class="vision-background" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 20vw; font-weight: 900; font-family: 'Orbitron', 'monospace'; color: transparent; background: var(--bg-name-gradient); -webkit-background-clip: text; background-clip: text; opacity: 0.1; white-space: nowrap; z-index: 1; line-height: 0.9; text-shadow: 0 0 5px rgba(0, 255, 204, 0.2), 0 0 10px rgba(0, 204, 255, 0.2), 0 0 20px rgba(204, 0, 255, 0.2), 0 0 40px rgba(255, 0, 204, 0.1); letter-spacing: -0.05em; pointer-events: none; max-width: 100vw; overflow: hidden; width: 100vw; text-align: center;">VISION</div>
-      <div class="growth-background" style="position: absolute; bottom: 20%; left: 50%; transform: translateX(-50%); font-size: 12vw; font-weight: 900; font-family: 'Orbitron', 'monospace'; color: transparent; background: var(--accent-1); -webkit-background-clip: text; background-clip: text; opacity: 0.08; white-space: nowrap; z-index: 2; line-height: 0.9; text-shadow: 0 0 3px rgba(102, 204, 255, 0.15), 0 0 6px rgba(102, 204, 255, 0.15), 0 0 12px rgba(102, 204, 255, 0.15); letter-spacing: -0.05em; pointer-events: none; max-width: 100vw; overflow: hidden; width: 100vw; text-align: center;">GROWTH</div>
-      <div class="career-objectives-layout">
-        <div class="career-objectives-left">
-          <h3 style="color: var(--accent-1);">[01] Cybersecurity: Zero-Trust Implementation</h3>
-          <p>Seeking a role in Cybersecurity where I can contribute to zero-trust security strategies, perform vulnerability assessments, and design robust defense protocols. My primary focus is on web application security (AppSec) and safeguarding digital infrastructure against evolving cyber threats.</p>
-          <br>
-          <h3 style="color: var(--accent-2);">[02] Web Development: Fullstack & Secure</h3>
-          <p>Eager to join a web development team where I can apply my Fullstack skills (Node.js/React/Vue) to build high-performance, scalable, and — most importantly — secure web applications (Security by Design). I aim to specialize in backend development that is resilient against attacks.</p>
-          <br>
-          <h3 style="color: var(--accent-3);">[03] Continuous Learning & Innovation</h3>
-          <p>Consistently committed to adopting the latest security and development technologies — such as AI/ML in cybersecurity and modern frameworks — to ensure the solutions I deliver remain cutting-edge and efficient.</p>
-        </div>
-        <div class="career-objectives-center">
-          <img src="/portofolio/images/career.png" alt="Career Growth" style="max-width: 100%; height: auto; border-radius: 0; box-shadow: none;" class="contact-photo" />
-        </div>
-        <div class="career-objectives-right">
-          <blockquote style="margin: 0; padding: 1.5rem; font-style: italic; color: var(--text-weak); border-left: 3px solid var(--accent-1); background: rgba(255,255,255,0.05); border-radius: 0 8px 8px 0;">
-            <p>\"Building secure, innovative solutions that make a lasting impact on the digital world.\"</p>
-          </blockquote>
-        </div>
-      </div>
-    `,
-  },
-  {
-    id: 9,
-    title: "Contact",
-    html: `
-      <div class="connect-background" style="position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%); font-size: 15vw; font-weight: 900; font-family: 'Orbitron', 'monospace'; color: transparent; background: var(--bg-name-gradient); -webkit-background-clip: text; background-clip: text; opacity: 0.1; white-space: nowrap; z-index: 1; line-height: 0.9; text-shadow: 0 0 5px rgba(0, 255, 204, 0.2), 0 0 10px rgba(0, 204, 255, 0.2), 0 0 20px rgba(204, 0, 255, 0.2), 0 0 40px rgba(255, 0, 204, 0.1); letter-spacing: -0.05em; pointer-events: none; max-width: 100vw; overflow: hidden; width: 100vw; text-align: center;">CONNECT</div>
-      
-      <div style="display: flex; flex-direction: column; align-items: center; gap: 1.2rem; width: 100%; position: relative; z-index: 3;">
-        <div class="contact-node">
-          <a href="mailto:sayadehan134@gmail.com" class="contact-link" style="display: flex; align-items: center; gap: 0.8rem; padding: 12px 24px; border: 2px solid transparent; border-image: linear-gradient(90deg, var(--accent-1), var(--accent-2)); border-image-slice: 1; color: var(--accent-1); border-radius: 8px; text-decoration: none; font-weight: 500; width: 100%; max-width: 300px; justify-content: center; transition: all 0.3s ease;">
-            <span>📧</span>
-            <span>Email Me</span>
-          </a>
-        </div>
-        <div class="contact-node">
-          <a href="https://github.com/h4nzs" target="_blank" rel="noreferrer" class="contact-link" style="display: flex; align-items: center; gap: 0.8rem; padding: 12px 24px; border: 2px solid transparent; border-image: linear-gradient(90deg, var(--accent-1), var(--accent-2)); border-image-slice: 1; color: var(--text-light); border-radius: 8px; text-decoration: none; width: 100%; max-width: 300px; justify-content: center; transition: all 0.3s ease;">
-            <span>💻</span>
-            <span>GitHub</span>
-          </a>
-        </div>
-        <div class="contact-node">
-          <a href="https://www.instagram.com/h4nzss/" target="_blank" rel="noreferrer" class="contact-link" style="display: flex; align-items: center; gap: 0.8rem; padding: 12px 24px; border: 2px solid transparent; border-image: linear-gradient(90deg, var(--accent-1), var(--accent-2)); border-image-slice: 1; color: var(--text-light); border-radius: 8px; text-decoration: none; width: 100%; max-width: 300px; justify-content: center; transition: all 0.3s ease;">
-            <span>📱</span>
-            <span>Instagram</span>
-          </a>
-        </div>
-        <div class="contact-node">
-          <a href="#" class="contact-link cta-button" style="display: flex; align-items: center; gap: 0.8rem; padding: 14px 32px; border: 2px solid transparent; border-image: linear-gradient(90deg, var(--accent-1), var(--accent-2)); border-image-slice: 1; color: var(--accent-1); border-radius: 8px; text-decoration: none; font-weight: 600; width: 100%; max-width: 300px; justify-content: center; transition: all 0.3s ease; font-size: 18px; margin-top: 1rem;">
-            <span>👋</span>
-            <span>GET IN TOUCH</span>
-          </a>
-        </div>
-      </div>
-    `,
-  },
-];
-
-const profileImages = [
-  "/portofolio/images/profile.png",
-  "/portofolio/images/profile-1.png",
-  "/portofolio/images/profile-2.png",
-  "/portofolio/images/profile-3.png"
-];
+import { slides } from "./data/portfolioData";
+import HeroSection from "./components/HeroSection";
+import BentoGrid from "./components/BentoGrid";
+import Timeline from "./components/Timeline";
 
 const App = React.memo(() => {
-  // theme + 3D toggle (keadaan preserved)
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
-  const [is3D, setIs3D] = useState(localStorage.getItem("is3D") === "true");
-
-  useEffect(() => {
-    localStorage.setItem("theme", theme);
-    document.documentElement.classList.toggle("light", theme === "light");
-  }, [theme]);
-
-  useEffect(() => {
-    localStorage.setItem("is3D", is3D ? "true" : "false");
-  }, [is3D]);
-
-  const toggleTheme = () => {
-    setTheme((t) => (t === "dark" ? "light" : "dark"));
-    
-    // Add theme transition class to body for the cinematic effect
-    document.body.classList.add('theme-transition');
-    setTimeout(() => {
-      document.body.classList.remove('theme-transition');
-    }, 500);
-  };
-  const toggle3D = () => requestAnimationFrame(() => setIs3D((v) => !v)); // safe toggle
-
-  // scroll progress
   const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 25 });
+  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
-  // project expanded state
-  const [openProject, setOpenProject] = useState(null);
-  const handleOpenProject = (id) => {
-    setOpenProject((prev) => (prev === id ? null : id));
-    setTimeout(() => {
-      const el = document.getElementById(`project-${id}`);
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
-    }, 150);
-  };
-
-  // profile carousel state
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  
-  // certificate modal state
+  // Modal State
   const [modalOpen, setModalOpen] = useState(false);
-  const [currentCertificate, setCurrentCertificate] = useState('');
-  
-  const nextImage = () => {
-    setCurrentImageIndex((prevIndex) => 
-      prevIndex === profileImages.length - 1 ? 0 : prevIndex + 1
-    );
-  };
-  
-  const prevImage = () => {
-    setCurrentImageIndex((prevIndex) => 
-      prevIndex === 0 ? profileImages.length - 1 : prevIndex - 1
-    );
-  };
+  const [currentCert, setCurrentCert] = useState("");
 
-  // function to open certificate modal
-  const openCertificateModal = (certificatePath) => {
-    setCurrentCertificate(certificatePath);
-    setModalOpen(true);
-  };
+  // Nav Active State
+  const [activeId, setActiveId] = useState(0);
 
-  // event listener for certificate buttons
   useEffect(() => {
-    const handleCertButtonClick = (e) => {
-      if (e.target.classList.contains('view-cert-btn')) {
-        const certPath = e.target.getAttribute('data-certificate');
-        if (certPath) {
-          openCertificateModal(certPath);
+    const handleScroll = () => {
+      const sections = document.querySelectorAll('section');
+      let current = 0;
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (window.scrollY >= sectionTop - 200) {
+          current = parseInt(section.id.split('-')[1]);
         }
-      }
+      });
+      setActiveId(current);
     };
-
-    document.addEventListener('click', handleCertButtonClick);
-    
-    return () => {
-      document.removeEventListener('click', handleCertButtonClick);
-    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // navigation highlight
-  useEffect(() => {
-    const sections = document.querySelectorAll('.slide[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            navLinks.forEach((link) => link.classList.remove('active'));
-            const activeLink = document.querySelector(
-              `a[href='#${entry.target.id}']`
-            );
-            activeLink?.classList.add('active');
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
-  }, []);
-
-  // keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "ArrowDown") {
-        e.preventDefault();
-        const currentSlideIndex = Array.from(document.querySelectorAll(".slide")).findIndex(
-          slide => slide.getBoundingClientRect().top >= 0 && slide.getBoundingClientRect().top <= 100
-        );
-        if (currentSlideIndex !== -1 && currentSlideIndex < slides.length - 1) {
-          document.querySelectorAll(".slide")[currentSlideIndex + 1].scrollIntoView({ 
-            behavior: "smooth", 
-            block: "start" 
-          });
-        }
-      } else if (e.key === "ArrowUp") {
-        e.preventDefault();
-        const currentSlideIndex = Array.from(document.querySelectorAll(".slide")).findIndex(
-          slide => slide.getBoundingClientRect().top >= 0 && slide.getBoundingClientRect().top <= 100
-        );
-        if (currentSlideIndex > 0) {
-          document.querySelectorAll(".slide")[currentSlideIndex - 1].scrollIntoView({ 
-            behavior: "smooth", 
-            block: "start" 
-          });
-        }
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
-  
-  // Cyber cinematic easter egg
-  useEffect(() => {
-    let timeoutId = null;
-    
-    const showCyberSequence = () => {
-      // Remove any existing cyber overlays
-      const existingOverlay = document.querySelector('.cyber-overlay');
-      if (existingOverlay) {
-        existingOverlay.remove();
-      }
-      
-      // Create the cyber overlay
-      const overlay = document.createElement('div');
-      overlay.className = 'cyber-overlay';
-      
-      // Create the cyber text elements
-      const text1 = document.createElement('div');
-      text1.className = 'cyber-text';
-      text1.textContent = 'ACCESS GRANTED 🔓';
-      
-      const text2 = document.createElement('div');
-      text2.className = 'cyber-text';
-      text2.textContent = 'INITIALIZING CYBER CORE...';
-      
-      const text3 = document.createElement('div');
-      text3.className = 'cyber-text';
-      text3.textContent = 'WELCOME, OPERATOR.';
-      
-      // Add the text elements to the overlay
-      overlay.appendChild(text1);
-      overlay.appendChild(text2);
-      overlay.appendChild(text3);
-      
-      // Add the overlay to the body
-      document.body.appendChild(overlay);
-      
-      // Clear any existing timeout
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-      
-      // Set timeout to remove the overlay after animation completes
-      timeoutId = setTimeout(() => {
-        if (overlay.parentNode) {
-          overlay.remove();
-        }
-      }, 4500); // Match the animation duration
-    };
-    
-    // Event listener for fullscreen change
-    const handleFullscreenChange = () => {
-      if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement) {
-        showCyberSequence();
-      }
-    };
-    
-    // Event listener for F11 key
-    const handleKeyDown = (e) => {
-      if (e.key === 'F11') {
-        // Delay slightly to allow fullscreen to activate
-        setTimeout(showCyberSequence, 100);
-      }
-    };
-    
-    // Add event listeners
-    document.addEventListener('fullscreenchange', handleFullscreenChange);
-    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
-    document.addEventListener('mozfullscreenchange', handleFullscreenChange);
-    window.addEventListener('keydown', handleKeyDown);
-    
-    // Cleanup function
-    return () => {
-      document.removeEventListener('fullscreenchange', handleFullscreenChange);
-      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
-      document.removeEventListener('mozfullscreenchange', handleFullscreenChange);
-      window.removeEventListener('keydown', handleKeyDown);
-      
-      // Clear timeout if component unmounts
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-      
-      // Remove any existing cyber overlay
-      const existingOverlay = document.querySelector('.cyber-overlay');
-      if (existingOverlay) {
-        existingOverlay.remove();
-      }
-    };
-  }, []);
-
-  // render helpers
-  const renderSkillsSection = (skills) => {
-    // two separate cards: technical & soft
-    return (
-      <div className="skills-wrap" style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap", marginTop: 14 }}>
-        <motion.div
-          className="skill-card-large"
-          whileHover={{ 
-            y: -5, 
-            scale: 1.03,
-            boxShadow: "0 10px 30px rgba(102,204,255,0.2), 0 0 20px rgba(102,204,255,0.1)" 
-          }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          style={{
-            minWidth: 300,
-            maxWidth: 520,
-            padding: 18,
-            borderRadius: 14,
-            background: "linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02))",
-            border: "1px solid rgba(255,255,255,0.04)",
-            boxShadow: "0 10px 30px rgba(2,6,23,0.6)",
-          }}
-        >
-          <h3 style={{ color: "var(--accent-1)", marginBottom: 8, fontWeight: 700 }}>Technical Skills</h3>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0, color: "var(--text-muted)" }}>
-            {skills.technical.map((s, i) => (
-              <li key={i} style={{ padding: "6px 0", borderBottom: i < skills.technical.length - 1 ? "1px dashed rgba(255,255,255,0.03)" : "none" }}>
-                <strong style={{ color: "var(--accent-2)" }}>{s.label}:</strong> <span style={{ marginLeft: 6 }}>{s.value}</span>
-              </li>
-            ))}
-          </ul>
-        </motion.div>
-
-        <motion.div
-          className="skill-card-large soft"
-          whileHover={{ 
-            y: -5, 
-            scale: 1.03,
-            boxShadow: "0 10px 30px rgba(102,204,255,0.2), 0 0 20px rgba(102,204,255,0.1)" 
-          }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          style={{
-            minWidth: 260,
-            maxWidth: 380,
-            padding: 18,
-            borderRadius: 14,
-            background: "linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01))",
-            border: "1px solid rgba(255,255,255,0.03)",
-            boxShadow: "0 8px 20px rgba(2,6,23,0.5)",
-          }}
-        >
-          <h3 style={{ color: "var(--accent-1)", marginBottom: 8, fontWeight: 700 }}>Soft Skills</h3>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0, color: "var(--text-muted)" }}>
-            {skills.soft.map((s, i) => (
-              <li key={i} style={{ padding: "8px 0" }}>
-                <strong>{s.value}</strong>
-              </li>
-            ))}
-          </ul>
-        </motion.div>
-      </div>
-    );
-  };
-
-  const renderProjectsSection = (projects) => {
-    return (
-      <div className="projects-grid">
-        {projects.map((p) => {
-          const opened = openProject === p.id;
-          return (
-            <motion.div
-              id={`project-${p.id}`}
-              key={p.id}
-              layout
-              onClick={() => handleOpenProject(p.id)}
-              initial={{ borderRadius: 12 }}
-              whileHover={{ 
-                y: -8, 
-                scale: 1.03,
-                boxShadow: "0 10px 30px rgba(102,204,255,0.3), 0 0 20px rgba(102,204,255,0.2)" 
-              }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className={`project-card ${opened ? 'expanded' : ''}`}
-            >
-              <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-                <img
-                  src={p.img}
-                  alt={p.title}
-                  className="project-thumb"
-                  onError={(e) => {
-                    e.currentTarget.onerror = null;
-                    e.currentTarget.src = "https://placehold.co/400x250?text=Preview";
-                  }}
-                />
-                <div className="card-content">
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexDirection: "column", gap: 4 }}>
-                    <div>
-                      <div className="project-title">{p.title}</div>
-                      <div className="project-short-desc">{p.short}</div>
-                    </div>
-                    <a href={p.repo} target="_blank" rel="noreferrer" className="repo-link">
-                      Repo
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <motion.div
-                className="project-desc"
-                animate={opened ? { height: "auto", opacity: 1, marginTop: 10 } : { height: 0, opacity: 0, marginTop: 0 }}
-                transition={{ duration: 0.36 }}
-                style={{ overflow: "hidden" }}
-              >
-                <div style={{ color: "var(--text-weak)", fontSize: 14, lineHeight: 1.5 }} dangerouslySetInnerHTML={{ __html: `<p>${p.long}</p>` }} />
-              </motion.div>
-            </motion.div>
-          );
-        })}
-      </div>
-    );
-  };
-
-  // New render functions for specific slide layouts
-  const renderSkillsSectionAsymmetrical = (skills) => {
-    return (
-      <div className="skills-technical-list">
-        {skills.technical.map((skill, index) => (
-          <div key={index} className="skill-item">
-            <h4 style={{ color: "var(--accent-1)", marginBottom: 8, fontWeight: 600 }}>{skill.label}</h4>
-            <p style={{ color: "var(--text-muted)", margin: 0 }}>{skill.value}</p>
-          </div>
-        ))}
-      </div>
-    );
-  };
-
-  const renderProjectsSectionZigZag = (projects) => {
-    return (
-      <div className="projects-zigzag">
-        {projects.map((p, index) => {
-          const opened = openProject === p.id;
-          const isEven = index % 2 === 0;
-          
-          // Determine status class based on status value
-          const getStatusClass = (status) => {
-            if (status.toLowerCase().includes('live')) return 'status-live';
-            if (status.toLowerCase().includes('wip') || status.toLowerCase().includes('work')) return 'status-wip';
-            if (status.toLowerCase().includes('private')) return 'status-private';
-            return 'status-unknown'; // fallback class
-          };
-          
-          return (
-            <motion.div
-              id={`project-${p.id}`}
-              key={p.id}
-              layout
-              onClick={() => handleOpenProject(p.id)}
-              initial={{ borderRadius: 12 }}
-              whileHover={{ 
-                y: -8, 
-                scale: 1.03,
-                boxShadow: "0 10px 30px rgba(102,204,255,0.3), 0 0 20px rgba(102,204,255,0.2)" 
-              }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className={`project-card-zigzag ${isEven ? 'right' : 'left'} ${opened ? 'expanded' : ''}`}
-            >
-              <div className="project-card-zigzag-content" style={{ display: "flex", gap: 12, alignItems: "flex-start", flexDirection: isEven ? 'row' : 'row-reverse' }}>
-                <div className="project-thumb-container">
-                  <img
-                    src={p.img}
-                    alt={p.title}
-                    className="project-thumb"
-                    onError={(e) => {
-                      e.currentTarget.onerror = null;
-                      e.currentTarget.src = "https://placehold.co/400x250?text=Preview";
-                    }}
-                  />
-                  <div className="image-overlay">
-                    <div className="overlay-icon">
-                      <Eye size={24} color="white" />
-                    </div>
-                  </div>
-                </div>
-                <div className="card-content">
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexDirection: "column", gap: 4 }}>
-                    <div>
-                      <div className="project-title">{p.title}</div>
-                      <div className="project-short-desc">{p.short}</div>
-                      {/* Project tags */}
-                      <div className="project-tags-container">
-                        {p.tags && p.tags.map((tag, tagIndex) => (
-                          <span key={tagIndex} className="project-tag">{tag}</span>
-                        ))}
-                      </div>
-                    </div>
-                    <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                      {/* Repo link */}
-                      {opened && (
-                        <a href={p.repo} target="_blank" rel="noreferrer" className="repo-link">
-                          Repo
-                        </a>
-                      )}
-                      {/* Status badge */}
-                      <span className={`status-badge ${getStatusClass(p.status)}`}>
-                        {p.status}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <motion.div
-                className="project-desc"
-                initial={false}
-                animate={{ 
-                  height: opened ? "auto" : 0,
-                  opacity: opened ? 1 : 0,
-                  marginTop: opened ? "12px" : 0
-                }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-                style={{ overflow: "hidden" }}
-              >
-                <div style={{ color: "var(--text-weak)", fontSize: 14, lineHeight: 1.6 }} dangerouslySetInnerHTML={{ __html: `<p>${p.long}</p>` }} />
-              </motion.div>
-            </motion.div>
-          );
-        })}
-      </div>
-    );
-  };
-
-  // Render education timeline with zigzag layout
-  const renderEducationTimeline = (html) => {
-    // Parse the HTML to extract individual education entries
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = html;
-    
-    // Select all the education entry cards
-    const entries = Array.from(tempDiv.querySelectorAll('.education-entry-card'));
-    
-    return (
-      <div className="education-zigzag-container">
-        {entries.map((entry, index) => {
-          const isEven = index % 2 === 0;
-          const entryHtml = entry.outerHTML;
-          
-          return (
-            <div 
-              key={index} 
-              className={`education-card-zigzag ${isEven ? 'left' : 'right'}`}
-            >
-              <div 
-                className="education-entry-card-zigzag-content"
-                dangerouslySetInnerHTML={{ __html: entryHtml }}
-              />
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
-
-  // Render experience timeline with zigzag layout
-  const renderExperienceTimeline = (html) => {
-    // Parse the HTML to extract individual experience entries
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = html;
-    
-    // Select all the experience entry cards
-    const entries = Array.from(tempDiv.querySelectorAll('.experience-entry-card'));
-    
-    return (
-      <div className="experience-zigzag-container">
-        {entries.map((entry, index) => {
-          const isEven = index % 2 === 0;
-          const entryHtml = entry.outerHTML;
-          
-          return (
-            <div 
-              key={index} 
-              className={`experience-card-zigzag ${isEven ? 'left' : 'right'}`}
-            >
-              <div 
-                className="experience-entry-card-zigzag-content"
-                dangerouslySetInnerHTML={{ __html: entryHtml }}
-              />
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
-
-  const renderProjectsSectionCompact = (projects) => {
-    return (
-      <div className="projects-compact-grid">
-        {projects.map((p) => {
-          const opened = openProject === p.id;
-          return (
-            <motion.div
-              id={`project-${p.id}`}
-              key={p.id}
-              layout
-              onClick={() => handleOpenProject(p.id)}
-              initial={{ borderRadius: 12 }}
-              whileHover={{ 
-                y: -8, 
-                scale: 1.03,
-                boxShadow: "0 10px 30px rgba(102,204,255,0.3), 0 0 20px rgba(102,204,255,0.2)" 
-              }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className={`project-card-compact ${opened ? 'expanded' : ''}`}
-            >
-              <div className="project-card-compact-content">
-                <div className="project-thumb-container">
-                  <img
-                    src={p.img}
-                    alt={p.title}
-                    className="project-thumb"
-                    onError={(e) => {
-                      e.currentTarget.onerror = null;
-                      e.currentTarget.src = "https://placehold.co/400x250?text=Preview";
-                    }}
-                  />
-                </div>
-                <div className="project-info">
-                  <div className="project-header">
-                    <div className="project-title">{p.title}</div>
-                    <a href={p.repo} target="_blank" rel="noreferrer" className="repo-link">
-                      Repo
-                    </a>
-                  </div>
-                  <div className="project-short-desc">{p.short}</div>
-                </div>
-              </div>
-
-              <motion.div
-                className="project-desc"
-                initial={false}
-                animate={{ 
-                  height: opened ? "auto" : 0,
-                  opacity: opened ? 1 : 0,
-                  marginTop: opened ? "16px" : 0
-                }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-                style={{ overflow: "hidden" }}
-              >
-                <div 
-                  style={{ 
-                    color: "var(--text-weak)", 
-                    fontSize: 14, 
-                    lineHeight: 1.6 
-                  }} 
-                  dangerouslySetInnerHTML={{ __html: `<p>${p.long}</p>` }} 
-                />
-              </motion.div>
-            </motion.div>
-          );
-        })}
-      </div>
-    );
-  };
 
   return (
-    <div className={`app-root ${theme === "dark" ? "theme-dark" : "theme-light"} animated-bg`}>
-      {/* top progress */}
-      <motion.div className="progress-bar" style={{ scaleX }} />
+    <div className="bg-[#050505] text-white min-h-screen selection:bg-indigo-500/30">
+      <motion.div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 origin-left z-50" style={{ scaleX }} />
 
-      {/* certificate modal */}
-      {modalOpen && (
-        <div className="modal-overlay" onClick={() => setModalOpen(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <span className="modal-close" onClick={() => setModalOpen(false)}>&times;</span>
-            <img src={currentCertificate} alt="Certificate" className="modal-image" />
-          </div>
-        </div>
-      )}
-
-      {/* navbar */}
-      <header className="navbar">
-        <div className="nav-left">
-          <div className="brand">h4n.dev</div>
-        </div>
-        <div className="nav-right">
-          <div className="nav-links">
-            {slides.map((s) => (
+      {/* Navbar */}
+      <header className="fixed top-0 inset-x-0 z-40 bg-[#050505]/80 backdrop-blur-md border-b border-white/5">
+        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+          <div className="font-bold text-xl tracking-tighter">h4n.dev</div>
+          <nav className="hidden md:flex gap-1">
+            {slides.map(s => (
               <a 
                 key={s.id} 
                 href={`#slide-${s.id}`}
-                className="nav-link"
+                className={`px-4 py-2 text-sm rounded-full transition-all ${activeId === s.id ? 'bg-white text-black font-bold' : 'text-white/60 hover:text-white hover:bg-white/5'}`}
                 onClick={(e) => {
                   e.preventDefault();
-                  document.getElementById(`slide-${s.id}`)?.scrollIntoView({ behavior: "smooth" });
+                  document.getElementById(`slide-${s.id}`)?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
                 {s.title}
               </a>
             ))}
-          </div>
-
-          <div className="nav-controls">
-            <button className="icon-btn" onClick={toggleTheme} title="Toggle theme">
-              {theme === "dark" ? "☀️" : "🌙"}
-            </button>
-            <button className={`icon-btn ${is3D ? "on" : ""}`} onClick={toggle3D} title="Toggle 3D">
-              🌀
-            </button>
-          </div>
+          </nav>
         </div>
       </header>
 
-      {/* content: hero + slides laid out vertical with new compositions */}
-      <main className="scroll-container">
+      <main>
         <HeroSection />
-        {/* About Me - Cyberpunk layered composition */}
-        <section id="slide-1" className="slide slide-about">
-          <div className="background-name">DEHAN</div>
-          <motion.div 
-            className="slide-content about-content" 
-            initial={{ opacity: 0, scale: 0.95 }} 
-            whileInView={{ opacity: 1, scale: 1 }} 
-            viewport={{ once: true }} 
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            <div className="about-columns-container">
-              <div className="about-text-container">
-                <h2 className="slide-title">{slides[0].title}</h2>
-                <div className="about-text" dangerouslySetInnerHTML={{ __html: slides[0].html }} />
-              </div>
-              <div className="hobbies-container">
-                <div className="hobbies-content" dangerouslySetInnerHTML={{ __html: slides[0].hobbies }} />
+
+        {/* Content Slides */}
+        <div className="max-w-7xl mx-auto px-4 md:px-8 pb-32 space-y-32">
+          
+          {/* About */}
+          <section id="slide-1" className="pt-24 flex flex-col md:flex-row gap-12 items-center">
+            <div className="flex-1 space-y-6">
+              <h2 className="text-4xl font-bold">About Me.</h2>
+              <div className="text-lg text-white/70 space-y-4" dangerouslySetInnerHTML={{ __html: slides[0].html }} />
+              <div className="flex flex-wrap gap-2 mt-4">
+                {slides[0].hobbies.map(h => (
+                  <span key={h} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-indigo-300">
+                    {h}
+                  </span>
+                ))}
               </div>
             </div>
-            <div 
-              className="profile-container"
-              onMouseEnter={() => {}} // Hover glow is handled via CSS
-            >
-              <div className="carousel-container">
-                <div className="carousel-track" style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}>
-                  {profileImages.map((imgSrc, index) => (
-                    <div key={index} className="carousel-slide">
-                      <img
-                        src={imgSrc}
-                        alt={`profile ${index + 1}`}
-                        onError={(e) => {
-                          e.currentTarget.onerror = null;
-                          e.currentTarget.src = "https://placehold.co/400x400?text=Profile";
-                        }}
-                        className="profile-image carousel-item"
-                      />
-                    </div>
-                  ))}
+            <div className="w-full md:w-1/3 aspect-square relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+              <img src={slides[0].photo} alt="Profile" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+            </div>
+          </section>
+
+          {/* Skills Grid */}
+          <section id="slide-2" className="pt-24">
+            <h2 className="text-4xl font-bold mb-12">Technical Arsenal.</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {slides[1].skills.technical.map((s, i) => (
+                <div key={i} className="glass-panel p-6 rounded-2xl flex justify-between items-center">
+                  <span className="font-bold text-white/90">{s.label}</span>
+                  <span className="text-sm font-mono text-white/50 text-right">{s.value}</span>
                 </div>
-                <button 
-                  className="carousel-arrow carousel-prev" 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    prevImage();
-                  }}
-                  aria-label="Previous image"
-                >
-                  &lt;
-                </button>
-                <button 
-                  className="carousel-arrow carousel-next" 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    nextImage();
-                  }}
-                  aria-label="Next image"
-                >
-                  &gt;
-                </button>
-              </div>
+              ))}
             </div>
-          </motion.div>
-        </section>
+          </section>
 
-        {/* Technical Skills - Asymmetrical column layout */}
-        <section id="slide-2" className="slide slide-skills">
-          <motion.div 
-            className="slide-content skills-content" 
-            initial={{ opacity: 0, scale: 0.95 }} 
-            whileInView={{ opacity: 1, scale: 1 }} 
-            viewport={{ once: true }} 
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            <div className="skills-column-left">
-              <h2 className="slide-title">{slides[1].title}</h2>
-              <div className="skills-categories">
-                {slides[1].skills.technical.map((skill, index) => {
-                  // Find the corresponding rating from skillRatings - more specific matching
-                  let skillRating;
-                  if (skill.label.toLowerCase().includes('sysadmin') || skill.label.toLowerCase().includes('system administration')) {
-                    skillRating = skillRatings.technical.find(rating => rating.category === 'Sysadmin');
-                  } else if (skill.label.toLowerCase().includes('security')) {
-                    skillRating = skillRatings.technical.find(rating => rating.category === 'Security');
-                  } else if (skill.label.toLowerCase().includes('tools')) {
-                    skillRating = skillRatings.technical.find(rating => rating.category === 'Tools');
-                  } else if (skill.label.toLowerCase().includes('other')) {
-                    skillRating = skillRatings.technical.find(rating => rating.category === 'Other');
-                  } else {
-                    skillRating = skillRatings.technical.find(rating => 
-                      rating.category.toLowerCase().includes(skill.label.toLowerCase()) || 
-                      skill.label.toLowerCase().includes(rating.category.toLowerCase())
-                    );
-                  }
-                  
-                  return (
-                    <div key={index} className="skill-category">
-                      {skill.label}
-                      {skillRating && (
-                        <div className="skill-progress-container" style={{ marginTop: '8px' }}>
-                          <div className="skill-progress-bar">
-                            <div 
-                              className="progress-fill" 
-                              style={{ 
-                                width: `${skillRating.percentage}%`,
-                                backgroundColor: 'var(--accent-1)',
-                                height: '6px',
-                                borderRadius: '3px'
-                              }}
-                            ></div>
-                          </div>
-                          <div style={{ 
-                            fontSize: '0.7rem', 
-                            marginTop: '2px',
-                            color: 'var(--text-weak)',
-                            display: 'flex',
-                            justifyContent: 'space-between'
-                          }}>
-                            <span>{skillRating.level}</span>
-                            <span>{skillRating.percentage}%</span>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-            <div className="skills-column-right">
-              {renderSkillsSectionAsymmetrical(slides[1].skills)}
-            </div>
-          </motion.div>
-        </section>
-
-        {/* Soft Skills - Mirrored asymmetrical layout */}
-        <section id="slide-3" className="slide slide-soft-skills">
-          <motion.div 
-            className="slide-content soft-skills-content" 
-            initial={{ opacity: 0, scale: 0.95 }} 
-            whileInView={{ opacity: 1, scale: 1 }} 
-            viewport={{ once: true }} 
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            <div className="soft-skills-content-wrapper">
-              <div className="soft-skills-left">
-                <div className="soft-skills-cards-container">
-                  {slides[2].skills.soft.map((skill, index) => {
-                    // Find the corresponding rating from skillRatings
-                    const skillRating = skillRatings.soft.find(rating => 
-                      rating.category.toLowerCase().includes(skill.label.toLowerCase()) || 
-                      skill.label.toLowerCase().includes(rating.category.toLowerCase())
-                    );
-                    
-                    return (
-                      <div key={index} className="soft-skill-card">
-                        <h4 style={{ color: 'var(--accent-2)', marginBottom: 8, fontWeight: 600 }}>{skill.label}</h4>
-                        {skill.value && <p style={{ color: 'var(--text-weak)', margin: 0, fontSize: '0.9rem' }}>{skill.value}</p>}
-                        {skillRating && (
-                          <div className="skill-progress-container" style={{ marginTop: '12px' }}>
-                            <div className="skill-progress-bar">
-                              <div 
-                                className="progress-fill" 
-                                style={{ 
-                                  width: `${skillRating.percentage}%`,
-                                  backgroundColor: 'var(--accent-2)',
-                                  height: '8px',
-                                  borderRadius: '4px'
-                                }}
-                              ></div>
-                            </div>
-                            <div style={{ 
-                              display: 'flex', 
-                              justifyContent: 'space-between', 
-                              fontSize: '0.7rem', 
-                              marginTop: '4px',
-                              color: 'var(--text-weak)'
-                            }}>
-                              <span>{skillRating.level}</span>
-                              <span>{skillRating.percentage}%</span>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
+          {/* Soft Skills */}
+          <section id="slide-3" className="pt-24">
+            <h2 className="text-4xl font-bold mb-12 text-right">Core Competencies.</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {slides[2].skills.soft.map((s, i) => (
+                <div key={i} className="glass-panel p-6 rounded-2xl border-t-2 border-indigo-500/50">
+                  <h3 className="text-xl font-bold mb-2">{s.label}</h3>
+                  <p className="text-sm text-white/60">{s.value}</p>
                 </div>
-              </div>
-              <div className="soft-skills-right">
-                <h2 className="slide-title soft-skills-title" style={{ textAlign: 'right' }}>{slides[2].title}</h2>
-              </div>
+              ))}
             </div>
-          </motion.div>
-        </section>
+          </section>
 
-        {/* Education - Timeline layout */}
-        <section id="slide-4" className="slide slide-education">
-          <motion.div 
-            className="slide-content education-content" 
-            initial={{ opacity: 0, scale: 0.95 }} 
-            whileInView={{ opacity: 1, scale: 1 }} 
-            viewport={{ once: true }} 
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            <h2 className="slide-title education-title">{slides[3].title}</h2>
-            <div className="education-timeline-container">
-              <div className="timeline-line"></div>
-              <div className="timeline-entries">
-                {renderEducationTimeline(slides[3].html)}
-              </div>
-            </div>
-          </motion.div>
-        </section>
+          {/* Education */}
+          <section id="slide-4" className="pt-24 flex flex-col items-center">
+            <h2 className="text-4xl font-bold mb-16">Education Timeline.</h2>
+            <Timeline history={slides[3].history} />
+          </section>
 
-        {/* Professional Certifications - Grid layout */}
-        <section id="slide-5" className="slide">
-          <motion.div 
-            className="slide-content" 
-            initial={{ opacity: 0, scale: 0.95 }} 
-            whileInView={{ opacity: 1, scale: 1 }} 
-            viewport={{ once: true }} 
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            <h2 className="slide-title">{slides[4].title}</h2>
-            <div dangerouslySetInnerHTML={{ __html: slides[4].html }} />
-          </motion.div>
-        </section>
+          {/* Certifications */}
+          <section id="slide-5" className="pt-24">
+            <h2 className="text-4xl font-bold mb-12">Certifications.</h2>
+            <div className="flex gap-6 overflow-x-auto pb-4">
+              {slides[4].certs.map((c, i) => (
+                <div key={i} className="min-w-[300px] glass-panel p-4 rounded-2xl group cursor-pointer" onClick={() => { setCurrentCert(c.img); setModalOpen(true); }}>
+                  <div className="h-40 bg-black/50 rounded-lg mb-4 overflow-hidden relative">
+                    <img src={c.img} alt={c.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
+                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <Eye className="text-white" />
+                    </div>
+                  </div>
+                  <h3 className="font-bold text-lg">{c.title}</h3>
+                  <p className="text-xs text-white/50">{c.desc}</p>
+                </div>
+              ))}
+            </div>
+          </section>
 
-        {/* Projects - Zig-zag layout */}
-        <section id="slide-6" className="slide slide-projects">
-          <motion.div 
-            className="slide-content projects-content" 
-            initial={{ opacity: 0, scale: 0.95 }} 
-            whileInView={{ opacity: 1, scale: 1 }} 
-            viewport={{ once: true }} 
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            <h2 className="slide-title">{slides[5].title}</h2>
-            <div className="projects-container">
-              {renderProjectsSectionZigZag(slides[5].projects)}
-            </div>
-          </motion.div>
-        </section>
+          {/* Projects Bento */}
+          <section id="slide-6" className="pt-24">
+            <h2 className="text-4xl font-bold mb-12">Selected Works.</h2>
+            <BentoGrid projects={slides[5].projects} />
+          </section>
 
-        {/* Professional Experience - Timeline layout */}
-        <section id="slide-7" className="slide slide-experience">
-          <motion.div 
-            className="slide-content experience-content" 
-            initial={{ opacity: 0, scale: 0.95 }} 
-            whileInView={{ opacity: 1, scale: 1 }} 
-            viewport={{ once: true }} 
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            <h2 className="slide-title">{slides[6].title}</h2>
-            <div className="experience-timeline-container">
-              <div className="experience-timeline-line"></div>
-              <div className="experience-entries">
-                {renderExperienceTimeline(slides[6].html)}
-              </div>
-            </div>
-          </motion.div>
-        </section>
+          {/* Experience */}
+          <section id="slide-7" className="pt-24 flex flex-col items-center">
+            <h2 className="text-4xl font-bold mb-16">Experience Log.</h2>
+            <Timeline history={slides[6].history} />
+          </section>
 
-        {/* Career Objectives - Two-column layout */}
-        <section id="slide-8" className="slide slide-objectives">
-          <motion.div 
-            className="slide-content objectives-content" 
-            initial={{ opacity: 0, scale: 0.95 }} 
-            whileInView={{ opacity: 1, scale: 1 }} 
-            viewport={{ once: true }} 
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            <div className="objectives-left">
-              <h2 className="slide-title">{slides[7].title}</h2>
+          {/* Vision */}
+          <section id="slide-8" className="pt-24 text-center max-w-4xl mx-auto">
+            <div className="glass-panel p-12 rounded-[3rem] border border-indigo-500/20 bg-gradient-to-b from-indigo-500/5 to-transparent">
+              <h2 className="text-sm font-mono uppercase tracking-widest text-indigo-400 mb-6">The Vision</h2>
+              <div className="text-3xl md:text-5xl font-bold leading-tight" dangerouslySetInnerHTML={{ __html: slides[7].html }} />
             </div>
-            <div className="objectives-right" dangerouslySetInnerHTML={{ __html: slides[7].html }} />
-          </motion.div>
-        </section>
+          </section>
 
-        {/* Contact - Centered layout with floating artifacts */}
-        <section id="slide-9" className="slide slide-contact">
-          <motion.div 
-            className="slide-content contact-content" 
-            initial={{ opacity: 0, scale: 0.95 }} 
-            whileInView={{ opacity: 1, scale: 1 }} 
-            viewport={{ once: true }} 
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            <h2 className="slide-title">{slides[8].title}</h2>
-            <div className="contact-details" dangerouslySetInnerHTML={{ __html: slides[8].html }} />
-            <div className="digital-artifact-3d-1">
-              <div className="console-log-box">
-                <div className="console-line">$ PING 172.253.118.100</div>
-                <div className="console-line">STATUS: ONLINE</div>
-                <div className="console-line">INITIATE::HANDSHAKE_PROTOCOL_V4</div>
-                <div className="console-line">&gt;&gt; DATA_STREAM_READY_FOR_CONN</div>
-                <div className="console-line">SUCCESS: AUTH_TOKEN_RECEIVED</div>
-              </div>
-            </div>
-            <div className="digital-artifact-3d-2">
-              <div className="console-log-box">
-                <div className="console-line">$ SYSTEM STATUS</div>
-                <div className="console-line">CPU: 67% | MEM: 42%</div>
-                <div className="console-line">DISK: 73% | NET: 12.4 KB/s</div>
-                <div className="console-line">&gt;&gt; SECURITY_SCAN_ACTIVE</div>
-                <div className="console-line">THREAT_LEVEL: LOW</div>
-              </div>
-            </div>
-            <div className="digital-artifact-3d-3">
-              <div className="console-log-box">
-                <div className="console-line">$ HEX_DUMP a7b2c9d4</div>
-                <div className="console-line">0000: a7 b2 c9 d4 1f 8a 3e 7c</div>
-                <div className="console-line">0008: 55 6f 23 8b 9c 4d 1e 6a</div>
-                <div className="console-line">&gt;&gt; ENCRYPTION_KEY_VALID</div>
-                <div className="console-line">CHKSUM: 3a4b2c1d</div>
-              </div>
-            </div>
-            <div className="digital-artifact-3d-4">
-              <div className="console-log-box">
-                <div className="console-line">$ ROUTE 192.168.1.0/24</div>
-                <div className="console-line">GATEWAY: 192.168.1.1</div>
-                <div className="console-line">DNS: 8.8.8.8, 8.8.4.4</div>
-                <div className="console-line">&gt;&gt; VPN_TUNNEL_ESTABLISHED</div>
-                <div className="console-line">ENCRYPT: AES-256</div>
-              </div>
-            </div>
-          </motion.div>
-          <div className="outer-artifacts-container">
-            <div className="digital-artifact-3d outer-1">
-              <div className="console-log-box">
-                <div className="console-line">$ NSLOOKUP github.com</div>
-                <div className="console-line">140.82.114.4</div>
-                <div className="console-line">&gt;&gt; CACHED: 0.2s</div>
-              </div>
-            </div>
-            <div className="digital-artifact-3d outer-2">
-              <div className="console-log-box">
-                <div className="console-line">$ TRACEROUTE 8.8.8.8</div>
-                <div className="console-line">HOP 3: 192.168.1.1</div>
-                <div className="console-line">HOP 4: 203.0.113.5</div>
-              </div>
-            </div>
-            <div className="digital-artifact-3d outer-3">
-              <div className="console-log-box">
-                <div className="console-line">$ IFCONFIG eth0</div>
-                <div className="console-line">inet 192.168.1.105</div>
-                <div className="console-line">netmask 255.255.255.0</div>
-              </div>
-            </div>
-            <div className="digital-artifact-3d outer-4">
-              <div className="console-log-box">
-                <div className="console-line">$ IPTABLES -L</div>
-                <div className="console-line">INPUT: ACCEPT</div>
-                <div className="console-line">OUTPUT: ACCEPT</div>
-              </div>
-            </div>
-          </div>
-        </section>
+          {/* Contact */}
+          <section id="slide-9" className="pt-24 pb-24 text-center">
+             <h2 className="text-6xl font-bold mb-8">Ready to Collaborate?</h2>
+             <p className="text-xl text-white/50 mb-12">Let's build secure, scalable systems together.</p>
+             <div className="flex justify-center gap-6">
+                <a href="mailto:sayadehan134@gmail.com" className="p-4 rounded-full bg-white text-black hover:scale-110 transition-transform"><Mail /></a>
+                <a href="https://github.com/h4nzs" className="p-4 rounded-full glass-panel hover:bg-white/10 hover:scale-110 transition-transform"><Github /></a>
+                <a href="https://instagram.com/h4nzss" className="p-4 rounded-full glass-panel hover:bg-white/10 hover:scale-110 transition-transform"><Linkedin /></a>
+             </div>
+          </section>
+
+        </div>
       </main>
 
-      <footer className="footer" style={{ 
-        padding: '2rem 1rem', 
-        textAlign: 'center',
-        background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)'
-      }}>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.8rem' }}>
-          <div style={{ fontWeight: 500 }}>
-            © {new Date().getFullYear()} Dehan — built with <span style={{color: 'var(--accent-1)'}}>❤️</span> & <span style={{color: 'var(--accent-2)'}}>☕</span>
-          </div>
-          
-          <div style={{ 
-            fontSize: '0.9rem', 
-            color: 'var(--text-weak)', 
-            maxWidth: '600px',
-            lineHeight: '1.5',
-            borderTop: '1px solid rgba(255,255,255,0.1)',
-            paddingTop: '0.8rem'
-          }}>
-            Available for <strong>remote work worldwide 🌍</strong> & on-site projects in <strong>Jakarta & Bandung 🇮🇩</strong>.
-          </div>
-        </div>
+      {/* Footer */}
+      <footer className="py-8 text-center border-t border-white/5 text-white/30 text-sm font-mono">
+        © {new Date().getFullYear()} Dehan. Engineered with Precision.
       </footer>
+
+      {/* Cert Modal */}
+      {modalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-xl p-4" onClick={() => setModalOpen(false)}>
+          <img src={currentCert} alt="Certificate" className="max-w-full max-h-[90vh] rounded-lg shadow-2xl border border-white/10" />
+        </div>
+      )}
     </div>
   );
 });

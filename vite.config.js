@@ -3,8 +3,8 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/portofolio/', // 👈 tambahin ini!
+  // base: '/portofolio/', // Uncomment this for GitHub Pages deployment
   optimizeDeps: {
-    include: ['scrollreveal', 'framer-motion'],
+    include: ['framer-motion'],
   },
 })
