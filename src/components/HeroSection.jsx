@@ -9,9 +9,9 @@ const HeroSection = () => {
   return (
     <section id="slide-0" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* 1. Background Atmosphere (Aurora) */}
-      <div className="absolute inset-0 bg-[#030303]">
-        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-indigo-500/20 rounded-full blur-[120px] mix-blend-screen animate-pulse-slow" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px] mix-blend-screen animate-pulse-slow delay-75" />
+      <div className="absolute inset-0 bg-[#050505]">
+        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[120px] mix-blend-screen animate-pulse-slow" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-cyan-600/10 rounded-full blur-[100px] mix-blend-screen animate-pulse-slow delay-75" />
       </div>
 
       {/* 2. The Glass Monolith */}
@@ -30,12 +30,12 @@ const HeroSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <h1 className="text-6xl md:text-8xl font-bold tracking-tight text-white mb-4 hero-title">
+              <h1 className="text-6xl md:text-8xl font-bold tracking-tight text-white mb-4 hero-title glitch-text" data-text="Dehan.">
                 Dehan.
               </h1>
               <div className="flex items-center justify-center gap-3">
                 <span className="h-[1px] w-12 bg-white/20"></span>
-                <p className="font-mono text-sm text-white/60 uppercase tracking-[0.3em]">
+                <p className="font-mono text-sm text-cyan-400 uppercase tracking-[0.3em] glow-text">
                   Fullstack Architect
                 </p>
                 <span className="h-[1px] w-12 bg-white/20"></span>
@@ -46,7 +46,7 @@ const HeroSection = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.8 }}
-              className="max-w-xl text-lg text-white/70 leading-relaxed"
+              className="max-w-xl text-lg text-white/60 leading-relaxed font-light"
             >
               Engineering <span className="text-white font-medium">secure</span> digital ecosystems 
               with precision and zero-trust architecture.
@@ -78,8 +78,8 @@ const HeroSection = () => {
       </motion.div>
 
       {/* 3. Abstract Floating Glass Artifacts */}
-      <motion.div style={{ y: y2 }} className="absolute right-[10%] top-[15%] w-24 h-24 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md rotate-12 opacity-60" />
-      <motion.div style={{ y: y1 }} className="absolute left-[10%] bottom-[20%] w-16 h-16 rounded-full bg-white/5 border border-white/10 backdrop-blur-md -rotate-12 opacity-40" />
+      <motion.div style={{ y: y2 }} className="absolute right-[10%] top-[15%] w-24 h-24 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md rotate-12 opacity-30" />
+      <motion.div style={{ y: y1 }} className="absolute left-[10%] bottom-[20%] w-16 h-16 rounded-full bg-white/5 border border-white/10 backdrop-blur-md -rotate-12 opacity-20" />
     </section>
   );
 };

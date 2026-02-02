@@ -7,6 +7,35 @@ import { slides } from "./data/portfolioData";
 import HeroSection from "./components/HeroSection";
 import BentoGrid from "./components/BentoGrid";
 import Timeline from "./components/Timeline";
+import SpotlightCard from "./components/SpotlightCard";
+
+// Custom Cursor Component
+const CustomCursor = () => {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  
+  useEffect(() => {
+    const updatePosition = (e) => {
+      setPosition({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('mousemove', updatePosition);
+    return () => window.removeEventListener('mousemove', updatePosition);
+  }, []);
+
+  return (
+    <>
+      <motion.div 
+        className="fixed w-4 h-4 bg-cyan-400 rounded-full pointer-events-none z-[100] mix-blend-difference"
+        animate={{ x: position.x - 8, y: position.y - 8 }}
+        transition={{ type: "spring", stiffness: 1000, damping: 50, mass: 0.1 }}
+      />
+      <motion.div 
+        className="fixed w-12 h-12 border border-white/20 rounded-full pointer-events-none z-[100]"
+        animate={{ x: position.x - 24, y: position.y - 24 }}
+        transition={{ type: "spring", stiffness: 200, damping: 30, mass: 0.5 }}
+      />
+    </>
+  );
+};
 
 const App = React.memo(() => {
   const { scrollYProgress } = useScroll();
@@ -36,8 +65,11 @@ const App = React.memo(() => {
   }, []);
 
   return (
-    <div className="bg-[#050505] text-white min-h-screen selection:bg-indigo-500/30">
-      <motion.div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 origin-left z-50" style={{ scaleX }} />
+    <div className="bg-[#050505] text-white min-h-screen selection:bg-cyan-500/30">
+      <CustomCursor />
+      <div className="bg-noise" /> {/* Noise Texture Overlay */}
+      
+      <motion.div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-cyan-500 to-indigo-500 origin-left z-50" style={{ scaleX }} />
 
       {/* Navbar */}
       <header className="fixed top-0 inset-x-0 z-40 bg-[#050505]/80 backdrop-blur-md border-b border-white/5">
@@ -71,10 +103,10 @@ const App = React.memo(() => {
           <section id="slide-1" className="pt-24 flex flex-col md:flex-row gap-12 items-center">
             <div className="flex-1 space-y-6">
               <h2 className="text-4xl font-bold">About Me.</h2>
-              <div className="text-lg text-white/70 space-y-4" dangerouslySetInnerHTML={{ __html: slides[0].html }} />
+              <div className="text-lg text-white/70 space-y-4 font-light" dangerouslySetInnerHTML={{ __html: slides[0].html }} />
               <div className="flex flex-wrap gap-2 mt-4">
                 {slides[0].hobbies.map(h => (
-                  <span key={h} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-indigo-300">
+                  <span key={h} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-cyan-300">
                     {h}
                   </span>
                 ))}
@@ -90,10 +122,10 @@ const App = React.memo(() => {
             <h2 className="text-4xl font-bold mb-12">Technical Arsenal.</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {slides[1].skills.technical.map((s, i) => (
-                <div key={i} className="glass-panel p-6 rounded-2xl flex justify-between items-center">
+                <SpotlightCard key={i} className="p-6 flex justify-between items-center">
                   <span className="font-bold text-white/90">{s.label}</span>
                   <span className="text-sm font-mono text-white/50 text-right">{s.value}</span>
-                </div>
+                </SpotlightCard>
               ))}
             </div>
           </section>
@@ -103,10 +135,10 @@ const App = React.memo(() => {
             <h2 className="text-4xl font-bold mb-12 text-right">Core Competencies.</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {slides[2].skills.soft.map((s, i) => (
-                <div key={i} className="glass-panel p-6 rounded-2xl border-t-2 border-indigo-500/50">
+                <SpotlightCard key={i} className="p-6 border-t-2 border-cyan-500/50">
                   <h3 className="text-xl font-bold mb-2">{s.label}</h3>
                   <p className="text-sm text-white/60">{s.value}</p>
-                </div>
+                </SpotlightCard>
               ))}
             </div>
           </section>
@@ -122,8 +154,8 @@ const App = React.memo(() => {
             <h2 className="text-4xl font-bold mb-12">Certifications.</h2>
             <div className="flex gap-6 overflow-x-auto pb-4">
               {slides[4].certs.map((c, i) => (
-                <div key={i} className="min-w-[300px] glass-panel p-4 rounded-2xl group cursor-pointer" onClick={() => { setCurrentCert(c.img); setModalOpen(true); }}>
-                  <div className="h-40 bg-black/50 rounded-lg mb-4 overflow-hidden relative">
+                <SpotlightCard key={i} className="min-w-[300px] p-4 group cursor-pointer">
+                  <div className="h-40 bg-black/50 rounded-lg mb-4 overflow-hidden relative" onClick={() => { setCurrentCert(c.img); setModalOpen(true); }}>
                     <img src={c.img} alt={c.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
                     <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                       <Eye className="text-white" />
@@ -131,7 +163,7 @@ const App = React.memo(() => {
                   </div>
                   <h3 className="font-bold text-lg">{c.title}</h3>
                   <p className="text-xs text-white/50">{c.desc}</p>
-                </div>
+                </SpotlightCard>
               ))}
             </div>
           </section>
@@ -150,9 +182,10 @@ const App = React.memo(() => {
 
           {/* Vision */}
           <section id="slide-8" className="pt-24 text-center max-w-4xl mx-auto">
-            <div className="glass-panel p-12 rounded-[3rem] border border-indigo-500/20 bg-gradient-to-b from-indigo-500/5 to-transparent">
-              <h2 className="text-sm font-mono uppercase tracking-widest text-indigo-400 mb-6">The Vision</h2>
-              <div className="text-3xl md:text-5xl font-bold leading-tight" dangerouslySetInnerHTML={{ __html: slides[7].html }} />
+            <div className="relative p-12 rounded-[3rem] border border-cyan-500/20 bg-gradient-to-b from-cyan-900/10 to-transparent overflow-hidden">
+              <div className="absolute inset-0 bg-grid-white/[0.02] bg-[length:30px_30px]" />
+              <h2 className="relative text-sm font-mono uppercase tracking-widest text-cyan-400 mb-6">The Vision</h2>
+              <div className="relative text-3xl md:text-5xl font-bold leading-tight" dangerouslySetInnerHTML={{ __html: slides[7].html }} />
             </div>
           </section>
 
@@ -162,8 +195,8 @@ const App = React.memo(() => {
              <p className="text-xl text-white/50 mb-12">Let's build secure, scalable systems together.</p>
              <div className="flex justify-center gap-6">
                 <a href="mailto:sayadehan134@gmail.com" className="p-4 rounded-full bg-white text-black hover:scale-110 transition-transform"><Mail /></a>
-                <a href="https://github.com/h4nzs" className="p-4 rounded-full glass-panel hover:bg-white/10 hover:scale-110 transition-transform"><Github /></a>
-                <a href="https://instagram.com/h4nzss" className="p-4 rounded-full glass-panel hover:bg-white/10 hover:scale-110 transition-transform"><Linkedin /></a>
+                <a href="https://github.com/h4nzs" className="p-4 rounded-full glass-panel border border-white/10 hover:bg-white/10 hover:scale-110 transition-transform"><Github /></a>
+                <a href="https://instagram.com/h4nzss" className="p-4 rounded-full glass-panel border border-white/10 hover:bg-white/10 hover:scale-110 transition-transform"><Linkedin /></a>
              </div>
           </section>
 
