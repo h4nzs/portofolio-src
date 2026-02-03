@@ -235,7 +235,7 @@ const App = React.memo(() => {
              <div className="flex justify-center gap-6">
                 <a href="mailto:sayadehan134@gmail.com" onMouseEnter={playHover} onClick={playClick} className="p-4 rounded-full bg-white text-black hover:scale-110 transition-transform"><Mail /></a>
                 <a href="https://github.com/h4nzs" onMouseEnter={playHover} onClick={playClick} className="p-4 rounded-full glass-panel border border-white/10 hover:bg-white/10 hover:scale-110 transition-transform"><Github /></a>
-                <a href="https://instagram.com/h4nzss" onMouseEnter={playHover} onClick={playClick} className="p-4 rounded-full glass-panel border border-white/10 hover:bg-white/10 hover:scale-110 transition-transform"><Linkedin /></a>
+                <a href="https://linkedin.com/in/muhammad-dehan-amada" onMouseEnter={playHover} onClick={playClick} className="p-4 rounded-full glass-panel border border-white/10 hover:bg-white/10 hover:scale-110 transition-transform"><Linkedin /></a>
              </div>
           </section>
 
