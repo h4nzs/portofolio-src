@@ -21,9 +21,9 @@ export const slides = [
     skills: {
       technical: [
         { label: "Frontend", value: "React, Vue, Tailwind, Framer Motion" },
-        { label: "Backend", value: "Node.js, PHP (CI4), PostgreSQL" },
-        { label: "Infrastructure", value: "Linux (Debian), Docker, Nginx" },
-        { label: "Security", value: "Penetration Testing, OWASP Top 10" },
+        { label: "Backend", value: "Node.js, PHP (CI4), PostgreSQL, MySQL, Django" },
+        { label: "Infrastructure", value: "Linux, Docker, Nginx" },
+        { label: "Security", value: "Penetration Testing" },
       ],
     },
   },
