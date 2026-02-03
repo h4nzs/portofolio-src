@@ -1,10 +1,12 @@
 import React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useSFX } from "../hooks/useSFX";
 
 const HeroSection = () => {
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
   const y2 = useTransform(scrollY, [0, 500], [0, -150]);
+  const { playHover, playClick } = useSFX();
 
   return (
     <section id="slide-0" className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -59,7 +61,11 @@ const HeroSection = () => {
               className="flex gap-4 mt-8"
             >
               <button 
-                onClick={() => document.getElementById('slide-1')?.scrollIntoView({ behavior: 'smooth' })}
+                onMouseEnter={playHover}
+                onClick={() => {
+                  playClick();
+                  document.getElementById('slide-1')?.scrollIntoView({ behavior: 'smooth' });
+                }}
                 className="px-8 py-3 rounded-full bg-white text-black font-semibold hover:bg-gray-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.3)]"
               >
                 Explore Work
@@ -68,6 +74,8 @@ const HeroSection = () => {
                 href="https://github.com/h4nzs" 
                 target="_blank" 
                 rel="noreferrer"
+                onMouseEnter={playHover}
+                onClick={playClick}
                 className="px-8 py-3 rounded-full bg-white/5 border border-white/10 text-white font-medium backdrop-blur-md hover:bg-white/10 transition-colors"
               >
                 Github

@@ -2,8 +2,11 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import SpotlightCard from "./SpotlightCard";
+import { useSFX } from "../hooks/useSFX";
 
 const BentoGrid = ({ projects }) => {
+  const { playHover, playClick } = useSFX();
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
       {projects.map((p, i) => (
@@ -43,6 +46,8 @@ const BentoGrid = ({ projects }) => {
                 href={p.repo} 
                 target="_blank"
                 rel="noreferrer"
+                onMouseEnter={playHover}
+                onClick={playClick}
                 className="inline-flex items-center gap-2 text-sm font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100"
               >
                 View Repository <ExternalLink size={14} />

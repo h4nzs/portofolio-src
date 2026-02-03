@@ -7,7 +7,7 @@ export const slides = [
       <p>My work sits at the intersection of <strong>high-performance engineering</strong> and <strong>offensive security</strong>. I don't just build systems; I fortify them.</p>
       <p>Currently architecting <strong>Chat-Lite</strong>, a zero-trust communication platform.</p>
     `,
-    photo: "/images/profile.png",
+    photo: "/portofolio/images/career.png",
     hobbies: [
       "Cybersecurity Research",
       "Open Source Contribution",
@@ -43,14 +43,14 @@ export const slides = [
     title: "Education History",
     history: [
       {
-        logo: "/images/stmik.jpg",
+        logo: "/portofolio/images/stmik.jpg",
         title: "STMIK AMIK Bandung",
         role: "Bachelor of Informatics",
         period: "2025 – Present",
         details: "Focus: Cryptography, Network Security, AI."
       },
       {
-        logo: "/images/smk4.jpg",
+        logo: "/portofolio/images/smk4.jpg",
         title: "SMKN 4 PADALARANG",
         role: "Network Engineering",
         period: "2022 – 2025",
@@ -62,8 +62,8 @@ export const slides = [
     id: 5,
     title: "Certifications",
     certs: [
-      { img: "/images/ccna.jpg", title: "Cisco CCNA", desc: "Network Fundamentals & Security" },
-      { img: "/images/mtcna.jpg", title: "MTCNA", desc: "MikroTik Certified Network Associate" }
+      { img: "/portofolio/images/ccna.jpg", title: "Cisco CCNA", desc: "Network Fundamentals & Security" },
+      { img: "/portofolio/images/mtcna.jpg", title: "MTCNA", desc: "MikroTik Certified Network Associate" }
     ]
   },
   {
@@ -74,7 +74,7 @@ export const slides = [
         id: "chat-lite",
         title: "Chat-Lite",
         repo: "https://github.com/h4nzs/chat-lite",
-        img: "/images/project-chat-lite.png",
+        img: "/portofolio/images/project-chat-lite.png",
         short: "End-to-End Encrypted Communication Platform.",
         status: 'Active Dev',
         tags: ['React', 'Node.js', 'Sodium', 'Socket.io'],
@@ -84,17 +84,27 @@ export const slides = [
         id: "anniv",
         title: "Anniv Platform",
         repo: "https://github.com/h4nzs/anniv",
-        img: "/images/project-anniv.png",
+        img: "/portofolio/images/project-anniv.png",
         short: "Social Event Management System.",
         status: 'Archived',
         tags: ['Vue.js', 'CI4', 'MySQL'],
         long: "Full-stack platform for community event management with role-based access control and anonymous interaction layers."
       },
       {
+        id: "MirAI",
+        title: "AI Movie Platform",
+        repo: "https://github.com/h4nzs/mirai-django",
+        img: "/portofolio/images/mirai.png",
+        short: "AI Movie Advisor and Picker.",
+        status: 'Archived',
+        tags: ['Tailwind', 'Django', 'MySQL'],
+        long: "Full-stack platform for helping user to find some movies based on their mood, vibes, or the one that don't know the tittle and so just ask MirAI."
+      },
+      {
         id: "input-data",
         title: "POS System",
         repo: "https://github.com/kenziyy/input-data",
-        img: "/images/project-input.png",
+        img: "/portofolio/images/project-input.png",
         short: "High-Efficiency Transaction Tracker.",
         status: 'Live',
         tags: ['Vanilla JS', 'PWA', 'Offline-First'],
@@ -107,18 +117,25 @@ export const slides = [
     title: "Experience",
     history: [
       {
-        logo: "/images/ruangdata.jpg",
+        logo: "/portofolio/images/ruangdata.jpg",
         title: "Ruang Data Telemedia",
         role: "Freelance Technician",
         period: "2024 – Present",
         details: "Network infrastructure maintenance and custom software solutions."
       },
       {
-        logo: "/images/bit.png",
+        logo: "/portofolio/images/bit.png",
         title: "PT. Bentang Inspira",
         role: "IT Support Intern",
         period: "6 Months",
         details: "Vulnerability assessment and firewall configuration."
+      },
+      {
+        logo: "/portofolio/images/dwimitra.png",
+        title: "PT. Dwimitra Ekatama Mandiri",
+        role: "Electrical Engineer",
+        period: "1 Months",
+        details: "Configuring and maintaining electrical wiring."
       }
     ]
   },
