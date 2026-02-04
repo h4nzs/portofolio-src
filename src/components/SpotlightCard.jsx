@@ -37,7 +37,7 @@ const SpotlightCard = ({ children, className = "" }) => {
       onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`relative rounded-3xl overflow-hidden border border-white/10 bg-white/5 transition-all duration-300 ${className}`}
+      className={`relative rounded-3xl overflow-hidden border border-white/10 bg-white/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${className}`}
       style={{
         "--mouse-x": `${position.x}px`,
         "--mouse-y": `${position.y}px`,
