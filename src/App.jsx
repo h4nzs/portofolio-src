@@ -1,46 +1,82 @@
 import React, { useEffect, useState } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Eye, Github, Linkedin, Mail } from 'lucide-react';
 import "./App.css";
 
 import { slides } from "./data/portfolioData";
+import NetworkBackground from "./components/NetworkBackground";
 import HeroSection from "./components/HeroSection";
 import BentoGrid from "./components/BentoGrid";
 import Timeline from "./components/Timeline";
 import SpotlightCard from "./components/SpotlightCard";
 import { useSFX } from "./hooks/useSFX";
 
-// Custom Cursor Component
+// --- VISIBLE CURSOR COMPONENT ---
 const CustomCursor = () => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  
+  const [position, setPosition] = useState({ x: -100, y: -100 });
+  const [clicked, setClicked] = useState(false);
+  const [linkHovered, setLinkHovered] = useState(false);
+
   useEffect(() => {
-    const updatePosition = (e) => {
-      setPosition({ x: e.clientX, y: e.clientY });
+    const onMouseMove = (e) => setPosition({ x: e.clientX, y: e.clientY });
+    const onMouseDown = () => setClicked(true);
+    const onMouseUp = () => setClicked(false);
+    
+    // Add hover listeners to clickable elements
+    const handleLinkHover = () => setLinkHovered(true);
+    const handleLinkLeave = () => setLinkHovered(false);
+
+    document.querySelectorAll("a, button, .cursor-pointer").forEach((el) => {
+      el.addEventListener("mouseenter", handleLinkHover);
+      el.addEventListener("mouseleave", handleLinkLeave);
+    });
+
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mousedown", onMouseDown);
+    window.addEventListener("mouseup", onMouseUp);
+
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mousedown", onMouseDown);
+      window.removeEventListener("mouseup", onMouseUp);
     };
-    window.addEventListener('mousemove', updatePosition);
-    return () => window.removeEventListener('mousemove', updatePosition);
   }, []);
 
   return (
-    <>
-      <motion.div 
-        className="fixed w-4 h-4 bg-cyan-400 rounded-full pointer-events-none z-[100] mix-blend-difference"
-        animate={{ x: position.x - 8, y: position.y - 8 }}
-        transition={{ type: "spring", stiffness: 1000, damping: 50, mass: 0.1 }}
+    <div className="pointer-events-none fixed inset-0 z-[100] mix-blend-difference">
+      {/* Core Dot - High Contrast */}
+      <motion.div
+        className="fixed top-0 left-0 bg-white rounded-full"
+        animate={{
+          x: position.x - 8,
+          y: position.y - 8,
+          height: 16,
+          width: 16,
+          scale: clicked ? 0.8 : linkHovered ? 1.5 : 1
+        }}
+        transition={{ type: "spring", stiffness: 1000, damping: 50 }}
       />
-      <motion.div 
-        className="fixed w-12 h-12 border border-white/20 rounded-full pointer-events-none z-[100]"
-        animate={{ x: position.x - 24, y: position.y - 24 }}
-        transition={{ type: "spring", stiffness: 200, damping: 30, mass: 0.5 }}
+      
+      {/* Outer Ring - Radar Feel */}
+      <motion.div
+        className="fixed top-0 left-0 border-2 border-white rounded-full opacity-50"
+        animate={{
+          x: position.x - 24,
+          y: position.y - 24,
+          height: 48,
+          width: 48,
+          scale: clicked ? 0.8 : linkHovered ? 1.2 : 1,
+          opacity: linkHovered ? 1 : 0.5
+        }}
+        transition={{ type: "spring", stiffness: 500, damping: 30 }}
       />
-    </>
+    </div>
   );
 };
 
 const App = React.memo(() => {
   const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
   const { playHover, playClick } = useSFX();
 
   // Modal State
@@ -67,11 +103,19 @@ const App = React.memo(() => {
   }, []);
 
   return (
-    <div className="bg-[#050505] text-white min-h-screen selection:bg-cyan-500/30">
-      <CustomCursor />
-      <div className="bg-noise" /> {/* Noise Texture Overlay */}
+    <div className="relative min-h-screen text-white overflow-x-hidden selection:bg-cyan-500/30">
       
-      <motion.div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-cyan-500 to-indigo-500 origin-left z-50" style={{ scaleX }} />
+      {/* 1. VISIBLE TACTICAL CURSOR */}
+      <CustomCursor />
+
+      {/* 2. THE INTERACTIVE BACKGROUND (Z-0) */}
+      <NetworkBackground />
+      
+      {/* 2. PROGRESS BAR (Z-50) */}
+      <motion.div 
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-cyan-500 to-indigo-500 origin-left z-50" 
+        style={{ scaleX }} 
+      />
 
       {/* Navbar */}
       <header className="fixed top-0 inset-x-0 z-40 bg-[#050505]/80 backdrop-blur-md border-b border-white/5">
@@ -97,7 +141,8 @@ const App = React.memo(() => {
         </div>
       </header>
 
-      <main>
+      {/* 3. CONTENT LAYERS (Z-10) */}
+      <main className="relative z-10">
         <HeroSection />
 
         {/* Content Slides */}
@@ -112,8 +157,8 @@ const App = React.memo(() => {
                  alt="Profile" 
                  className="w-full h-full object-cover object-center md:object-right-top"
                  style={{ 
-                   maskImage: 'radial-gradient(circle at 75% 40%, black 50%, transparent 100%)',
-                   WebkitMaskImage: 'radial-gradient(circle at 75% 40%, black 50%, transparent 100%)' 
+                   maskImage: 'radial-gradient(circle at 85% 40%, black 50%, transparent 100%)',
+                   WebkitMaskImage: 'radial-gradient(circle at 85% 40%, black 50%, transparent 100%)' 
                  }}
                />
                <div className="absolute inset-0 bg-gradient-to-l from-transparent via-[#050505]/20 to-[#050505]" />
@@ -178,10 +223,10 @@ const App = React.memo(() => {
                <img 
                  src="/portofolio/images/profile-2.png" 
                  alt="Background" 
-                 className="w-full h-full object-cover object-[50%_40%]"
+                 className="w-full h-full object-cover object-center md:object-right-top"
                  style={{ 
-                   maskImage: 'radial-gradient(circle at 70% 50%, black 40%, transparent 100%)',
-                   WebkitMaskImage: 'radial-gradient(circle at 70% 50%, black 40%, transparent 100%)' 
+                   maskImage: 'radial-gradient(circle at 85% 40%, black 50%, transparent 100%)',
+                   WebkitMaskImage: 'radial-gradient(circle at 85% 40%, black 50%, transparent 100%)' 
                  }}
                />
                <div className="absolute inset-0 bg-gradient-to-l from-transparent via-[#050505]/20 to-[#050505]" />
@@ -235,7 +280,7 @@ const App = React.memo(() => {
              <div className="flex justify-center gap-6">
                 <a href="mailto:sayadehan134@gmail.com" onMouseEnter={playHover} onClick={playClick} className="p-4 rounded-full bg-white text-black hover:scale-110 transition-transform"><Mail /></a>
                 <a href="https://github.com/h4nzs" onMouseEnter={playHover} onClick={playClick} className="p-4 rounded-full glass-panel border border-white/10 hover:bg-white/10 hover:scale-110 transition-transform"><Github /></a>
-                <a href="https://linkedin.com/in/muhammad-dehan-amada" onMouseEnter={playHover} onClick={playClick} className="p-4 rounded-full glass-panel border border-white/10 hover:bg-white/10 hover:scale-110 transition-transform"><Linkedin /></a>
+                <a href="https://instagram.com/h4nzss" onMouseEnter={playHover} onClick={playClick} className="p-4 rounded-full glass-panel border border-white/10 hover:bg-white/10 hover:scale-110 transition-transform"><Linkedin /></a>
              </div>
           </section>
 
