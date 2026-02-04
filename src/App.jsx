@@ -278,7 +278,17 @@ const App = React.memo(() => {
              <h2 className="text-6xl font-bold mb-8">Ready to Collaborate?</h2>
              <p className="text-xl text-white/50 mb-12">Let's build secure, scalable systems together.</p>
              <div className="flex justify-center gap-6">
-                <a href="mailto:sayadehan134@gmail.com" onMouseEnter={playHover} onClick={playClick} className="p-4 rounded-full bg-white text-black hover:scale-110 transition-transform"><Mail /></a>
+                <button 
+                  onClick={() => {
+                    playClick();
+                    window.location.href = "mailto:" + "sayadehan134" + "@" + "gmail.com";
+                  }}
+                  onMouseEnter={playHover}
+                  className="p-4 rounded-full bg-white text-black hover:scale-110 transition-transform"
+                  aria-label="Send Email"
+                >
+                  <Mail />
+                </button>
                 <a href="https://github.com/h4nzs" onMouseEnter={playHover} onClick={playClick} className="p-4 rounded-full glass-panel border border-white/10 hover:bg-white/10 hover:scale-110 transition-transform"><Github /></a>
                 <a href="https://instagram.com/h4nzss" onMouseEnter={playHover} onClick={playClick} className="p-4 rounded-full glass-panel border border-white/10 hover:bg-white/10 hover:scale-110 transition-transform"><Instagram /></a>
                 <a href="https://linkedin.com/in/muhammad-dehan-amada" onMouseEnter={playHover} onClick={playClick} className="p-4 rounded-full glass-panel border border-white/10 hover:bg-white/10 hover:scale-110 transition-transform"><Linkedin /></a>
