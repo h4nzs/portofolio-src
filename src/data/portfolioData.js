@@ -74,6 +74,7 @@ export const slides = [
         id: "chat-lite",
         title: "Chat-Lite",
         repo: "https://github.com/h4nzs/chat-lite",
+        live: "https://chat-lite-weld.vercel.app",
         img: "/portofolio/images/project-chat-lite.png",
         short: "End-to-End Encrypted Communication Platform.",
         status: 'Active Dev',

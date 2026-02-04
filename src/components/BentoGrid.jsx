@@ -91,6 +91,19 @@ const BentoGrid = ({ projects }) => {
                         <p className="text-cyan-400 font-mono text-sm">{project.status}</p>
                       </div>
                       <div className="flex gap-3">
+                         {project.live && (
+                           <a 
+                             href={project.live} 
+                             target="_blank" 
+                             rel="noreferrer" 
+                             className="p-3 bg-cyan-500/10 border border-cyan-500/20 rounded-full hover:bg-cyan-500/20 transition-colors text-cyan-400"
+                             onMouseEnter={playHover}
+                             onClick={playClick}
+                             title="Live Demo"
+                           >
+                             <ExternalLink size={20} />
+                           </a>
+                         )}
                          {project.repo && (
                            <a 
                              href={project.repo} 

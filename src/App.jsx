@@ -223,7 +223,7 @@ const App = React.memo(() => {
                <img 
                  src="/portofolio/images/profile-2.png" 
                  alt="Background" 
-                 className="w-full h-full object-cover object-center md:object-right-top"
+                 className="w-full h-full object-cover object-[50%_45%]"
                  style={{ 
                    maskImage: 'radial-gradient(circle at 85% 40%, black 50%, transparent 100%)',
                    WebkitMaskImage: 'radial-gradient(circle at 85% 40%, black 50%, transparent 100%)' 
