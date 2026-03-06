@@ -71,10 +71,10 @@ export const slides = [
     title: "Featured Projects",
     projects: [
       {
-        id: "chat-lite",
-        title: "Chat-Lite",
-        repo: "https://github.com/h4nzs/chat-lite",
-        live: "https://chat-lite-weld.vercel.app",
+        id: "nyx-chat",
+        title: "Nyx Chat",
+        repo: "https://github.com/h4nzs/nyx-chat",
+        live: "https://nyx-app.my.id/",
         img: "/portofolio/images/project-chat-lite.png",
         short: "End-to-End Encrypted Communication Platform.",
         status: 'Active Dev',
