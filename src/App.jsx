@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Eye, Github, Linkedin, Mail, Instagram } from 'lucide-react';
+import { Eye, Github, Linkedin, Mail, Instagram, ShieldAlert, Code2, TerminalSquare } from 'lucide-react';
 import "./App.css";
 
 import { slides } from "./data/portfolioData";
@@ -184,11 +184,28 @@ const App = React.memo(() => {
             </div>
           </section>
 
-          {/* Skills Grid */}
+          {/* Specialties (NEW SLIDE 2) */}
           <section id="slide-2" className="pt-24">
+            <h2 className="text-4xl font-bold mb-12">Specialties.</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {slides[1].specialties.map((s, i) => {
+                const Icon = s.icon === 'ShieldAlert' ? ShieldAlert : s.icon === 'Code2' ? Code2 : TerminalSquare;
+                return (
+                  <SpotlightCard key={i} className="p-8 border-t-2 border-cyan-500/50" onMouseEnter={playHover}>
+                    <Icon className="text-cyan-400 mb-6" size={32} />
+                    <h3 className="text-2xl font-bold mb-4">{s.title}</h3>
+                    <p className="text-white/60 leading-relaxed">{s.desc}</p>
+                  </SpotlightCard>
+                );
+              })}
+            </div>
+          </section>
+
+          {/* Skills Grid */}
+          <section id="slide-3" className="pt-24">
             <h2 className="text-4xl font-bold mb-12">Technical Arsenal.</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {slides[1].skills.technical.map((s, i) => (
+              {slides[2].skills.technical.map((s, i) => (
                 <SpotlightCard key={i} className="p-6 flex justify-between items-center" onMouseEnter={playHover}>
                   <span className="font-bold text-white/90">{s.label}</span>
                   <span className="text-sm font-mono text-white/50 text-right">{s.value}</span>
@@ -198,10 +215,10 @@ const App = React.memo(() => {
           </section>
 
           {/* Soft Skills */}
-          <section id="slide-3" className="pt-24">
+          <section id="slide-4" className="pt-24">
             <h2 className="text-4xl font-bold mb-12 text-right">Core Competencies.</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {slides[2].skills.soft.map((s, i) => (
+              {slides[3].skills.soft.map((s, i) => (
                 <SpotlightCard key={i} className="p-6 border-t-2 border-cyan-500/50" onMouseEnter={playHover}>
                   <h3 className="text-xl font-bold mb-2">{s.label}</h3>
                   <p className="text-sm text-white/60">{s.value}</p>
@@ -211,13 +228,13 @@ const App = React.memo(() => {
           </section>
 
           {/* Education */}
-          <section id="slide-4" className="pt-24 flex flex-col items-center">
+          <section id="slide-5" className="pt-24 flex flex-col items-center">
             <h2 className="text-4xl font-bold mb-16">Education Timeline.</h2>
-            <Timeline history={slides[3].history} />
+            <Timeline history={slides[4].history} />
           </section>
 
           {/* Certifications */}
-          <section id="slide-5" className="relative pt-24 min-h-[600px] flex flex-col justify-center overflow-hidden">
+          <section id="slide-6" className="relative pt-24 min-h-[600px] flex flex-col justify-center overflow-hidden">
             {/* Blended Background Image */}
             <div className="absolute right-0 top-0 bottom-0 w-full md:w-[60%] z-0 opacity-50 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700 pointer-events-none">
                <img 
@@ -236,7 +253,7 @@ const App = React.memo(() => {
             <div className="relative z-10 w-full">
               <h2 className="text-4xl font-bold mb-12">Certifications.</h2>
               <div className="flex gap-6 overflow-x-auto pb-4">
-                {slides[4].certs.map((c, i) => (
+                {slides[5].certs.map((c, i) => (
                   <SpotlightCard key={i} className="min-w-[300px] p-4 group cursor-pointer" onMouseEnter={playHover}>
                     <div className="h-40 bg-black/50 rounded-lg mb-4 overflow-hidden relative" onClick={() => { playClick(); setCurrentCert(c.img); setModalOpen(true); }}>
                       <img src={c.img} alt={c.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
@@ -253,28 +270,28 @@ const App = React.memo(() => {
           </section>
 
           {/* Projects Bento */}
-          <section id="slide-6" className="pt-24">
+          <section id="slide-7" className="pt-24">
             <h2 className="text-4xl font-bold mb-12">Selected Works.</h2>
-            <BentoGrid projects={slides[5].projects} />
+            <BentoGrid projects={slides[6].projects} />
           </section>
 
           {/* Experience */}
-          <section id="slide-7" className="pt-24 flex flex-col items-center">
+          <section id="slide-8" className="pt-24 flex flex-col items-center">
             <h2 className="text-4xl font-bold mb-16">Experience Log.</h2>
-            <Timeline history={slides[6].history} />
+            <Timeline history={slides[7].history} />
           </section>
 
           {/* Vision */}
-          <section id="slide-8" className="pt-24 text-center max-w-4xl mx-auto">
+          <section id="slide-9" className="pt-24 text-center max-w-4xl mx-auto">
             <div className="relative p-12 rounded-[3rem] border border-cyan-500/20 bg-gradient-to-b from-cyan-900/10 to-transparent overflow-hidden">
               <div className="absolute inset-0 bg-grid-white/[0.02] bg-[length:30px_30px]" />
               <h2 className="relative text-sm font-mono uppercase tracking-widest text-cyan-400 mb-6">The Vision</h2>
-              <div className="relative text-3xl md:text-5xl font-bold leading-tight" dangerouslySetInnerHTML={{ __html: slides[7].html }} />
+              <div className="relative text-3xl md:text-5xl font-bold leading-tight" dangerouslySetInnerHTML={{ __html: slides[8].html }} />
             </div>
           </section>
 
           {/* Contact */}
-          <section id="slide-9" className="pt-24 pb-24 text-center">
+          <section id="slide-10" className="pt-24 pb-24 text-center">
              <h2 className="text-6xl font-bold mb-8">Ready to Collaborate?</h2>
              <p className="text-xl text-white/50 mb-12">Let's build secure, scalable systems together.</p>
              <div className="flex justify-center gap-6">

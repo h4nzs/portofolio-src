@@ -4,8 +4,8 @@ export const slides = [
     title: "About Me",
     html: `
       <p>I'm <strong>Dehan</strong>, a <strong>Fullstack Developer</strong> & <strong>Security Specialist</strong> based in Indonesia.</p>
-      <p>My work sits at the intersection of <strong>high-performance engineering</strong> and <strong>offensive security</strong>. I don't just build systems; I fortify them.</p>
-      <p>Currently architecting <strong>Chat-Lite</strong>, a zero-trust communication platform.</p>
+      <p>My work sits at the intersection of <strong>high-performance engineering</strong> and <strong>offensive security</strong>. I don't just build systems; I fortify them against real-world threats.</p>
+      <p>Currently architecting <strong>Nyx Chat</strong>, a zero-trust communication platform designed to protect user autonomy and data privacy.</p>
     `,
     photo: "/portofolio/images/career.png",
     hobbies: [
@@ -17,29 +17,50 @@ export const slides = [
   },
   {
     id: 2,
+    title: "Specialties",
+    specialties: [
+      {
+        icon: "ShieldAlert",
+        title: "Offensive Security",
+        desc: "Identifying vulnerabilities before they are exploited. Penetration testing, secure architecture review, and zero-trust implementations."
+      },
+      {
+        icon: "Code2",
+        title: "Fullstack Engineering",
+        desc: "Building scalable web applications using React, Node.js, and PHP. Focused on clean code, performance, and resilient infrastructure."
+      },
+      {
+        icon: "TerminalSquare",
+        title: "System Administration",
+        desc: "Deploying and managing Linux servers, Docker containers, and robust network infrastructures optimized for maximum uptime."
+      }
+    ]
+  },
+  {
+    id: 3,
     title: "Technical Stack",
     skills: {
       technical: [
-        { label: "Frontend", value: "React, Vue, Tailwind, Framer Motion" },
+        { label: "Frontend", value: "React, Vue, Tailwind CSS, Framer Motion" },
         { label: "Backend", value: "Node.js, PHP (CI4), PostgreSQL, MySQL, Django" },
-        { label: "Infrastructure", value: "Linux, Docker, Nginx" },
-        { label: "Security", value: "Penetration Testing" },
+        { label: "Infrastructure", value: "Linux, Docker, Nginx, CI/CD" },
+        { label: "Security", value: "Penetration Testing, Cryptography, OWASP" },
       ],
     },
   },
   {
-    id: 3,
+    id: 4,
     title: "Core Competencies",
     skills: {
       soft: [
-        { label: "Problem Solving", value: "Analytical approach to complex system failures." },
-        { label: "Communication", value: "Translating technical constraints to business value." },
-        { label: "Teamwork", value: "Collaborative development in agile environments." },
+        { label: "Problem Solving", value: "Analytical approach to complex system failures and security breaches." },
+        { label: "Communication", value: "Translating technical constraints and security risks to business value." },
+        { label: "Adaptability", value: "Rapidly learning new stacks and pivoting strategies in agile environments." },
       ]
     }
   },
   {
-    id: 4,
+    id: 5,
     title: "Education History",
     history: [
       {
@@ -59,7 +80,7 @@ export const slides = [
     ]
   },
   {
-    id: 5,
+    id: 6,
     title: "Certifications",
     certs: [
       { img: "/portofolio/images/ccna.jpg", title: "Cisco CCNA", desc: "Network Fundamentals & Security" },
@@ -67,7 +88,7 @@ export const slides = [
     ]
   },
   {
-    id: 6,
+    id: 7,
     title: "Featured Projects",
     projects: [
       {
@@ -79,7 +100,9 @@ export const slides = [
         short: "End-to-End Encrypted Communication Platform.",
         status: 'Active Dev',
         tags: ['React', 'Node.js', 'Sodium', 'Socket.io'],
-        long: "A zero-trust architecture chat application. Features double-ratchet encryption, ephemeral messaging, and device-agnostic performance optimization."
+        long: "A zero-trust architecture chat application. Features double-ratchet encryption, ephemeral messaging, and device-agnostic performance optimization.",
+        challenge: "Standard chat apps leak metadata and leave message histories vulnerable to server-side breaches.",
+        impact: "Implemented client-side cryptography, ensuring the server acts only as a blind relay. Reduced message latency significantly while enhancing privacy."
       },
       {
         id: "anniv",
@@ -89,7 +112,9 @@ export const slides = [
         short: "Social Event Management System.",
         status: 'Archived',
         tags: ['Vue.js', 'CI4', 'MySQL'],
-        long: "Full-stack platform for community event management with role-based access control and anonymous interaction layers."
+        long: "Full-stack platform for community event management with role-based access control and anonymous interaction layers.",
+        challenge: "Managing large-scale community events required a unified platform that could handle RSVP, schedules, and secure interactions.",
+        impact: "Streamlined event workflows, successfully serving hundreds of concurrent users without downtime during peak engagement."
       },
       {
         id: "MirAI",
@@ -99,7 +124,9 @@ export const slides = [
         short: "AI Movie Advisor and Picker.",
         status: 'Archived',
         tags: ['Tailwind', 'Django', 'MySQL'],
-        long: "Full-stack platform for helping user to find some movies based on their mood, vibes, or the one that don't know the tittle and so just ask MirAI."
+        long: "Full-stack platform for helping users find movies based on their mood, vibes, or vague descriptions using AI.",
+        challenge: "Users often forget movie titles and struggle to discover films that fit their highly specific niche moods.",
+        impact: "Integrated NLP capabilities to process vague queries, significantly increasing user engagement and discovery satisfaction."
       },
       {
         id: "input-data",
@@ -109,12 +136,14 @@ export const slides = [
         short: "High-Efficiency Transaction Tracker.",
         status: 'Live',
         tags: ['Vanilla JS', 'PWA', 'Offline-First'],
-        long: "Minimalist Point-of-Sale interface designed for zero-latency input and elimination of manual entry errors."
+        long: "Minimalist Point-of-Sale interface designed for zero-latency input and elimination of manual entry errors.",
+        challenge: "Cashiers faced slow, bloated systems that caused long checkout queues and data entry discrepancies.",
+        impact: "Created an offline-first PWA that synced automatically, reducing transaction times by 40% and eliminating sync conflicts."
       },
     ],
   },
   {
-    id: 7,
+    id: 8,
     title: "Experience",
     history: [
       {
@@ -141,12 +170,12 @@ export const slides = [
     ]
   },
   {
-    id: 8,
+    id: 9,
     title: "Vision",
     html: `<p>To build <strong>resilient systems</strong> that protect user autonomy and data integrity in an increasingly hostile digital landscape.</p>`
   },
   {
-    id: 9,
+    id: 10,
     title: "Connect",
     html: ""
   }

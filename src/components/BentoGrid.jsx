@@ -84,7 +84,7 @@ const BentoGrid = ({ projects }) => {
                     </button>
                   </div>
                   
-                  <div className="p-8">
+                  <div className="p-8 max-h-[50vh] overflow-y-auto">
                     <div className="flex justify-between items-start mb-6">
                       <div>
                         <h3 className="text-3xl font-bold text-white mb-2">{project.title}</h3>
@@ -122,6 +122,20 @@ const BentoGrid = ({ projects }) => {
                     <p className="text-white/70 leading-relaxed mb-6">
                       {project.long}
                     </p>
+
+                    {project.challenge && (
+                      <div className="mb-4">
+                        <h4 className="text-white font-bold mb-2">The Challenge</h4>
+                        <p className="text-white/70 text-sm leading-relaxed">{project.challenge}</p>
+                      </div>
+                    )}
+
+                    {project.impact && (
+                      <div className="mb-8">
+                        <h4 className="text-white font-bold mb-2">The Impact</h4>
+                        <p className="text-white/70 text-sm leading-relaxed">{project.impact}</p>
+                      </div>
+                    )}
 
                     <div className="flex flex-wrap gap-2">
                        {project.tags.map(tag => (
