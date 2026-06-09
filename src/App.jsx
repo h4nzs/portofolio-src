@@ -145,9 +145,10 @@ const App = React.memo(() => {
             {/* Blended Background Image */}
             <div className="absolute right-0 top-0 bottom-0 w-full md:w-[60%] z-0 opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700">
                <img 
-                 src={slides[0].photo} 
-                 alt="Profile" 
-                 className="w-full h-full object-cover object-center md:object-right-top"
+                  src={slides[0].photo} 
+                  alt="Profile" 
+                  loading="lazy" decoding="async"
+                  className="w-full h-full object-cover object-center md:object-right-top"
                  style={{ 
                    maskImage: 'radial-gradient(circle at 85% 40%, black 50%, transparent 100%)',
                    WebkitMaskImage: 'radial-gradient(circle at 85% 40%, black 50%, transparent 100%)' 
@@ -230,9 +231,10 @@ const App = React.memo(() => {
             {/* Blended Background Image */}
             <div className="absolute right-0 top-0 bottom-0 w-full md:w-[60%] z-0 opacity-50 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700 pointer-events-none">
                <img 
-                 src="/portofolio/images/profile-2.png" 
-                 alt="Background" 
-                 className="w-full h-full object-cover object-[50%_45%]"
+                  src="/portofolio/images/profile-2.webp" 
+                  alt="Background" 
+                  loading="lazy" decoding="async"
+                  className="w-full h-full object-cover object-[50%_45%]"
                  style={{ 
                    maskImage: 'radial-gradient(circle at 85% 40%, black 50%, transparent 100%)',
                    WebkitMaskImage: 'radial-gradient(circle at 85% 40%, black 50%, transparent 100%)' 
@@ -248,7 +250,7 @@ const App = React.memo(() => {
                 {slides[5].certs.map((c, i) => (
                   <SpotlightCard key={i} className="min-w-[300px] p-4 group cursor-pointer" onMouseEnter={playHover}>
                     <div className="h-40 bg-black/50 rounded-lg mb-4 overflow-hidden relative" onClick={() => { playClick(); setCurrentCert(c.img); setModalOpen(true); }}>
-                      <img src={c.img} alt={c.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
+                      <img src={c.img} alt={c.title} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
                       <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                         <Eye className="text-white" />
                       </div>
@@ -321,7 +323,7 @@ const App = React.memo(() => {
       {/* Cert Modal */}
       {modalOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-xl p-4" onClick={() => setModalOpen(false)}>
-          <img src={currentCert} alt="Certificate" className="max-w-full max-h-[90vh] rounded-lg shadow-2xl border border-white/10" />
+          <img src={currentCert} alt="Certificate" loading="lazy" decoding="async" className="max-w-full max-h-[90vh] rounded-lg shadow-2xl border border-white/10" />
         </div>
       )}
     </div>

@@ -1,10 +1,21 @@
-import React from 'react';
-import useSound from 'use-sound';
+import { useCallback, useRef } from 'react';
+import { Howl } from 'howler';
 
-// Hook to provide sound effects
 export const useSFX = () => {
-  const [playHover] = useSound('/portofolio/sounds/hover.mp3', { volume: 0.1 }); // Low volume for subtlety
-  const [playClick] = useSound('/portofolio/sounds/click.mp3', { volume: 0.2 });
+  const soundsRef = useRef(null);
+
+  const getSounds = useCallback(() => {
+    if (!soundsRef.current) {
+      soundsRef.current = {
+        hover: new Howl({ src: ['/portofolio/sounds/hover.mp3'], volume: 0.1 }),
+        click: new Howl({ src: ['/portofolio/sounds/click.mp3'], volume: 0.2 }),
+      };
+    }
+    return soundsRef.current;
+  }, []);
+
+  const playHover = useCallback(() => getSounds().hover.play(), [getSounds]);
+  const playClick = useCallback(() => getSounds().click.play(), [getSounds]);
 
   return { playHover, playClick };
 };

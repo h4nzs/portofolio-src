@@ -34,6 +34,7 @@ const BentoGrid = ({ projects }) => {
               <img 
                 src={project.img} 
                 alt={project.title}
+                loading="lazy" decoding="async"
                 className="w-full h-full object-cover opacity-30 group-hover:opacity-20 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105 transition-all duration-700"
                 onError={(e) => e.currentTarget.src = "https://placehold.co/600x400/1a1a1a/FFF?text=Project"}
               />
@@ -90,7 +91,7 @@ const BentoGrid = ({ projects }) => {
                   <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-cyan-500 z-50" />
 
                   <div className="relative h-48 md:h-64 border-b border-white/10">
-                    <img src={project.img} alt={project.title} className="w-full h-full object-cover mix-blend-luminosity opacity-40" />
+                    <img src={project.img} alt={project.title} loading="lazy" decoding="async" className="w-full h-full object-cover mix-blend-luminosity opacity-40" />
                     <button 
                       onClick={(e) => { e.stopPropagation(); playClick(); setSelectedId(null); }}
                       onMouseEnter={playHover}

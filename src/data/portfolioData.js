@@ -7,7 +7,7 @@ export const slides = [
       <p>My work sits at the intersection of <strong>high-performance engineering</strong> and <strong>offensive security</strong>. I don't just build systems; I fortify them against real-world threats.</p>
       <p>Currently architecting <strong>Nyx Chat</strong>, a zero-trust communication platform designed to protect user autonomy and data privacy.</p>
     `,
-    photo: "/portofolio/images/career.png",
+    photo: "/portofolio/images/career.webp",
     hobbies: [
       "Cybersecurity Research",
       "Open Source Contribution",
@@ -64,14 +64,14 @@ export const slides = [
     title: "Education History",
     history: [
       {
-        logo: "/portofolio/images/stmik.jpg",
+        logo: "/portofolio/images/stmik.webp",
         title: "STMIK AMIK Bandung",
         role: "Bachelor of Informatics",
         period: "2025 – 2026",
         details: "Focus: Cryptography, Network Security, AI."
       },
       {
-        logo: "/portofolio/images/smk4.jpg",
+        logo: "/portofolio/images/smk4.webp",
         title: "SMKN 4 PADALARANG",
         role: "Network Engineering",
         period: "2022 – 2025",
@@ -83,8 +83,8 @@ export const slides = [
     id: 6,
     title: "Certifications",
     certs: [
-      { img: "/portofolio/images/ccna.jpg", title: "Cisco CCNA", desc: "Network Fundamentals & Security" },
-      { img: "/portofolio/images/mtcna.jpg", title: "MTCNA", desc: "MikroTik Certified Network Associate" }
+      { img: "/portofolio/images/ccna.webp", title: "Cisco CCNA", desc: "Network Fundamentals & Security" },
+      { img: "/portofolio/images/mtcna.webp", title: "MTCNA", desc: "MikroTik Certified Network Associate" }
     ]
   },
   {
@@ -96,7 +96,7 @@ export const slides = [
         title: "Nyx Chat",
         repo: "https://github.com/h4nzs/nyx-chat",
         live: "https://nyx-app.my.id/",
-        img: "/portofolio/images/nyx.png",
+        img: "/portofolio/images/nyx.webp",
         short: "End-to-End Encrypted Communication Platform.",
         status: 'Active Dev',
         tags: ['React', 'Node.js', 'Sodium', 'Webtransport'],
@@ -108,7 +108,7 @@ export const slides = [
         id: "anniv",
         title: "Anniv Platform",
         repo: "https://github.com/h4nzs/anniv",
-        img: "/portofolio/images/project-anniv.png",
+        img: "/portofolio/images/project-anniv.webp",
         short: "Social Event Management System.",
         status: 'Archived',
         tags: ['Vue.js', 'CI4', 'MySQL'],
@@ -120,7 +120,7 @@ export const slides = [
         id: "MirAI",
         title: "AI Movie Platform",
         repo: "https://github.com/h4nzs/mirai-django",
-        img: "/portofolio/images/mirai.png",
+        img: "/portofolio/images/mirai.webp",
         short: "AI Movie Advisor and Picker.",
         status: 'Archived',
         tags: ['Tailwind', 'Django', 'MySQL'],
@@ -132,7 +132,7 @@ export const slides = [
         id: "input-data",
         title: "POS System",
         repo: "https://github.com/kenziyy/input-data",
-        img: "/portofolio/images/project-input.png",
+        img: "/portofolio/images/project-input.webp",
         short: "High-Efficiency Transaction Tracker.",
         status: 'Live',
         tags: ['Vanilla JS', 'PWA', 'Offline-First'],
@@ -147,28 +147,28 @@ export const slides = [
     title: "Experience",
     history: [
       {
-        logo: "/portofolio/images/ruangdata.jpg",
+        logo: "/portofolio/images/ruangdata.webp",
         title: "Ruang Data Telemedia",
         role: "Freelance Technician",
         period: "1 Year",
         details: "Network infrastructure maintenance and custom software solutions."
       },
       {
-        logo: "/portofolio/images/bit.png",
+        logo: "/portofolio/images/bit.webp",
         title: "PT. Bentang Inspira",
         role: "IT Support Intern",
         period: "6 Months",
         details: "Vulnerability assessment and firewall configuration."
       },
       {
-        logo: "/portofolio/images/dwimitra.png",
+        logo: "/portofolio/images/dwimitra.webp",
         title: "PT. Dwimitra Ekatama Mandiri",
         role: "Electrical Engineer",
         period: "1 Months",
         details: "Configuring and maintaining electrical wiring at Huawei data center."
       },
       {
-        logo: "/portofolio/images/freelance.png",
+        logo: "/portofolio/images/freelance.webp",
         title: "Freelance",
         role: "Security Consultant, Network Engineer, and Fullstack Developer",
         period: "2025 – Present",

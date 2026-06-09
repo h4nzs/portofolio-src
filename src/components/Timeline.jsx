@@ -15,7 +15,7 @@ const Timeline = ({ history }) => {
           className="relative flex gap-8 items-start group"
         >
           <div className="relative z-10 w-14 h-14 bg-[#050505] border border-white/20 p-2 shadow-lg flex-shrink-0 group-hover:border-cyan-500 transition-colors">
-            <img src={item.logo} alt="logo" className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all" onError={(e) => e.currentTarget.src = "https://placehold.co/100"} />
+            <img src={item.logo} alt="logo" loading="lazy" decoding="async" className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all" onError={(e) => e.currentTarget.src = "https://placehold.co/100"} />
           </div>
           
           <SpotlightCard className="flex-1 p-6 hover:bg-[#0a0a0a] transition-colors border border-white/20">
