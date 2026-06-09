@@ -67,7 +67,7 @@ export const slides = [
         logo: "/portofolio/images/stmik.jpg",
         title: "STMIK AMIK Bandung",
         role: "Bachelor of Informatics",
-        period: "2025 – Present",
+        period: "2025 – 2026",
         details: "Focus: Cryptography, Network Security, AI."
       },
       {
@@ -96,13 +96,13 @@ export const slides = [
         title: "Nyx Chat",
         repo: "https://github.com/h4nzs/nyx-chat",
         live: "https://nyx-app.my.id/",
-        img: "/portofolio/images/project-chat-lite.png",
+        img: "/portofolio/images/nyx.png",
         short: "End-to-End Encrypted Communication Platform.",
         status: 'Active Dev',
-        tags: ['React', 'Node.js', 'Sodium', 'Socket.io'],
+        tags: ['React', 'Node.js', 'Sodium', 'Webtransport'],
         long: "A zero-trust architecture chat application. Features double-ratchet Post-Quantum encryption, ephemeral messaging, and device-agnostic performance optimization.",
-        challenge: "Standard chat apps leak metadata and leave message histories vulnerable to server-side breaches.",
-        impact: "Implemented client-side cryptography, ensuring the server acts only as a blind relay. Reduced message latency significantly while enhancing privacy."
+        challenge: "Standard chat apps leak metadata and leave message histories vulnerable to server-side breaches or client-side compromises.",
+        impact: "Implemented client-side Post-Quantum cryptography, ensuring the server acts only as a blind relay. Reduced message latency significantly while enhancing privacy."
       },
       {
         id: "anniv",
@@ -150,7 +150,7 @@ export const slides = [
         logo: "/portofolio/images/ruangdata.jpg",
         title: "Ruang Data Telemedia",
         role: "Freelance Technician",
-        period: "2024 – Present",
+        period: "1 Year",
         details: "Network infrastructure maintenance and custom software solutions."
       },
       {
@@ -166,6 +166,13 @@ export const slides = [
         role: "Electrical Engineer",
         period: "1 Months",
         details: "Configuring and maintaining electrical wiring."
+      },
+      {
+        logo: "/portofolio/images/freelance.png",
+        title: "Freelance",
+        role: "Security Consultant, Network Engineer, and Fullstack Developer",
+        period: "2025 – Present",
+        details: "Providing tailored security assessments, network architecture design, and custom web application development for small businesses and individual clients whether creating from zero or maintaining established systems."
       }
     ]
   },
