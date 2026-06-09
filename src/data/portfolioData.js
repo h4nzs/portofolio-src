@@ -100,7 +100,7 @@ export const slides = [
         short: "End-to-End Encrypted Communication Platform.",
         status: 'Active Dev',
         tags: ['React', 'Node.js', 'Sodium', 'Socket.io'],
-        long: "A zero-trust architecture chat application. Features double-ratchet encryption, ephemeral messaging, and device-agnostic performance optimization.",
+        long: "A zero-trust architecture chat application. Features double-ratchet Post-Quantum encryption, ephemeral messaging, and device-agnostic performance optimization.",
         challenge: "Standard chat apps leak metadata and leave message histories vulnerable to server-side breaches.",
         impact: "Implemented client-side cryptography, ensuring the server acts only as a blind relay. Reduced message latency significantly while enhancing privacy."
       },
@@ -138,7 +138,7 @@ export const slides = [
         tags: ['Vanilla JS', 'PWA', 'Offline-First'],
         long: "Minimalist Point-of-Sale interface designed for zero-latency input and elimination of manual entry errors.",
         challenge: "Cashiers faced slow, bloated systems that caused long checkout queues and data entry discrepancies.",
-        impact: "Created an offline-first PWA that synced automatically, reducing transaction times by 40% and eliminating sync conflicts."
+        impact: "Created an offline-first PWA that synced automatically, reducing transaction times by 40% and eliminating sync conflicts that specificly integrated to store owner devices ecosystem."
       },
     ],
   },
