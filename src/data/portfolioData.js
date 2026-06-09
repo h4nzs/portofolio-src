@@ -165,7 +165,7 @@ export const slides = [
         title: "PT. Dwimitra Ekatama Mandiri",
         role: "Electrical Engineer",
         period: "1 Months",
-        details: "Configuring and maintaining electrical wiring."
+        details: "Configuring and maintaining electrical wiring at Huawei data center."
       },
       {
         logo: "/portofolio/images/freelance.png",

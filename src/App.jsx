@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { Eye, Github, Linkedin, Mail, Instagram, ShieldAlert, Code2, TerminalSquare } from 'lucide-react';
 import "./App.css";
 
@@ -75,8 +75,6 @@ const CustomCursor = () => {
 };
 
 const App = React.memo(() => {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
   const { playHover, playClick } = useSFX();
 
   // Modal State
@@ -111,12 +109,6 @@ const App = React.memo(() => {
       {/* 2. THE INTERACTIVE BACKGROUND (Z-0) */}
       <NetworkBackground />
       
-      {/* 2. PROGRESS BAR (Z-50) */}
-      <motion.div 
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-cyan-500 to-indigo-500 origin-left z-50" 
-        style={{ scaleX }} 
-      />
-
       {/* Navbar */}
       <header className="fixed top-0 inset-x-0 z-40 bg-[#050505]/80 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -126,7 +118,7 @@ const App = React.memo(() => {
               <a 
                 key={s.id} 
                 href={`#slide-${s.id}`}
-                className={`px-4 py-2 text-sm rounded-full transition-all ${activeId === s.id ? 'bg-white text-black font-bold' : 'text-white/60 hover:text-white hover:bg-white/5'}`}
+                className={`px-4 py-2 text-sm rounded-full transition-all flex items-center ${activeId === s.id ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/30' : 'text-white/60 hover:text-white hover:bg-white/5'}`}
                 onMouseEnter={playHover}
                 onClick={(e) => {
                   playClick();
