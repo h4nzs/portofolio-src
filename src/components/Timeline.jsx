@@ -14,17 +14,17 @@ const Timeline = ({ history }) => {
           transition={{ delay: i * 0.1 }}
           className="relative flex gap-8 items-start group"
         >
-          <div className="relative z-10 w-14 h-14 rounded-2xl bg-[#0a0a0a] border border-white/10 p-2 shadow-lg flex-shrink-0 group-hover:border-cyan-500/30 transition-colors">
-            <img src={item.logo} alt="logo" className="w-full h-full object-contain rounded-lg grayscale group-hover:grayscale-0 transition-all" onError={(e) => e.currentTarget.src = "https://placehold.co/100"} />
+          <div className="relative z-10 w-14 h-14 bg-[#050505] border border-white/20 p-2 shadow-lg flex-shrink-0 group-hover:border-cyan-500 transition-colors">
+            <img src={item.logo} alt="logo" className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all" onError={(e) => e.currentTarget.src = "https://placehold.co/100"} />
           </div>
           
-          <SpotlightCard className="flex-1 p-6 hover:bg-white/5 transition-colors">
+          <SpotlightCard className="flex-1 p-6 hover:bg-[#0a0a0a] transition-colors border border-white/20">
             <div className="flex justify-between items-start mb-2">
-              <h3 className="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors">{item.title}</h3>
-              <span className="text-xs font-mono text-white/40 bg-white/5 px-2 py-1 rounded border border-white/5">{item.period}</span>
+              <h3 className="text-lg font-bold text-white uppercase tracking-wide group-hover:text-cyan-400 transition-colors">{item.title}</h3>
+              <span className="text-xs font-mono text-cyan-400 border border-cyan-500/30 bg-cyan-950/20 px-2 py-1">{item.period}</span>
             </div>
-            <p className="text-indigo-400 font-medium text-sm mb-2">{item.role}</p>
-            <p className="text-white/60 text-sm leading-relaxed">{item.details}</p>
+            <p className="text-white/50 font-mono text-sm mb-4 uppercase tracking-wider">{item.role}</p>
+            <p className="text-white/70 text-sm leading-relaxed border-l border-white/10 pl-3">{item.details}</p>
           </SpotlightCard>
         </motion.div>
       ))}

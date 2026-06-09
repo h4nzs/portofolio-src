@@ -283,32 +283,38 @@ const App = React.memo(() => {
 
           {/* Vision */}
           <section id="slide-9" className="pt-24 text-center max-w-4xl mx-auto">
-            <div className="relative p-12 rounded-[3rem] border border-cyan-500/20 bg-gradient-to-b from-cyan-900/10 to-transparent overflow-hidden">
-              <div className="absolute inset-0 bg-grid-white/[0.02] bg-[length:30px_30px]" />
-              <h2 className="relative text-sm font-mono uppercase tracking-widest text-cyan-400 mb-6">The Vision</h2>
-              <div className="relative text-3xl md:text-5xl font-bold leading-tight" dangerouslySetInnerHTML={{ __html: slides[8].html }} />
+            <div className="relative p-12 border border-cyan-500/30 bg-[#050505] overflow-hidden">
+              {/* Tactical Corners */}
+              <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-cyan-500" />
+              <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-cyan-500" />
+              <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-cyan-500" />
+              <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-cyan-500" />
+              
+              <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDQwIEwgNDAgNDAgTCA0MCAwIiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMzQsMjExLDIzOCwwLjA1KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-50" />
+              <h2 className="relative text-sm font-mono uppercase tracking-widest text-cyan-400 mb-6 bg-cyan-950/30 inline-block px-4 py-1 border border-cyan-500/30">[ THE_VISION ]</h2>
+              <div className="relative text-3xl md:text-5xl font-bold leading-tight uppercase font-mono tracking-tight" dangerouslySetInnerHTML={{ __html: slides[8].html }} />
             </div>
           </section>
 
           {/* Contact */}
           <section id="slide-10" className="pt-24 pb-24 text-center">
-             <h2 className="text-6xl font-bold mb-8">Ready to Collaborate?</h2>
-             <p className="text-xl text-white/50 mb-12">Let's build secure, scalable systems together.</p>
-             <div className="flex justify-center gap-6">
+             <h2 className="text-6xl font-bold mb-8 uppercase tracking-tighter">Ready to Initiate?</h2>
+             <p className="text-xl text-white/50 mb-12 font-mono uppercase tracking-widest">// Let's build secure, scalable systems together.</p>
+             <div className="flex justify-center flex-wrap gap-6">
                 <button 
                   onClick={() => {
                     playClick();
                     window.location.href = "mailto:" + "sayadehan134" + "@" + "gmail.com";
                   }}
                   onMouseEnter={playHover}
-                  className="p-4 rounded-full bg-white text-black hover:scale-110 transition-transform"
+                  className="px-8 py-4 bg-cyan-500 text-black font-mono font-bold uppercase tracking-widest hover:bg-cyan-400 transition-colors flex items-center gap-3"
                   aria-label="Send Email"
                 >
-                  <Mail />
+                  <Mail size={20} /> [ SEND_COMMS ]
                 </button>
-                <a href="https://github.com/h4nzs" onMouseEnter={playHover} onClick={playClick} className="p-4 rounded-full glass-panel border border-white/10 hover:bg-white/10 hover:scale-110 transition-transform"><Github /></a>
-                <a href="https://instagram.com/h4nzss" onMouseEnter={playHover} onClick={playClick} className="p-4 rounded-full glass-panel border border-white/10 hover:bg-white/10 hover:scale-110 transition-transform"><Instagram /></a>
-                <a href="https://linkedin.com/in/muhammad-dehan-amada" onMouseEnter={playHover} onClick={playClick} className="p-4 rounded-full glass-panel border border-white/10 hover:bg-white/10 hover:scale-110 transition-transform"><Linkedin /></a>
+                <a href="https://github.com/h4nzs" onMouseEnter={playHover} onClick={playClick} className="px-6 py-4 bg-[#050505] border border-white/20 hover:border-cyan-500 text-white hover:text-cyan-400 transition-colors flex items-center gap-3 font-mono uppercase"><Github size={20} /></a>
+                <a href="https://instagram.com/h4nzss" onMouseEnter={playHover} onClick={playClick} className="px-6 py-4 bg-[#050505] border border-white/20 hover:border-cyan-500 text-white hover:text-cyan-400 transition-colors flex items-center gap-3 font-mono uppercase"><Instagram size={20} /></a>
+                <a href="https://linkedin.com/in/muhammad-dehan-amada" onMouseEnter={playHover} onClick={playClick} className="px-6 py-4 bg-[#050505] border border-white/20 hover:border-cyan-500 text-white hover:text-cyan-400 transition-colors flex items-center gap-3 font-mono uppercase"><Linkedin size={20} /></a>
              </div>
           </section>
 
