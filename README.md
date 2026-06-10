@@ -1,4 +1,4 @@
-# h4n.dev - Personal Portfolio
+# h4nzs - Personal Portfolio
 
 A modern, high-performance personal portfolio website featuring a dark, "tactical" aesthetic with glassmorphism effects and fluid animations. 
 

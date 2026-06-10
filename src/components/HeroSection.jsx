@@ -2,7 +2,7 @@
 import React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useSFX } from "../hooks/useSFX";
-import { Terminal, Shield, Cpu } from "lucide-react";
+import { Terminal, Cpu } from "lucide-react";
 
 const HeroSection = () => {
   const { scrollY } = useScroll();
@@ -33,7 +33,7 @@ const HeroSection = () => {
                 <span className="w-2 h-2 bg-cyan-500 animate-pulse" />
                 <span className="text-xs font-mono text-cyan-500 tracking-widest">[ SYS.ONLINE ]</span>
              </div>
-             <span className="text-xs font-mono text-white/40 uppercase tracking-widest">ID: h4n.dev // SECURE_CONN</span>
+             <span className="text-xs font-mono text-white/40 uppercase tracking-widest">ID: h4nzs // SECURE_CONN</span>
           </div>
 
           <div className="flex flex-col items-start space-y-8">

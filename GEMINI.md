@@ -1,6 +1,6 @@
 # Project Overview
 
-This directory contains the source code for a personal portfolio website (h4n.dev). It is a modern, single-page application (SPA) built with React, featuring a dark, "tactical" aesthetic with glassmorphism effects and heavy use of animations.
+This directory contains the source code for a personal portfolio website (h4nzs). It is a modern, single-page application (SPA) built with React, featuring a dark, "tactical" aesthetic with glassmorphism effects and heavy use of animations.
 
 ## Tech Stack
 

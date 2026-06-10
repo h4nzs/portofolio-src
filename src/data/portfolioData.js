@@ -41,10 +41,10 @@ export const slides = [
     title: "Technical Stack",
     skills: {
       technical: [
-        { label: "Frontend", value: "React, Vue, Tailwind CSS, Framer Motion" },
-        { label: "Backend", value: "Node.js, PHP (CI4), PostgreSQL, MySQL, Django" },
-        { label: "Infrastructure", value: "Linux, Docker, Nginx, CI/CD" },
-        { label: "Security", value: "Penetration Testing, Cryptography, OWASP" },
+        { label: "Frontend", value: " React, Vue, Tailwind CSS, Astro" },
+        { label: "Backend", value: " Node.js, PHP (CI4), PostgreSQL, MySQL, Django" },
+        { label: "Infrastructure", value: " Linux, Docker, Nginx, CI/CD, Networking" },
+        { label: "Security", value: " Penetration Testing, Cryptography, OWASP" },
       ],
     },
   },

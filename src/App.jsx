@@ -112,13 +112,13 @@ const App = React.memo(() => {
       {/* Navbar */}
       <header className="fixed top-0 inset-x-0 z-40 bg-[#050505]/80 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="font-bold text-xl tracking-tighter" onMouseEnter={playHover}>h4n.dev</div>
-          <nav className="hidden md:flex gap-1">
+          <div className="font-bold text-xl tracking-tighter" onMouseEnter={playHover}>h4nzs</div>
+          <nav className="hidden md:flex items-center gap-1">
             {slides.map(s => (
               <a 
                 key={s.id} 
                 href={`#slide-${s.id}`}
-                className={`px-4 py-2 text-sm rounded-full transition-all flex items-center ${activeId === s.id ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/30' : 'text-white/60 hover:text-white hover:bg-white/5'}`}
+                className={`px-4 py-2 text-xs font-mono uppercase tracking-widest transition-all flex items-center ${activeId === s.id ? 'bg-cyan-500 text-black font-bold' : 'text-white/60 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10'}`}
                 onMouseEnter={playHover}
                 onClick={(e) => {
                   playClick();
@@ -126,7 +126,7 @@ const App = React.memo(() => {
                   document.getElementById(`slide-${s.id}`)?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
-                {s.title}
+                [{s.title}]
               </a>
             ))}
           </nav>
@@ -164,12 +164,12 @@ const App = React.memo(() => {
                 About Me.
               </h2>
               <div 
-                className="text-lg md:text-xl text-white/80 leading-relaxed font-light backdrop-blur-sm p-6 rounded-3xl border border-white/5 bg-black/20" 
+                className="text-lg md:text-xl text-white/80 leading-relaxed font-light backdrop-blur-sm p-8 border-l-4 border-cyan-500 bg-black/40" 
                 dangerouslySetInnerHTML={{ __html: slides[0].html }} 
               />
               <div className="flex flex-wrap gap-3">
                 {slides[0].hobbies.map(h => (
-                  <SpotlightCard key={h} className="px-4 py-2 rounded-full bg-cyan-950/20 border border-cyan-500/20 text-sm font-mono text-cyan-400">
+                  <SpotlightCard key={h} className="px-4 py-2 bg-cyan-950/20 border border-cyan-500/20 text-xs font-mono text-cyan-400 uppercase tracking-wider">
                     {h}
                   </SpotlightCard>
                 ))}
@@ -248,15 +248,15 @@ const App = React.memo(() => {
               <h2 className="text-4xl font-bold mb-12">Certifications.</h2>
               <div className="flex gap-6 overflow-x-auto pb-4">
                 {slides[5].certs.map((c, i) => (
-                  <SpotlightCard key={i} className="min-w-[300px] p-4 group cursor-pointer" onMouseEnter={playHover}>
-                    <div className="h-40 bg-black/50 rounded-lg mb-4 overflow-hidden relative" onClick={() => { playClick(); setCurrentCert(c.img); setModalOpen(true); }}>
-                      <img src={c.img} alt={c.title} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
-                      <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <SpotlightCard key={i} className="min-w-[300px] p-4 group cursor-pointer border border-white/10 hover:border-cyan-500 transition-colors" onMouseEnter={playHover}>
+                    <div className="h-40 bg-black/50 mb-4 overflow-hidden relative" onClick={() => { playClick(); setCurrentCert(c.img); setModalOpen(true); }}>
+                      <img src={c.img} alt={c.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform opacity-60 group-hover:opacity-100" />
+                      <div className="absolute inset-0 bg-cyan-500/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                         <Eye className="text-white" />
                       </div>
                     </div>
-                    <h3 className="font-bold text-lg">{c.title}</h3>
-                    <p className="text-xs text-white/50">{c.desc}</p>
+                    <h3 className="font-bold text-lg uppercase font-mono tracking-tight">{c.title}</h3>
+                    <p className="text-xs text-white/50 font-mono">[{c.desc}]</p>
                   </SpotlightCard>
                 ))}
               </div>
@@ -322,8 +322,11 @@ const App = React.memo(() => {
 
       {/* Cert Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-xl p-4" onClick={() => setModalOpen(false)}>
-          <img src={currentCert} alt="Certificate" loading="lazy" decoding="async" className="max-w-full max-h-[90vh] rounded-lg shadow-2xl border border-white/10" />
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-xl p-4" onClick={() => setModalOpen(false)}>
+          <div className="relative p-1 border border-cyan-500/50">
+            <img src={currentCert} alt="Certificate" className="max-w-full max-h-[90vh] shadow-2xl border border-white/10" />
+            <div className="absolute -top-2 -right-2 p-2 bg-cyan-500 text-black font-bold text-xs font-mono">X</div>
+          </div>
         </div>
       )}
     </div>
