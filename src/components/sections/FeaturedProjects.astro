@@ -1,0 +1,10 @@
+---
+import BentoGrid from '../react/BentoGrid';
+import { slideById } from '../../data/portfolioData';
+const data = slideById(7);
+---
+
+<section id="slide-7" class="pt-24">
+  <h2 data-enter="focus" class="text-4xl font-bold mb-12">Selected Works.</h2>
+  <BentoGrid projects={data.projects} client:visible />
+</section>

@@ -1,0 +1,18 @@
+---
+import { slideById } from '../../data/portfolioData';
+const data = slideById(9);
+---
+
+<section id="slide-9" class="pt-24 text-center max-w-4xl mx-auto">
+  <div class="relative p-12 border border-cyan-500/30 bg-dark-bg overflow-hidden">
+    <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-cyan-500" />
+    <div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-cyan-500" />
+    <div class="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-cyan-500" />
+    <div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-cyan-500" />
+
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDQwIEwgNDAgNDAgTCA0MCAwIiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMzQsMjExLDIzOCwwLjA1KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-50" />
+    <div data-enter="expand" class="absolute top-0 left-0 h-[1px] bg-cyan-500/50 w-full" />
+    <h2 data-enter="tilt" class="relative text-sm font-mono uppercase tracking-widest text-cyan-400 mb-6 bg-cyan-950/30 inline-block px-4 py-1 border border-cyan-500/30">[ THE_VISION ]</h2>
+    <div data-enter="focus" class="relative text-3xl md:text-5xl font-bold leading-tight uppercase font-mono tracking-tight" set:html={data.html} />
+  </div>
+</section>

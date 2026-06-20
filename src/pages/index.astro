@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NetworkBackground from '../components/react/NetworkBackground';
+import CustomCursor from '../components/react/CustomCursor';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import Hero from '../components/sections/Hero.astro';
+import About from '../components/sections/About.astro';
+import Specialties from '../components/sections/Specialties.astro';
+import TechnicalStack from '../components/sections/TechnicalStack.astro';
+import CoreCompetencies from '../components/sections/CoreCompetencies.astro';
+import EducationTimeline from '../components/sections/EducationTimeline.astro';
+import Certifications from '../components/sections/Certifications.astro';
+import FeaturedProjects from '../components/sections/FeaturedProjects.astro';
+import ExperienceTimeline from '../components/sections/ExperienceTimeline.astro';
+import Vision from '../components/sections/Vision.astro';
+import Connect from '../components/sections/Connect.astro';
+---
+
+<BaseLayout>
+  <NetworkBackground client:load />
+  <CustomCursor client:load />
+
+  <Navbar />
+
+  <main class="relative z-10">
+    <Hero />
+
+    <div class="max-w-7xl mx-auto px-4 md:px-8 pb-32 space-y-32">
+      <About />
+      <Specialties />
+      <TechnicalStack />
+      <CoreCompetencies />
+      <EducationTimeline />
+      <Certifications />
+      <FeaturedProjects />
+      <ExperienceTimeline />
+      <Vision />
+      <Connect />
+    </div>
+  </main>
+
+  <Footer />
+
+  <div id="cert-modal" class="hidden fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4">
+    <div class="relative p-1 border border-cyan-500/50 overflow-hidden" style="width: 90vw; max-width: 1400px; height: 85vh;">
+      <img id="cert-img" src="" alt="" class="w-full h-full object-contain shadow-2xl border border-white/10" />
+      <div class="close-btn absolute -top-2 -right-2 p-2 bg-cyan-500 text-black font-bold text-xs font-mono cursor-pointer z-10">X</div>
+    </div>
+  </div>
+
+  <style>
+    html { scroll-behavior: smooth; }
+  </style>
+
+  <script>
+    const check = () => {
+      document.querySelectorAll('[data-enter]:not([data-enter-visible])').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          el.setAttribute('data-enter-visible', '');
+        }
+      });
+    };
+    check();
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => { check(); ticking = false; });
+        ticking = true;
+      }
+    });
+
+    let spotTick = false;
+    window.addEventListener('mousemove', (e) => {
+      if (!spotTick) {
+        requestAnimationFrame(() => {
+          document.querySelectorAll('[data-spotlight]').forEach(el => {
+            const rect = el.getBoundingClientRect();
+            el.style.setProperty('--spot-x', `${e.clientX - rect.left}px`);
+            el.style.setProperty('--spot-y', `${e.clientY - rect.top}px`);
+          });
+          spotTick = false;
+        });
+        spotTick = true;
+      }
+    });
+  </script>
+</BaseLayout>

@@ -1,0 +1,98 @@
+---
+import Icon from './Icon.astro';
+import { slides } from '../data/portfolioData';
+---
+
+<header class="fixed top-0 inset-x-0 z-40 bg-dark-bg/80 backdrop-blur-md border-b border-white/5">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="#slide-0" class="font-bold text-xl tracking-tighter" id="nav-logo">h4nzs</a>
+    <nav class="hidden md:flex items-center gap-1 overflow-x-auto" id="desktop-nav">
+      {slides.map(s => (
+        <a href={`#slide-${s.id}`} class="px-2.5 py-2 text-[11px] font-mono uppercase tracking-wider whitespace-nowrap transition-all flex items-center text-white/60 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10">
+          [{s.title}]
+        </a>
+      ))}
+    </nav>
+    <button class="md:hidden p-2 text-white/60 hover:text-white transition-colors" id="mobile-menu-btn" aria-label="Toggle menu">
+      <Icon name="Menu" size={24} />
+    </button>
+  </div>
+
+  <div class="md:hidden hidden border-t border-white/5 bg-dark-bg/95 backdrop-blur-md" id="mobile-menu">
+    <div class="max-w-7xl mx-auto px-6 py-4 space-y-1">
+      {slides.map(s => (
+        <a href={`#slide-${s.id}`} class="block px-4 py-3 text-xs font-mono uppercase tracking-widest transition-all text-white/60 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10">
+          [{s.title}]
+        </a>
+      ))}
+    </div>
+  </div>
+</header>
+
+<script>
+  import { Howl } from 'howler';
+
+  const hoverSound = new Howl({ src: ['/portofolio/sounds/hover.mp3'], volume: 0.6 });
+  const clickSound = new Howl({ src: ['/portofolio/sounds/click.mp3'], volume: 0.8 });
+
+  const sections = document.querySelectorAll('section');
+  const navLinks = document.querySelectorAll('#desktop-nav a, #mobile-menu a');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileBtn = document.getElementById('mobile-menu-btn');
+  const logo = document.getElementById('nav-logo');
+
+  function updateActiveSection() {
+    let current = 0;
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      if (window.scrollY >= sectionTop - 200) {
+        current = parseInt(section.id.split('-')[1]);
+      }
+    });
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      const id = parseInt(href.split('-')[1]);
+      link.className = `block px-2.5 py-2 text-[11px] font-mono uppercase tracking-wider whitespace-nowrap transition-all flex items-center ${current === id ? 'bg-cyan-500 text-black font-bold' : 'text-white/60 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10'}`;
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveSection);
+  updateActiveSection();
+
+  navLinks.forEach(link => {
+    link.addEventListener('mouseenter', () => hoverSound.play());
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      clickSound.play();
+      const href = link.getAttribute('href');
+      const el = document.querySelector(href);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      mobileMenu?.classList.add('hidden');
+    });
+  });
+
+  logo?.addEventListener('mouseenter', () => hoverSound.play());
+
+  mobileBtn?.addEventListener('click', () => {
+    clickSound.play();
+    mobileMenu?.classList.toggle('hidden');
+    const icon = mobileBtn.querySelector('svg');
+    if (icon) {
+      const isMenu = icon.innerHTML.includes('line');
+      if (mobileMenu?.classList.contains('hidden')) {
+        icon.innerHTML = '<line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" />';
+      } else {
+        icon.innerHTML = '<line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />';
+      }
+    }
+  });
+
+  document.querySelectorAll('a[href^="#"], button').forEach(el => {
+    el.addEventListener('mouseenter', () => hoverSound.play());
+    el.addEventListener('click', () => {
+      if (!el.closest('#desktop-nav') && !el.closest('#mobile-menu')) {
+        clickSound.play();
+      }
+    });
+  });
+</script>
