@@ -332,9 +332,9 @@ const App = React.memo(() => {
                 >
                   <Mail size={20} /> [ SEND_COMMS ]
                 </button>
-                <a href="https://github.com/h4nzs" onMouseEnter={playHover} onClick={playClick} className="px-6 py-4 bg-dark-bg border border-white/20 hover:border-cyan-500 text-white hover:text-cyan-400 transition-colors flex items-center gap-3 font-mono uppercase"><Github size={20} /></a>
-                <a href="https://instagram.com/h4nzss" onMouseEnter={playHover} onClick={playClick} className="px-6 py-4 bg-dark-bg border border-white/20 hover:border-cyan-500 text-white hover:text-cyan-400 transition-colors flex items-center gap-3 font-mono uppercase"><Instagram size={20} /></a>
-                <a href="https://linkedin.com/in/muhammad-dehan-amada" onMouseEnter={playHover} onClick={playClick} className="px-6 py-4 bg-dark-bg border border-white/20 hover:border-cyan-500 text-white hover:text-cyan-400 transition-colors flex items-center gap-3 font-mono uppercase"><Linkedin size={20} /></a>
+                <a href="https://github.com/h4nzs" onMouseEnter={playHover} onClick={playClick} aria-label="GitHub" className="px-6 py-4 bg-dark-bg border border-white/20 hover:border-cyan-500 text-white hover:text-cyan-400 transition-colors flex items-center gap-3 font-mono uppercase"><Github size={20} /></a>
+                <a href="https://instagram.com/h4nzss" onMouseEnter={playHover} onClick={playClick} aria-label="Instagram" className="px-6 py-4 bg-dark-bg border border-white/20 hover:border-cyan-500 text-white hover:text-cyan-400 transition-colors flex items-center gap-3 font-mono uppercase"><Instagram size={20} /></a>
+                <a href="https://linkedin.com/in/muhammad-dehan-amada" onMouseEnter={playHover} onClick={playClick} aria-label="LinkedIn" className="px-6 py-4 bg-dark-bg border border-white/20 hover:border-cyan-500 text-white hover:text-cyan-400 transition-colors flex items-center gap-3 font-mono uppercase"><Linkedin size={20} /></a>
              </div>
           </section>
 
@@ -342,7 +342,7 @@ const App = React.memo(() => {
       </main>
 
       {/* Footer */}
-      <footer className="py-8 text-center border-t border-white/5 text-white/30 text-sm font-mono">
+      <footer className="py-8 text-center border-t border-white/5 text-white/50 text-sm font-mono">
         © {new Date().getFullYear()} Dehan. Engineered with Precision.
       </footer>
 
