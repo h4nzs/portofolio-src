@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Eye, Github, Linkedin, Mail, Instagram, ShieldAlert, Code2, TerminalSquare } from 'lucide-react';
+import { Eye, Github, Linkedin, Mail, Instagram, ShieldAlert, Code2, TerminalSquare, Menu, X } from 'lucide-react';
 import "./App.css";
 
 import { slides, slideById } from "./data/portfolioData";
@@ -83,6 +83,7 @@ const App = React.memo(() => {
 
   // Nav Active State
   const [activeId, setActiveId] = useState(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -113,12 +114,12 @@ const App = React.memo(() => {
       <header className="fixed top-0 inset-x-0 z-40 bg-dark-bg/80 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="font-bold text-xl tracking-tighter" onMouseEnter={playHover}>h4nzs</div>
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-1 overflow-x-auto">
             {slides.map(s => (
               <a 
                 key={s.id} 
                 href={`#slide-${s.id}`}
-                className={`px-4 py-2 text-xs font-mono uppercase tracking-widest transition-all flex items-center ${activeId === s.id ? 'bg-cyan-500 text-black font-bold' : 'text-white/60 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10'}`}
+                className={`px-2.5 py-2 text-[11px] font-mono uppercase tracking-wider whitespace-nowrap transition-all flex items-center ${activeId === s.id ? 'bg-cyan-500 text-black font-bold' : 'text-white/60 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10'}`}
                 onMouseEnter={playHover}
                 onClick={(e) => {
                   playClick();
@@ -130,7 +131,32 @@ const App = React.memo(() => {
               </a>
             ))}
           </nav>
+          <button
+            className="md:hidden p-2 text-white/60 hover:text-white transition-colors"
+            onMouseEnter={playHover}
+            onClick={() => { playClick(); setMobileMenuOpen(!mobileMenuOpen); }}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
+
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-white/5 bg-dark-bg/95 backdrop-blur-md">
+            <div className="max-w-7xl mx-auto px-6 py-4 space-y-1">
+              {slides.map(s => (
+                <a
+                  key={s.id}
+                  href={`#slide-${s.id}`}
+                  className={`block px-4 py-3 text-xs font-mono uppercase tracking-widest transition-all ${activeId === s.id ? 'bg-cyan-500 text-black font-bold' : 'text-white/60 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10'}`}
+                  onClick={(e) => { playClick(); setMobileMenuOpen(false); e.preventDefault(); document.getElementById(`slide-${s.id}`)?.scrollIntoView({ behavior: 'smooth' }); }}
+                >
+                  [{s.title}]
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
       </header>
 
       {/* 3. CONTENT LAYERS (Z-10) */}
@@ -146,7 +172,7 @@ const App = React.memo(() => {
             <div className="absolute right-0 top-0 bottom-0 w-full md:w-[60%] z-0 opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700">
                <img 
                   src={slideById(1).photo} 
-                  alt="Profile" 
+                  alt="Dehan Amada portrait" 
                   loading="lazy" decoding="async"
                   className="w-full h-full object-cover object-center md:object-right-top"
                  style={{ 
@@ -232,7 +258,7 @@ const App = React.memo(() => {
             <div className="absolute right-0 top-0 bottom-0 w-full md:w-[60%] z-0 opacity-50 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700 pointer-events-none">
                <img 
                   src="/portofolio/images/profile-2.webp" 
-                  alt="Background" 
+                  alt="Dehan Amada secondary portrait" 
                   loading="lazy" decoding="async"
                   className="w-full h-full object-cover object-[50%_45%]"
                  style={{ 
@@ -324,7 +350,7 @@ const App = React.memo(() => {
       {modalOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-xl p-4" onClick={() => setModalOpen(false)}>
           <div className="relative p-1 border border-cyan-500/50">
-            <img src={currentCert} alt="Certificate" className="max-w-full max-h-[90vh] shadow-2xl border border-white/10" />
+            <img src={currentCert} alt={currentCert} className="max-w-full max-h-[90vh] shadow-2xl border border-white/10" />
             <div className="absolute -top-2 -right-2 p-2 bg-cyan-500 text-black font-bold text-xs font-mono">X</div>
           </div>
         </div>
