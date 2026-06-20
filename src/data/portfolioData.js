@@ -1,11 +1,13 @@
+export const slideById = (id) => slides.find(s => s.id === id)
+
 export const slides = [
   {
     id: 1,
     title: "About Me",
     html: `
-      <p>I'm <strong>Dehan</strong>, a <strong>Fullstack Developer</strong> & <strong>Security Specialist</strong> based in Indonesia.</p>
+      <p>I'm <strong>Dehan</strong>, a <strong>Junior Fullstack Developer</strong> & <strong>Security Specialist</strong> based in Indonesia.</p>
       <p>My work sits at the intersection of <strong>high-performance engineering</strong> and <strong>offensive security</strong>. I don't just build systems; I fortify them against real-world threats.</p>
-      <p>Currently architecting <strong>Nyx Chat</strong>, a zero-trust communication platform designed to protect user autonomy and data privacy.</p>
+      <p>Currently architecting <strong>Nyx Chat</strong>, a zero-trust communication platform designed to protect user autonomy and data privacy End-to-End.</p>
     `,
     photo: "/portofolio/images/career.webp",
     hobbies: [
@@ -41,8 +43,8 @@ export const slides = [
     title: "Technical Stack",
     skills: {
       technical: [
-        { label: "Frontend", value: " React, Vue, Tailwind CSS, Astro" },
-        { label: "Backend", value: " Node.js, PHP (CI4), PostgreSQL, MySQL, Django" },
+        { label: "Frontend", value: " React, Vue, Tailwind CSS, Astro, Tauri" },
+        { label: "Backend", value: " Node.js, PHP (CI4), PostgreSQL, MySQL, Django, Rust, SQLite" },
         { label: "Infrastructure", value: " Linux, Docker, Nginx, CI/CD, Networking" },
         { label: "Security", value: " Penetration Testing, Cryptography, OWASP" },
       ],
@@ -105,16 +107,16 @@ export const slides = [
         impact: "Implemented client-side Post-Quantum cryptography, ensuring the server acts only as a blind relay. Reduced message latency significantly while enhancing privacy."
       },
       {
-        id: "anniv",
-        title: "Anniv Platform",
-        repo: "https://github.com/h4nzs/anniv",
-        img: "/portofolio/images/project-anniv.webp",
-        short: "Social Event Management System.",
-        status: 'Archived',
-        tags: ['Vue.js', 'CI4', 'MySQL'],
-        long: "Full-stack platform for community event management with role-based access control and anonymous interaction layers.",
-        challenge: "Managing large-scale community events required a unified platform that could handle RSVP, schedules, and secure interactions.",
-        impact: "Streamlined event workflows, successfully serving hundreds of concurrent users without downtime during peak engagement."
+        id: "trashtalk-app",
+        title: "Trashtalk App",
+        repo: "https://github.com/h4nzs/trashtalk",
+        img: "/portofolio/images/trashtalk.webp",
+        short: "Simple desktop app for cleaning up old files in folder.",
+        status: 'Active',
+        tags: ['Tauri', 'Rust', 'TypeScript', 'HTML', 'CSS'],
+        long: "A lightweight and efficient desktop application built with Tauri and Rust, designed to automate the process of cleaning up stale and old files from specified directories based on customizable retention rules.",
+        challenge: "Building a cross-platform desktop application that maintains a minimal resource footprint while securely performing disk I/O operations and directory scanning.",
+        impact: "Provides users with a blazing-fast utility to free up disk space automatically, reducing manual file management overhead through an intuitive interface."
       },
       {
         id: "MirAI",

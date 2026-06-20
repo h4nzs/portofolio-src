@@ -18,7 +18,7 @@ const HeroSection = () => {
       {/* The Core Panel */}
       <motion.div 
         style={{ y: y1 }}
-        className="relative z-10 w-full max-w-5xl mx-4 border border-white/20 bg-[#050505]/80 backdrop-blur-sm"
+        className="relative z-10 w-full max-w-5xl mx-4 border border-white/20 bg-dark-bg/80 backdrop-blur-sm"
       >
         {/* Tactical Corner Accents */}
         <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-cyan-500" />

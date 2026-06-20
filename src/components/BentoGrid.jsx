@@ -19,7 +19,7 @@ const BentoGrid = ({ projects }) => {
             onMouseEnter={playHover}
             className={`
               group relative overflow-hidden cursor-pointer
-              bg-[#050505] border border-white/10 hover:border-cyan-500
+              bg-dark-bg border border-white/10 hover:border-cyan-500
               transition-colors duration-300
               ${i === 0 || i === 3 ? 'md:col-span-2' : 'col-span-1'}
             `}
@@ -74,7 +74,7 @@ const BentoGrid = ({ projects }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-[#050505]/95 backdrop-blur-md z-[60]"
+              className="fixed inset-0 bg-dark-bg/95 backdrop-blur-md z-[60]"
               onClick={() => setSelectedId(null)}
             />
             <div className="fixed inset-0 flex items-center justify-center z-[70] p-4 pointer-events-none">
@@ -82,7 +82,7 @@ const BentoGrid = ({ projects }) => {
                 <motion.div
                   key={project.id}
                   layoutId={`card-${project.id}`}
-                  className="w-full max-w-3xl bg-[#0a0a0a] border border-cyan-500/30 overflow-hidden shadow-2xl pointer-events-auto relative"
+                  className="w-full max-w-3xl bg-dark-surface border border-cyan-500/30 overflow-hidden shadow-2xl pointer-events-auto relative"
                 >
                   {/* Tactical Corners */}
                   <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-cyan-500 z-50" />
@@ -95,7 +95,7 @@ const BentoGrid = ({ projects }) => {
                     <button 
                       onClick={(e) => { e.stopPropagation(); playClick(); setSelectedId(null); }}
                       onMouseEnter={playHover}
-                      className="absolute top-4 right-4 p-2 bg-[#050505] border border-white/20 text-white hover:border-cyan-500 hover:text-cyan-400 transition-colors"
+                      className="absolute top-4 right-4 p-2 bg-dark-bg border border-white/20 text-white hover:border-cyan-500 hover:text-cyan-400 transition-colors"
                     >
                       <X size={20} />
                     </button>
@@ -117,7 +117,7 @@ const BentoGrid = ({ projects }) => {
                              href={project.live} 
                              target="_blank" 
                              rel="noreferrer" 
-                             className="p-3 bg-[#050505] border border-white/10 hover:border-cyan-500 transition-colors text-white hover:text-cyan-400 flex items-center gap-2 font-mono text-sm uppercase"
+                             className="p-3 bg-dark-bg border border-white/10 hover:border-cyan-500 transition-colors text-white hover:text-cyan-400 flex items-center gap-2 font-mono text-sm uppercase"
                              onMouseEnter={playHover}
                              onClick={playClick}
                              title="Live Demo"
@@ -130,7 +130,7 @@ const BentoGrid = ({ projects }) => {
                              href={project.repo} 
                              target="_blank" 
                              rel="noreferrer" 
-                             className="p-3 bg-[#050505] border border-white/10 hover:border-white/40 transition-colors text-white flex items-center gap-2 font-mono text-sm uppercase"
+                             className="p-3 bg-dark-bg border border-white/10 hover:border-white/40 transition-colors text-white flex items-center gap-2 font-mono text-sm uppercase"
                              onMouseEnter={playHover}
                              onClick={playClick}
                            >

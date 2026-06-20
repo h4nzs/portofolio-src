@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Eye, Github, Linkedin, Mail, Instagram, ShieldAlert, Code2, TerminalSquare } from 'lucide-react';
 import "./App.css";
 
-import { slides } from "./data/portfolioData";
+import { slides, slideById } from "./data/portfolioData";
 import NetworkBackground from "./components/NetworkBackground";
 import HeroSection from "./components/HeroSection";
 import BentoGrid from "./components/BentoGrid";
@@ -110,7 +110,7 @@ const App = React.memo(() => {
       <NetworkBackground />
       
       {/* Navbar */}
-      <header className="fixed top-0 inset-x-0 z-40 bg-[#050505]/80 backdrop-blur-md border-b border-white/5">
+      <header className="fixed top-0 inset-x-0 z-40 bg-dark-bg/80 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="font-bold text-xl tracking-tighter" onMouseEnter={playHover}>h4nzs</div>
           <nav className="hidden md:flex items-center gap-1">
@@ -145,7 +145,7 @@ const App = React.memo(() => {
             {/* Blended Background Image */}
             <div className="absolute right-0 top-0 bottom-0 w-full md:w-[60%] z-0 opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700">
                <img 
-                  src={slides[0].photo} 
+                  src={slideById(1).photo} 
                   alt="Profile" 
                   loading="lazy" decoding="async"
                   className="w-full h-full object-cover object-center md:object-right-top"
@@ -154,8 +154,8 @@ const App = React.memo(() => {
                    WebkitMaskImage: 'radial-gradient(circle at 85% 40%, black 50%, transparent 100%)' 
                  }}
                />
-               <div className="absolute inset-0 bg-gradient-to-l from-transparent via-[#050505]/20 to-[#050505]" />
-               <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent" />
+               <div className="absolute inset-0 bg-gradient-to-l from-transparent via-dark-bg/20 to-dark-bg" />
+               <div className="absolute inset-0 bg-gradient-to-t from-dark-bg via-transparent to-transparent" />
             </div>
 
             {/* Content Content */}
@@ -165,10 +165,10 @@ const App = React.memo(() => {
               </h2>
               <div 
                 className="text-lg md:text-xl text-white/80 leading-relaxed font-light backdrop-blur-sm p-8 border-l-4 border-cyan-500 bg-black/40" 
-                dangerouslySetInnerHTML={{ __html: slides[0].html }} 
+                dangerouslySetInnerHTML={{ __html: slideById(1).html }} 
               />
               <div className="flex flex-wrap gap-3">
-                {slides[0].hobbies.map(h => (
+                {slideById(1).hobbies.map(h => (
                   <SpotlightCard key={h} className="px-4 py-2 bg-cyan-950/20 border border-cyan-500/20 text-xs font-mono text-cyan-400 uppercase tracking-wider">
                     {h}
                   </SpotlightCard>
@@ -181,7 +181,7 @@ const App = React.memo(() => {
           <section id="slide-2" className="pt-24">
             <h2 className="text-4xl font-bold mb-12">Specialties.</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {slides[1].specialties.map((s, i) => {
+              {slideById(2).specialties.map((s, i) => {
                 const Icon = s.icon === 'ShieldAlert' ? ShieldAlert : s.icon === 'Code2' ? Code2 : TerminalSquare;
                 return (
                   <SpotlightCard key={i} className="p-8 border-t-2 border-cyan-500/50" onMouseEnter={playHover}>
@@ -198,7 +198,7 @@ const App = React.memo(() => {
           <section id="slide-3" className="pt-24">
             <h2 className="text-4xl font-bold mb-12">Technical Arsenal.</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {slides[2].skills.technical.map((s, i) => (
+              {slideById(3).skills.technical.map((s, i) => (
                 <SpotlightCard key={i} className="p-6 flex justify-between items-center" onMouseEnter={playHover}>
                   <span className="font-bold text-white/90">{s.label}</span>
                   <span className="text-sm font-mono text-white/50 text-right">{s.value}</span>
@@ -211,7 +211,7 @@ const App = React.memo(() => {
           <section id="slide-4" className="pt-24">
             <h2 className="text-4xl font-bold mb-12 text-right">Core Competencies.</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {slides[3].skills.soft.map((s, i) => (
+              {slideById(4).skills.soft.map((s, i) => (
                 <SpotlightCard key={i} className="p-6 border-t-2 border-cyan-500/50" onMouseEnter={playHover}>
                   <h3 className="text-xl font-bold mb-2">{s.label}</h3>
                   <p className="text-sm text-white/60">{s.value}</p>
@@ -223,7 +223,7 @@ const App = React.memo(() => {
           {/* Education */}
           <section id="slide-5" className="pt-24 flex flex-col items-center">
             <h2 className="text-4xl font-bold mb-16">Education Timeline.</h2>
-            <Timeline history={slides[4].history} />
+            <Timeline history={slideById(5).history} />
           </section>
 
           {/* Certifications */}
@@ -240,14 +240,14 @@ const App = React.memo(() => {
                    WebkitMaskImage: 'radial-gradient(circle at 85% 40%, black 50%, transparent 100%)' 
                  }}
                />
-               <div className="absolute inset-0 bg-gradient-to-l from-transparent via-[#050505]/20 to-[#050505]" />
-               <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent" />
+               <div className="absolute inset-0 bg-gradient-to-l from-transparent via-dark-bg/20 to-dark-bg" />
+               <div className="absolute inset-0 bg-gradient-to-t from-dark-bg via-transparent to-transparent" />
             </div>
 
             <div className="relative z-10 w-full">
               <h2 className="text-4xl font-bold mb-12">Certifications.</h2>
               <div className="flex gap-6 overflow-x-auto pb-4">
-                {slides[5].certs.map((c, i) => (
+                {slideById(6).certs.map((c, i) => (
                   <SpotlightCard key={i} className="min-w-[300px] p-4 group cursor-pointer border border-white/10 hover:border-cyan-500 transition-colors" onMouseEnter={playHover}>
                     <div className="h-40 bg-black/50 mb-4 overflow-hidden relative" onClick={() => { playClick(); setCurrentCert(c.img); setModalOpen(true); }}>
                       <img src={c.img} alt={c.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform opacity-60 group-hover:opacity-100" />
@@ -266,18 +266,18 @@ const App = React.memo(() => {
           {/* Projects Bento */}
           <section id="slide-7" className="pt-24">
             <h2 className="text-4xl font-bold mb-12">Selected Works.</h2>
-            <BentoGrid projects={slides[6].projects} />
+            <BentoGrid projects={slideById(7).projects} />
           </section>
 
           {/* Experience */}
           <section id="slide-8" className="pt-24 flex flex-col items-center">
             <h2 className="text-4xl font-bold mb-16">Experience Log.</h2>
-            <Timeline history={slides[7].history} />
+            <Timeline history={slideById(8).history} />
           </section>
 
           {/* Vision */}
           <section id="slide-9" className="pt-24 text-center max-w-4xl mx-auto">
-            <div className="relative p-12 border border-cyan-500/30 bg-[#050505] overflow-hidden">
+            <div className="relative p-12 border border-cyan-500/30 bg-dark-bg overflow-hidden">
               {/* Tactical Corners */}
               <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-cyan-500" />
               <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-cyan-500" />
@@ -286,7 +286,7 @@ const App = React.memo(() => {
               
               <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDQwIEwgNDAgNDAgTCA0MCAwIiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMzQsMjExLDIzOCwwLjA1KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-50" />
               <h2 className="relative text-sm font-mono uppercase tracking-widest text-cyan-400 mb-6 bg-cyan-950/30 inline-block px-4 py-1 border border-cyan-500/30">[ THE_VISION ]</h2>
-              <div className="relative text-3xl md:text-5xl font-bold leading-tight uppercase font-mono tracking-tight" dangerouslySetInnerHTML={{ __html: slides[8].html }} />
+              <div className="relative text-3xl md:text-5xl font-bold leading-tight uppercase font-mono tracking-tight" dangerouslySetInnerHTML={{ __html: slideById(9).html }} />
             </div>
           </section>
 
@@ -306,9 +306,9 @@ const App = React.memo(() => {
                 >
                   <Mail size={20} /> [ SEND_COMMS ]
                 </button>
-                <a href="https://github.com/h4nzs" onMouseEnter={playHover} onClick={playClick} className="px-6 py-4 bg-[#050505] border border-white/20 hover:border-cyan-500 text-white hover:text-cyan-400 transition-colors flex items-center gap-3 font-mono uppercase"><Github size={20} /></a>
-                <a href="https://instagram.com/h4nzss" onMouseEnter={playHover} onClick={playClick} className="px-6 py-4 bg-[#050505] border border-white/20 hover:border-cyan-500 text-white hover:text-cyan-400 transition-colors flex items-center gap-3 font-mono uppercase"><Instagram size={20} /></a>
-                <a href="https://linkedin.com/in/muhammad-dehan-amada" onMouseEnter={playHover} onClick={playClick} className="px-6 py-4 bg-[#050505] border border-white/20 hover:border-cyan-500 text-white hover:text-cyan-400 transition-colors flex items-center gap-3 font-mono uppercase"><Linkedin size={20} /></a>
+                <a href="https://github.com/h4nzs" onMouseEnter={playHover} onClick={playClick} className="px-6 py-4 bg-dark-bg border border-white/20 hover:border-cyan-500 text-white hover:text-cyan-400 transition-colors flex items-center gap-3 font-mono uppercase"><Github size={20} /></a>
+                <a href="https://instagram.com/h4nzss" onMouseEnter={playHover} onClick={playClick} className="px-6 py-4 bg-dark-bg border border-white/20 hover:border-cyan-500 text-white hover:text-cyan-400 transition-colors flex items-center gap-3 font-mono uppercase"><Instagram size={20} /></a>
+                <a href="https://linkedin.com/in/muhammad-dehan-amada" onMouseEnter={playHover} onClick={playClick} className="px-6 py-4 bg-dark-bg border border-white/20 hover:border-cyan-500 text-white hover:text-cyan-400 transition-colors flex items-center gap-3 font-mono uppercase"><Linkedin size={20} /></a>
              </div>
           </section>
 
