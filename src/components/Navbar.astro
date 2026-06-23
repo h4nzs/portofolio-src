@@ -6,7 +6,7 @@ import { slides } from '../data/portfolioData';
 <header class="fixed top-0 inset-x-0 z-40 bg-dark-bg/80 backdrop-blur-md border-b border-white/5">
   <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
     <a href="#slide-0" class="font-bold text-xl tracking-tighter" id="nav-logo">h4nzs</a>
-    <nav class="hidden md:flex items-center gap-1 overflow-x-auto" id="desktop-nav">
+    <nav class="hidden md:flex items-center gap-1 overflow-x-auto scrollbar-none" id="desktop-nav">
       {slides.map(s => (
         <a href={`#slide-${s.id}`} class="px-2.5 py-2 text-[11px] font-mono uppercase tracking-wider whitespace-nowrap transition-all flex items-center text-white/60 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10">
           [{s.title}]
@@ -96,3 +96,8 @@ import { slides } from '../data/portfolioData';
     });
   });
 </script>
+
+<style>
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+  .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
