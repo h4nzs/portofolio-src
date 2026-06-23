@@ -31,7 +31,7 @@ const BentoGrid = ({ projects }) => {
                 src={project.img}
                 alt={project.title}
                 loading="lazy" decoding="async"
-                className="w-full h-full object-cover opacity-30 group-hover:opacity-20 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105 transition-all duration-700"
+                className="w-full h-full object-cover opacity-60 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700"
                 onError={(e) => e.currentTarget.src = 'https://placehold.co/600x400/1a1a1a/FFF?text=Project'}
               />
               <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDQwIEwgNDAgNDAgTCA0MCAwIiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4wMykiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-50 z-10" />
@@ -83,7 +83,7 @@ const BentoGrid = ({ projects }) => {
                   <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-cyan-500 z-50" />
 
                   <div className="relative h-48 md:h-64 border-b border-white/10">
-                    <img src={project.img} alt={project.title} loading="lazy" decoding="async" className="w-full h-full object-cover mix-blend-luminosity opacity-40" />
+                    <img src={project.img} alt={project.title} loading="lazy" decoding="async" className="w-full h-full object-cover opacity-80" />
                     <button
                       onClick={(e) => { e.stopPropagation(); playClick(); setSelectedId(null); }}
                       onMouseEnter={playHover}
