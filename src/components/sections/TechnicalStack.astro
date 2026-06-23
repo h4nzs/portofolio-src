@@ -1,0 +1,16 @@
+---
+import { slideById } from '../../data/portfolioData';
+const data = slideById(3);
+---
+
+<section id="slide-3" class="pt-24">
+  <h2 data-enter="right" class="text-4xl font-bold mb-12">Technical Arsenal.</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {data.skills.technical.map((s, i) => (
+      <div data-enter="focus" data-spotlight class="p-6 flex justify-between items-center border border-white/20 bg-dark-bg transition-all duration-300 hover:border-cyan-500/50" style={`transition-delay: ${i * 0.1}s`}>
+        <span class="font-bold text-white/90">{s.label}</span>
+        <span class="text-sm font-mono text-white/50 text-right">{s.value}</span>
+      </div>
+    ))}
+  </div>
+</section>

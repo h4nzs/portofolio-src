@@ -7,8 +7,8 @@ export const useSFX = () => {
   const getSounds = useCallback(() => {
     if (!soundsRef.current) {
       soundsRef.current = {
-        hover: new Howl({ src: ['/portofolio/sounds/hover.mp3'], volume: 0.1 }),
-        click: new Howl({ src: ['/portofolio/sounds/click.mp3'], volume: 0.2 }),
+        hover: new Howl({ src: ['/portofolio/sounds/hover.mp3'], volume: 0.6 }),
+        click: new Howl({ src: ['/portofolio/sounds/click.mp3'], volume: 0.8 }),
       };
     }
     return soundsRef.current;
