@@ -1,92 +1,88 @@
-# h4nzs - Personal Portfolio
+# h4nzs — Personal Portfolio
 
-A modern, high-performance personal portfolio website featuring a dark, "tactical" aesthetic with glassmorphism effects and fluid animations. 
+Source code of [Dehan Amada's portfolio](https://h4nzs.github.io/portofolio/): a single-page, dark "tactical" site built with Astro. It covers my work in fullstack development, DevOps, security and AI agents.
 
-## ✨ Features
+## Features
 
-- **Interactive Tactical Cursor:** A custom cursor that reacts to clickable elements and movement.
-- **Immersive Audio (SFX):** Subtle sound effects on hover and click interactions using `use-sound`.
-- **Fluid Animations:** Scroll-driven animations, page transitions, and interactive components powered by Framer Motion.
-- **Centralized Data:** All portfolio content (projects, skills, education, experience) is managed from a single data file, making it incredibly easy to update without touching the UI code.
-- **Responsive Design:** Fully optimized for mobile, tablet, and desktop viewing.
-- **Zero-Trust Vibe:** Styled with a cyber/tactical aesthetic fitting for a fullstack developer & security specialist.
+- **Static first:** Astro 6 renders every section to plain HTML. Only four small React islands ship JavaScript.
+- **Tactical UI:** custom cursor, spotlight cards, animated network-graph background and glitch text.
+- **Sound effects:** subtle hover and click sounds (Howler) in the project grid.
+- **Data-driven content:** bio, specialties, stack, projects, experience and education all live in [`src/data/portfolioData.js`](src/data/portfolioData.js).
+- **SEO:** meta and Open Graph tags, JSON-LD (`Person`, `FAQPage`), sitemap and `robots.txt`, PWA manifest.
+- **Responsive:** mobile, tablet and desktop.
 
-## 🛠️ Tech Stack
+## Tech stack
 
-- **Framework:** [React 19](https://react.dev/)
-- **Build Tool:** [Vite](https://vitejs.dev/)
-- **Styling:** [Tailwind CSS v3](https://tailwindcss.com/)
-- **Animations:** [Framer Motion](https://www.framer.com/motion/)
-- **Icons:** [Lucide React](https://lucide.dev/)
-- **Deployment:** [GitHub Pages](https://pages.github.com/)
+| Area | Choice |
+|---|---|
+| Framework | [Astro 6](https://astro.build) (static output) |
+| Islands | React 19 (`NetworkBackground`, `CustomCursor`, `SpotlightCard`, `BentoGrid`) |
+| Styling | Tailwind CSS 3, plain CSS for glitch and entry animations |
+| Animation | CSS-first; Framer Motion only in `BentoGrid` |
+| Audio | Howler |
+| Tooling | ESLint 9 (flat config, `.jsx` only) |
+| Hosting | GitHub Pages |
 
-## 🚀 Getting Started
+## Project structure
 
-To get a local copy up and running, follow these simple steps.
-
-### Prerequisites
-
-- Node.js (v18 or higher recommended)
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/h4nzs/portofolio.git
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd portofolio
-   ```
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
-4. Start the development server:
-   ```bash
-   npm run dev
-   ```
-5. Open your browser and visit `http://localhost:5173`.
-
-## 📝 Customizing Your Content
-
-The entire portfolio is data-driven. You don't need to dig through complex React components to update your information.
-
-Simply open `src/data/portfolioData.js` and modify the JavaScript objects. The UI will automatically reflect your changes. This includes:
-- Personal Bio & Hobbies
-- Technical & Soft Skills
-- Education & Certifications
-- Featured Projects & Experience
-- Social Links
-
-## 📂 Project Structure
-
-```text
-├── public/                 # Static assets (images, sounds, favicons)
-├── src/
-│   ├── components/         # Reusable UI components (Hero, BentoGrid, Timeline, etc.)
-│   ├── data/               # Centralized content store (portfolioData.js)
-│   ├── hooks/              # Custom React hooks (e.g., useSFX)
-│   ├── App.jsx             # Main application layout and scroll logic
-│   ├── index.css           # Global CSS (Tailwind directives)
-│   └── main.jsx            # React entry point
-├── package.json            # Dependencies and scripts
-├── tailwind.config.js      # Tailwind configuration and custom colors
-└── vite.config.js          # Vite configuration
+```
+src/
+├── data/portfolioData.js     # all content (slides[] + slideById())
+├── layouts/BaseLayout.astro  # <head>, meta, JSON-LD, analytics
+├── pages/index.astro         # assembles the sections
+├── components/
+│   ├── sections/*.astro      # Hero, About, Specialties, TechnicalStack, ...
+│   ├── react/*.jsx           # the 4 React islands + CertModal, useSFX
+│   ├── Icon.astro            # inline SVG icon set
+│   └── Navbar / Footer
+└── styles/                   # global.css, glitch.css
+public/                       # images, sounds, sitemap, robots, manifest
 ```
 
-## 📦 Deployment
+## Getting started
 
-This project is configured to deploy to GitHub Pages. 
+Requires Node.js 22.12 or newer (CI uses Node 24).
 
-1. Ensure the `base` path in `vite.config.js` matches your repository name (currently set to `/portofolio/`).
-2. Run the deployment script:
-   ```bash
-   npm run deploy
-   ```
-This command will build the project and push the `dist` folder to the `gh-pages` branch.
+```bash
+git clone https://github.com/h4nzs/portofolio-src.git
+cd portofolio-src
+npm install
+npm run dev        # http://localhost:4321/portofolio/
+```
 
-## 📄 License
+| Command | Action |
+|---|---|
+| `npm run dev` | Astro dev server |
+| `npm run build` | Build to `dist/` |
+| `npm run preview` | Preview the production build |
+| `npm run lint` | ESLint |
+| `npm run deploy` | Manual push of `dist/` to `gh-pages` (CI normally does this) |
 
-This project is open-source and available under the [MIT License](LICENSE).
+The site is served under `/portofolio/` (`base` in `astro.config.mjs`), so asset paths in the data file start with `/portofolio/`.
+
+## Updating the content
+
+Edit `src/data/portfolioData.js`. Sections are looked up by `id`, not by array position.
+
+| `id` | Section | Notes |
+|---|---|---|
+| 1 | About | `html`, `photo`, `hobbies[]` |
+| 2 | Specialties | `icon` must exist in `Icon.astro` (e.g. `ShieldAlert`, `Code2`, `Bot`, `Server`) |
+| 3 | Technical Stack | `skills.technical[]` as `{ label, value }` |
+| 4 | Core Competencies | `skills.soft[]` |
+| 5 | Education | `history[]` |
+| 6 | Certifications | `certs[]` |
+| 7 | Featured Projects | `projects[]`: `title`, `short`, `long`, `challenge`, `impact`, `tags`, `status`, `img`, optional `repo`, `live` and `wide` (spans two columns) |
+| 8 | Experience | `history[]`, newest first; `logo` is optional |
+| 9 | Vision | `html` |
+| 10 | Connect | links are in `Connect.astro` |
+
+Project covers are `.webp` screenshots or `.svg` illustrations in `public/images/`. Don't use screenshots of private or offline systems.
+
+## Deployment
+
+Pushing to `main` runs [`.github/workflows/main.yml`](.github/workflows/main.yml): install, build, then publish `dist/` to the `gh-pages` branch of the separate [`h4nzs/portofolio`](https://github.com/h4nzs/portofolio) repository, which GitHub Pages serves. The workflow needs a `PERSONAL_TOKEN` secret with write access to that repository.
+
+## Contact
+
+[GitHub](https://github.com/h4nzs) · [LinkedIn](https://linkedin.com/in/muhammad-dehan-amada) · [Instagram](https://instagram.com/h4nzss)

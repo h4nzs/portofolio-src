@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="Ahli Panggilan platform architecture">
+  <rect width="1200" height="800" fill="#0a0a0a"/>
+  <g stroke="#ffffff" stroke-opacity="0.05"><path d="M0 100H1200M0 200H1200M0 300H1200M0 400H1200M0 500H1200M0 600H1200M0 700H1200M100 0V800M200 0V800M300 0V800M400 0V800M500 0V800M600 0V800M700 0V800M800 0V800M900 0V800M1000 0V800M1100 0V800"/></g>
+  <g font-family="ui-monospace,Menlo,Consolas,monospace" fill="none" stroke="#22d3ee" stroke-width="2">
+    <rect x="130" y="250" width="250" height="110" fill="#22d3ee" fill-opacity="0.06"/>
+    <rect x="475" y="250" width="250" height="110" fill="#22d3ee" fill-opacity="0.06"/>
+    <rect x="820" y="250" width="250" height="110" fill="#22d3ee" fill-opacity="0.06"/>
+    <rect x="475" y="450" width="250" height="110" fill="#22d3ee" fill-opacity="0.06"/>
+    <path d="M380 305H475M725 305H820M600 360V450" stroke-dasharray="6 6"/>
+    <g stroke="none" fill="#22d3ee" font-size="26" text-anchor="middle">
+      <text x="255" y="312">Astro 7 SSR</text>
+      <text x="600" y="312">Hono API</text>
+      <text x="945" y="312">PostgreSQL</text>
+      <text x="600" y="512">A2A Agent</text>
+    </g>
+    <g stroke="none" fill="#ffffff" fill-opacity="0.45" font-size="18" text-anchor="middle">
+      <text x="255" y="342">React islands</text>
+      <text x="600" y="342">RBAC · Argon2id</text>
+      <text x="945" y="342">Drizzle ORM</text>
+      <text x="600" y="542">JSON-RPC · SSE · MCP tools</text>
+    </g>
+  </g>
+  <text x="130" y="150" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="44" font-weight="700" fill="#ffffff">AHLI PANGGILAN</text>
+  <text x="130" y="195" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="22" fill="#22d3ee" fill-opacity="0.8">// on-demand service platform</text>
+</svg>
