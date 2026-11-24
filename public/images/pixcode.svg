@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="Pixcode Studio">
+  <rect width="1200" height="800" fill="#0a0a0a"/>
+  <g stroke="#ffffff" stroke-opacity="0.05"><path d="M0 100H1200M0 200H1200M0 300H1200M0 400H1200M0 500H1200M0 600H1200M0 700H1200M100 0V800M200 0V800M300 0V800M400 0V800M500 0V800M600 0V800M700 0V800M800 0V800M900 0V800M1000 0V800M1100 0V800"/></g>
+  <g fill="#22d3ee">
+    <rect x="780" y="440" width="70" height="70" fill-opacity="0.35"/>
+    <rect x="860" y="360" width="70" height="70" fill-opacity="0.55"/>
+    <rect x="940" y="280" width="70" height="70" fill-opacity="0.8"/>
+    <rect x="940" y="440" width="70" height="70" fill="#ffffff" fill-opacity="0.25"/>
+  </g>
+  <text x="130" y="360" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="64" font-weight="700" fill="#ffffff">pixcode</text>
+  <text x="130" y="420" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="30" letter-spacing="10" fill="#22d3ee">STUDIO</text>
+  <text x="130" y="480" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="22" fill="#ffffff" fill-opacity="0.45">websites &amp; apps for SMEs</text>
+</svg>

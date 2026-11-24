@@ -9,7 +9,7 @@ const BentoGrid = ({ projects }) => {
   return (
     <div className="w-full">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
-        {projects.map((project, i) => (
+        {projects.map((project) => (
           <motion.div
             key={project.id}
             layoutId={`card-${project.id}`}
@@ -19,7 +19,7 @@ const BentoGrid = ({ projects }) => {
               group relative overflow-hidden cursor-pointer
               bg-dark-bg border border-white/10 hover:border-cyan-500
               transition-colors duration-300
-              ${i === 0 || i === 3 ? 'md:col-span-2' : 'col-span-1'}
+              ${project.wide ? 'md:col-span-2' : 'col-span-1'}
             `}
             whileHover={{ y: -5 }}
           >

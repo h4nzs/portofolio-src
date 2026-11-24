@@ -38,6 +38,14 @@ All content from `src/data/portfolioData.js` (exports `slides[]` + `slideById(id
 
 **Critical:** `slideById()` uses `Array.find` on `slides[]` — accessible by `id`, not index.
 
+### Content conventions
+
+- Projects in `slides[id=7]` take an optional `wide: true` (spans 2 columns in `BentoGrid`); there is no index-based layout anymore.
+- Experience (`id: 8`) is newest first; `logo` is optional.
+- Specialties icons must exist in `Icon.astro` (currently includes `Bot` and `Server`).
+- Private or offline projects use `public/images/*.svg` illustrations, never screenshots.
+- SEO JSON-LD (`Person`, `FAQPage`) is built in `BaseLayout.astro`. The old root `index.html` from the Vite era was removed; Astro ignores it.
+
 ### Icons
 
 `src/components/Icon.astro` renders Lucide-style SVG inline (zero JS, zero dep). No `lucide-react`.
@@ -53,5 +61,5 @@ All content from `src/data/portfolioData.js` (exports `slides[]` + `slideById(id
 
 ## Deployment
 
-- **CI:** `.github/workflows/main.yml` — on push to `main`, `npm ci` (Node 20) → `npm run build` → deploy `dist/` to external repo `h4nzs/portofolio` via `peaceiris/actions-gh-pages`.
+- **CI:** `.github/workflows/main.yml` — on push to `main`, `npm ci` (Node 24) → `npm run build` → deploy `dist/` to external repo `h4nzs/portofolio` via `peaceiris/actions-gh-pages`.
 - **Manual:** `npm run deploy` pushes `dist/` to `gh-pages` branch of current repo.
