@@ -105,15 +105,14 @@ export const slides = [
         id: "nyx-chat",
         title: "Nyx Chat",
         repo: "https://github.com/h4nzs/nyx-chat",
-        live: "https://nyx-app.my.id/",
         img: "/portofolio/images/nyx.webp",
         wide: true,
         short: "Post-quantum, zero-knowledge messenger. No phone, no email, blind-relay server.",
-        status: 'Active Dev',
+        status: 'In Development',
         tags: ['TypeScript', 'Rust', 'Go', 'Post-Quantum', 'WebAssembly', 'PostgreSQL'],
         long: "A messenger built around one question: what can the server learn if its database is stolen? There is no phone number, email or plaintext username. Message history lives on the device, and the server relays ciphertext only briefly. Cryptography follows Signal's design (PQXDH with ML-KEM-768 via X-Wing, Double Ratchet, the SPQR ML-KEM Braid ratchet, sender-key groups) and adds extra metadata-privacy layers on top.",
         challenge: "Signal-grade end-to-end encryption still leaves a lot in the database: social graph, usernames, timing and network identifiers. A database dump (backup leak, VPS takeover) is treated as a first-class threat, so every table was audited for what it would reveal.",
-        impact: "Identity is unlinkable: usernames are Argon2id blind indexes with a pepper kept outside the DB, sender and receipt metadata are opaque domain-separated tags, and group senders use pseudonyms. Separate services keep the blast radius small: a Rust WebTransport sidecar, a Go Key Transparency log with an independent auditor (ML-DSA-65, verified client-side in WASM), two-server XOR PIR, an OHTTP relay and OPRF-based user discovery. Open source under AGPLv3 with a public threat model."
+        impact: "Identity is unlinkable: usernames are Argon2id blind indexes with a pepper kept outside the DB, sender and receipt metadata are opaque domain-separated tags, and group senders use pseudonyms. Separate services keep the blast radius small: a Rust WebTransport sidecar, a Go Key Transparency log with an independent auditor (ML-DSA-65, verified client-side in WASM), two-server XOR PIR, an OHTTP relay and OPRF-based user discovery. Open source under AGPLv3 with a public threat model. The public demo domain is offline while the project is under development."
       },
       {
         id: "ahli-panggilan",
@@ -129,7 +128,6 @@ export const slides = [
       {
         id: "pixcode-studio",
         title: "Pixcode Studio",
-        repo: "https://github.com/h4nzs/pixcode",
         live: "https://pixcode.my.id",
         img: "/portofolio/images/pixcode.svg",
         short: "Company site for a Bandung studio building websites and apps for SMEs.",
